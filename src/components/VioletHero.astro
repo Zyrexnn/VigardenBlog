@@ -1,124 +1,107 @@
 ---
-
+/**
+ * VioletHero.astro
+ * Interactive hero: iris tracks the cursor behind the open eye.
+ * Optimized for floating placement in Mizuki-style layout.
+ */
 ---
 
 <div
-  class="violet-hero-container relative w-[300px] h-[400px] mx-auto bg-primary/10 border-2 border-gold/30 rounded-lg overflow-hidden flex items-center justify-center"
+  id="violet-hero"
+  class="violet-hero-container relative w-[250px] h-[350px] sm:w-[350px] sm:h-[450px] select-none"
+  transition:name="violet-hero"
 >
-  <!-- Layer 2: Wajah (Placeholder) -->
-  <div
-    class="absolute inset-0 border-4 border-dashed border-gold/20 flex flex-col items-center justify-center text-gold/40 italic text-sm"
-  >
-    <span class="mb-2">[ Face Image Placeholder ]</span>
-    <div class="w-24 h-32 border-2 border-gold/20 rounded-full"></div>
-  </div>
-
-  <!-- Layer 1: Mata (Iris) -->
-  <div
-    class="iris-container absolute top-[35%] w-full flex justify-around px-12 pointer-events-none"
-  >
-    <!-- Left Eye -->
+  <!-- Z-0: Eye Iris -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
     <div
-      class="eye relative w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden border border-primary/20 shadow-inner"
+      class="iris iris-main absolute rounded-full"
+      style="
+        width: 30px; height: 30px;
+        top: 34.5%; left: 63.5%;
+        background: radial-gradient(circle at 40% 40%, #4facfe 0%, #0077cc 55%, #003366 100%);
+        box-shadow: 0 0 15px rgba(79,172,254,0.6), inset 0 0 5px rgba(0,0,0,0.4);
+        transform: translate(-50%, -50%);
+      "
     >
       <div
-        class="iris-left w-6 h-6 bg-accent rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"
+        class="absolute rounded-full bg-black"
+        style="width: 10px; height: 10px; top: 50%; left: 50%; transform: translate(-50%,-50%);"
       >
       </div>
-      <!-- Eyelid Overlay -->
       <div
-        class="eyelid-left absolute top-0 left-0 w-full h-0 bg-[#f5d9c6] z-10"
-      >
-      </div>
-    </div>
-    <!-- Right Eye -->
-    <div
-      class="eye relative w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden border border-primary/20 shadow-inner"
-    >
-      <div
-        class="iris-right w-6 h-6 bg-accent rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"
-      >
-      </div>
-      <!-- Eyelid Overlay -->
-      <div
-        class="eyelid-right absolute top-0 left-0 w-full h-0 bg-[#f5d9c6] z-10"
+        class="absolute rounded-full bg-white/80"
+        style="width: 6px; height: 6px; top: 25%; left: 60%;"
       >
       </div>
     </div>
   </div>
 
-  <!-- Decorative Element -->
-  <div
-    class="absolute bottom-4 text-xs font-body text-gold/60 uppercase tracking-widest"
-  >
-    CH-001 | Leidenschaftlich
+  <!-- Z-10: Face Image -->
+  <img
+    src="/images/charviolet-removebg-preview.png"
+    alt="Violet Evergarden"
+    class="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-2xl"
+    loading="eager"
+  />
+
+  <!-- Z-20: Eyelid -->
+  <div class="absolute inset-0 z-20 pointer-events-none">
+    <div
+      class="eyelid eyelid-main absolute bg-[#f5d9c6] dark:bg-[#d4a98a] origin-top"
+      style="
+        width: 35px; height: 25px;
+        top: 32%; left: 60%;
+        border-radius: 50%;
+        transform: scaleY(0);
+      "
+    >
+    </div>
   </div>
 </div>
 
 <script>
-  import anime from "animejs";
+  import { animate } from "animejs";
 
-  // Mouse Tracking Logic
-  const irisLeft = document.querySelector(".iris-left");
-  const irisRight = document.querySelector(".iris-right");
-  const container = document.querySelector(".violet-hero-container");
+  function initHero(): void {
+    const hero = document.getElementById("violet-hero");
+    if (!hero) return;
 
-  if (container && irisLeft && irisRight) {
-    window.addEventListener("mousemove", (e) => {
-      const rect = container.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+    const iris = hero.querySelector(".iris-main") as HTMLElement | null;
+    const eyelid = hero.querySelector(".eyelid-main") as HTMLElement | null;
+    const canHover = window.matchMedia("(hover: hover)").matches;
 
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+    if (iris && canHover) {
+      window.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = hero.getBoundingClientRect();
+        const eyeX = rect.left + rect.width * 0.635;
+        const eyeY = rect.top + rect.height * 0.345;
+        const dx = e.clientX - eyeX;
+        const dy = e.clientY - eyeY;
+        const angle = Math.atan2(dy, dx);
+        const dist = Math.min(6, Math.hypot(dx, dy) / 40);
 
-      const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
-      const distance = Math.min(
-        6,
-        Math.hypot(mouseX - centerX, mouseY - centerY) / 20,
-      );
-
-      const moveX = Math.cos(angle) * distance;
-      const moveY = Math.sin(angle) * distance;
-
-      anime({
-        targets: [irisLeft, irisRight],
-        translateX: moveX,
-        translateY: moveY,
-        duration: 200,
-        easing: "easeOutQuad",
+        animate(iris, {
+          translateX: Math.cos(angle) * dist,
+          translateY: Math.sin(angle) * dist,
+          duration: 200,
+          ease: "outQuad",
+        });
       });
-    });
+    }
+
+    function blink(): void {
+      if (!eyelid) return;
+      animate(eyelid, {
+        scaleY: [0, 1, 0],
+        duration: 200,
+        ease: "inOutQuad",
+        onComplete: () => setTimeout(blink, 3000 + Math.random() * 5000),
+      });
+    }
+
+    setTimeout(blink, 2000);
   }
 
-  // Blinking Logic
-  function blink() {
-    const eyelids = [".eyelid-left", ".eyelid-right"];
-
-    anime({
-      targets: eyelids,
-      height: ["0%", "100%", "0%"],
-      duration: 300,
-      easing: "easeInOutQuad",
-      complete: () => {
-        // Schedule next blink at random interval (2 to 6 seconds)
-        setTimeout(blink, Math.random() * 4000 + 2000);
-      },
-    });
-  }
-
-  // Initial blink delay
-  setTimeout(blink, 2000);
+  initHero();
+  document.addEventListener("astro:after-swap", initHero);
 </script>
-
-<style>
-  .iris-container {
-    perspective: 1000px;
-  }
-  .eye {
-    /* Subtle 3D look */
-    box-shadow:
-      inset 0 2px 10px rgba(0, 0, 0, 0.1),
-      0 2px 5px rgba(0, 0, 0, 0.05);
-  }
-</style>

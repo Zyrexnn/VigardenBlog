@@ -1,0 +1,142 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ThemeController from "../../components/ThemeController.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout
+  title={`${post.data.title} | Vigarden`}
+  description={post.data.description}
+>
+  <ThemeController slot="header-right" />
+
+  <!-- Single Post Banner (Tidied) -->
+  <article>
+    <section
+      class="relative h-[50vh] min-h-[400px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="/images/violet-dark.gif"
+          alt=""
+          class="w-full h-full object-cover opacity-30 blur-sm scale-105"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40"
+        >
+        </div>
+      </div>
+
+      <div
+        class="z-10 max-w-4xl px-8 space-y-6 pt-16"
+        transition:animate="fade"
+      >
+        <div
+          class="flex items-center justify-center gap-4 text-[10px] font-body text-gold tracking-[0.4em] uppercase font-bold"
+        >
+          <span>{post.data.pubDate.toLocaleDateString()}</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-accent/40"></span>
+          <span>{post.data.category}</span>
+        </div>
+        <h1
+          class="text-4xl md:text-6xl font-heading text-white drop-shadow-xl tracking-tighter leading-tight"
+        >
+          {post.data.title}
+        </h1>
+        <div class="flex justify-center flex-wrap gap-2 pt-4">
+          {
+            post.data.tags.map((tag) => (
+              <span class="text-[9px] px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-white/60 uppercase tracking-widest">
+                #{tag}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Wavy Divider -->
+      <div
+        class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20"
+      >
+        <svg
+          class="w-full h-16"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            fill="currentColor"
+            class="text-paper dark:text-dark-bg transition-colors"></path>
+        </svg>
+      </div>
+    </section>
+
+    <main class="max-w-4xl mx-auto px-8 py-24 relative z-30">
+      <!-- Post Meta Info Card -->
+      <div
+        class="bg-white/40 dark:bg-dark-card/40 border border-gold/10 dark:border-white/5 rounded-3xl p-8 mb-16 backdrop-blur-xl flex flex-col md:flex-row items-center gap-8 shadow-sm"
+      >
+        <div
+          class="w-20 h-20 rounded-full border-2 border-gold/20 p-1 flex-shrink-0"
+        >
+          <img
+            src="/images/charviolet-removebg-preview.png"
+            alt="Author"
+            class="w-full h-full object-contain"
+          />
+        </div>
+        <div class="text-center md:text-left">
+          <p
+            class="text-[10px] font-body text-gold uppercase tracking-[0.3em] font-bold mb-1"
+          >
+            Written By
+          </p>
+          <p class="font-heading text-2xl text-primary dark:text-accent">
+            Auto Memories Doll Service
+          </p>
+          <p class="text-sm font-sans opacity-60 mt-1 italic">
+            "We will travel anywhere as long as there are people who need our
+            service."
+          </p>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="prose dark:prose-invert prose-gold mx-auto
+                  prose-h2:font-heading prose-h2:text-3xl prose-h2:tracking-tight
+                  prose-p:text-lg prose-p:leading-relaxed prose-p:text-ink/80 dark:prose-p:text-white/70
+                  prose-blockquote:border-accent/40 prose-blockquote:bg-accent/5 prose-blockquote:py-2 prose-blockquote:rounded-r-xl
+                  transition-all"
+        transition:animate="slide"
+      >
+        <Content />
+      </div>
+
+      <!-- Footer Action -->
+      <div class="mt-24 pt-12 border-t border-gold/10 text-center">
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-3 text-sm font-body tracking-[0.4em] uppercase text-gold hover:text-accent transition-colors group"
+        >
+          <span
+            class="transform group-hover:-translate-x-2 transition-transform"
+            >⟵</span
+          >
+          アーカイブに戻る (Back to Archive)
+        </a>
+      </div>
+    </main>
+  </article>
+</Layout>

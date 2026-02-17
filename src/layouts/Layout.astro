@@ -1,39 +1,194 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Auto Memories Doll Service — A Violet Evergarden themed blog. Delivering heartfelt letters across the world.",
+  image = "/images/charviolet-removebg-preview.png",
+} = Astro.props;
+
+const canonicalURL = new URL(
+  Astro.url.pathname,
+  Astro.site ?? "https://vigarden.blog",
+);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Auto Memories Doll Service - Violet Evergarden Theme Blog"
-    />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
-    <!-- Google Fonts -->
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL.href} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <ViewTransitions />
+
+    <!-- FOUC Prevention -->
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (
+          stored === "dark" ||
+          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+
+    <script is:inline>
+      document.addEventListener("astro:after-swap", function () {
+        var stored = localStorage.getItem("theme");
+        if (
+          stored === "dark" ||
+          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      });
+    </script>
   </head>
+
   <body
-    class="bg-paper text-ink font-body min-h-screen relative overflow-x-hidden"
+    class="bg-paper text-ink dark:bg-dark-bg dark:text-dark-text font-sans min-h-screen relative overflow-x-hidden transition-colors duration-500"
   >
-    <!-- Noise Texture Overlay -->
-    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-50 noise-bg">
+    <!-- Background Noise overlay -->
+    <div
+      class="fixed inset-0 pointer-events-none opacity-[0.03] z-[60] noise-bg"
+    >
     </div>
 
-    <slot />
+    <!-- Background Noise overlay -->
+    <div
+      class="fixed inset-0 pointer-events-none opacity-[0.03] z-[60] noise-bg"
+    >
+    </div>
+
+    <!-- Header (Mizuki Style - Floating Pill) -->
+    <header
+      id="main-header"
+      class="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-24 flex items-center justify-center px-6"
+    >
+      <nav
+        class="w-full max-w-5xl h-14 bg-black/20 dark:bg-white/5 backdrop-blur-2xl border border-white/10 dark:border-white/5 rounded-full px-8 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-500"
+      >
+        <div class="flex items-center gap-10">
+          <a href="/" class="flex items-center gap-2 group">
+            <span
+              class="font-heading text-2xl text-white group-hover:text-gold transition-all duration-300 tracking-tight"
+              >Vigarden</span
+            >
+          </a>
+
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="/"
+              class="text-[10px] font-semibold text-white/70 hover:text-white uppercase tracking-[0.2em] transition-all duration-300"
+              >ホーム (Home)</a
+            >
+            <a
+              href="/blog/"
+              class="text-[10px] font-semibold text-white/70 hover:text-white uppercase tracking-[0.2em] transition-all duration-300"
+              >アーカイブ (Archive)</a
+            >
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <slot name="header-right" />
+        </div>
+      </nav>
+    </header>
+
+    <script is:inline>
+      const header = document.getElementById("main-header");
+      const nav = header.querySelector("nav");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 40) {
+          header.classList.add("h-20");
+          header.classList.remove("h-24");
+          nav.classList.add("scale-[0.98]", "bg-black/50", "dark:bg-black/40");
+        } else {
+          header.classList.add("h-24");
+          header.classList.remove("h-20");
+          nav.classList.remove(
+            "scale-[0.98]",
+            "bg-black/50",
+            "dark:bg-black/40",
+          );
+        }
+      });
+    </script>
+
+    <div class="relative z-10 w-full">
+      <slot />
+    </div>
+
+    <script is:inline>
+      // Sync GIF in Layout to handle theme changes
+      function syncBackgroundGif() {
+        const gif = document.getElementById("theme-gif");
+        if (gif) {
+          const isDark = document.documentElement.classList.contains("dark");
+          gif.src = isDark
+            ? "/images/violet-dark.gif"
+            : "/images/violet-light.gif";
+        }
+      }
+
+      // Run on load and after swap
+      syncBackgroundGif();
+      document.addEventListener("astro:after-swap", syncBackgroundGif);
+
+      // Listen for custom theme change events if necessary, or just rely on the toggle button
+      // But since we want it to react immediately to the toggle button in another component:
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === "class") {
+            syncBackgroundGif();
+          }
+        });
+      });
+      observer.observe(document.documentElement, { attributes: true });
+    </script>
 
     <style is:global>
       :root {
@@ -54,12 +209,33 @@ const { title } = Astro.props;
         font-family: "Playfair Display", serif;
       }
 
-      /* Custom typewriter selection */
-      ::-webkit-selection {
-        background: rgba(79, 172, 254, 0.2);
+      .font-body {
+        font-family: "Courier Prime", monospace;
       }
-      ::selection {
-        background: rgba(79, 172, 254, 0.2);
+
+      /* Prose styling */
+      .prose {
+        max-width: 65ch;
+        line-height: 1.8;
+      }
+      .prose blockquote {
+        border-left: 3px solid var(--gold);
+        padding-left: 1em;
+        font-style: italic;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 10px;
+        border: 2px solid transparent;
+        background-clip: content-box;
       }
     </style>
   </body>
