@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import VioletHero from "../components/VioletHero.astro";
 import ThemeController from "../components/ThemeController.astro";
 import { getCollection } from "astro:content";
 
@@ -33,10 +32,6 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       </p>
     </div>
     
-    <div class="absolute bottom-12 left-12 z-40 transform scale-75 sm:scale-110 origin-bottom pointer-events-none drop-shadow-2xl">
-       <VioletHero />
-    </div>
-
     <!-- Moving Ocean -->
     <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
       <svg class="moving-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">

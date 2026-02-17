@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import VioletWidget from "../components/VioletWidget.astro";
 
 interface Props {
   title: string;
@@ -161,6 +162,9 @@ const canonicalURL = new URL(
     <div class="relative z-10 w-full">
       <slot />
     </div>
+
+    <!-- Interactive Floating Violet -->
+    <VioletWidget />
 
     <script is:inline>
       // Sync GIF in Layout to handle theme changes
