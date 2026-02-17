@@ -1,11 +1,79 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import VioletHero from "../components/VioletHero.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Violet Evergarden | Auto Memories Doll Service">
+  <main class="max-w-4xl mx-auto pt-20 px-6 flex flex-col items-center">
+    <!-- Hero Section -->
+    <section class="mb-12">
+      <VioletHero />
+    </section>
+
+    <!-- Content Section -->
+    <section class="text-center space-y-6">
+      <h1 class="text-5xl md:text-6xl font-heading text-primary tracking-tight">
+        Auto Memories Doll Service
+      </h1>
+
+      <div class="h-8">
+        <p id="typewriter" class="text-xl text-gold font-body italic">
+          <!-- Typed text will appear here -->
+        </p>
+      </div>
+
+      <div class="w-24 h-px bg-gold/40 mx-auto my-8"></div>
+
+      <p class="max-w-2xl text-lg leading-relaxed text-ink/80">
+        "I will run as fast as I can to wherever my customer desires. I am the
+        Auto Memories Doll, Violet Evergarden."
+      </p>
+
+      <div class="pt-10">
+        <button
+          class="px-8 py-3 bg-primary text-paper hover:bg-accent transition-colors duration-300 rounded shadow-lg font-body uppercase tracking-widest text-sm"
+        >
+          View Letters
+        </button>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<script>
+  const text = "Whatever you wish... I will write it for you.";
+  const typewriter = document.getElementById("typewriter");
+  let i = 0;
+
+  if (typewriter) {
+    function type() {
+      if (i < text.length) {
+        typewriter!.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+
+    // Start typing after a short delay
+    setTimeout(type, 1000);
+  }
+</script>
+
+<style>
+  /* Subtle typewriter cursor animation */
+  #typewriter::after {
+    content: "|";
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

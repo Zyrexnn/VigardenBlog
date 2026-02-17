@@ -1,0 +1,124 @@
+---
+
+---
+
+<div
+  class="violet-hero-container relative w-[300px] h-[400px] mx-auto bg-primary/10 border-2 border-gold/30 rounded-lg overflow-hidden flex items-center justify-center"
+>
+  <!-- Layer 2: Wajah (Placeholder) -->
+  <div
+    class="absolute inset-0 border-4 border-dashed border-gold/20 flex flex-col items-center justify-center text-gold/40 italic text-sm"
+  >
+    <span class="mb-2">[ Face Image Placeholder ]</span>
+    <div class="w-24 h-32 border-2 border-gold/20 rounded-full"></div>
+  </div>
+
+  <!-- Layer 1: Mata (Iris) -->
+  <div
+    class="iris-container absolute top-[35%] w-full flex justify-around px-12 pointer-events-none"
+  >
+    <!-- Left Eye -->
+    <div
+      class="eye relative w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden border border-primary/20 shadow-inner"
+    >
+      <div
+        class="iris-left w-6 h-6 bg-accent rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"
+      >
+      </div>
+      <!-- Eyelid Overlay -->
+      <div
+        class="eyelid-left absolute top-0 left-0 w-full h-0 bg-[#f5d9c6] z-10"
+      >
+      </div>
+    </div>
+    <!-- Right Eye -->
+    <div
+      class="eye relative w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden border border-primary/20 shadow-inner"
+    >
+      <div
+        class="iris-right w-6 h-6 bg-accent rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.5)]"
+      >
+      </div>
+      <!-- Eyelid Overlay -->
+      <div
+        class="eyelid-right absolute top-0 left-0 w-full h-0 bg-[#f5d9c6] z-10"
+      >
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Element -->
+  <div
+    class="absolute bottom-4 text-xs font-body text-gold/60 uppercase tracking-widest"
+  >
+    CH-001 | Leidenschaftlich
+  </div>
+</div>
+
+<script>
+  import anime from "animejs";
+
+  // Mouse Tracking Logic
+  const irisLeft = document.querySelector(".iris-left");
+  const irisRight = document.querySelector(".iris-right");
+  const container = document.querySelector(".violet-hero-container");
+
+  if (container && irisLeft && irisRight) {
+    window.addEventListener("mousemove", (e) => {
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const angle = Math.atan2(mouseY - centerY, mouseX - centerX);
+      const distance = Math.min(
+        6,
+        Math.hypot(mouseX - centerX, mouseY - centerY) / 20,
+      );
+
+      const moveX = Math.cos(angle) * distance;
+      const moveY = Math.sin(angle) * distance;
+
+      anime({
+        targets: [irisLeft, irisRight],
+        translateX: moveX,
+        translateY: moveY,
+        duration: 200,
+        easing: "easeOutQuad",
+      });
+    });
+  }
+
+  // Blinking Logic
+  function blink() {
+    const eyelids = [".eyelid-left", ".eyelid-right"];
+
+    anime({
+      targets: eyelids,
+      height: ["0%", "100%", "0%"],
+      duration: 300,
+      easing: "easeInOutQuad",
+      complete: () => {
+        // Schedule next blink at random interval (2 to 6 seconds)
+        setTimeout(blink, Math.random() * 4000 + 2000);
+      },
+    });
+  }
+
+  // Initial blink delay
+  setTimeout(blink, 2000);
+</script>
+
+<style>
+  .iris-container {
+    perspective: 1000px;
+  }
+  .eye {
+    /* Subtle 3D look */
+    box-shadow:
+      inset 0 2px 10px rgba(0, 0, 0, 0.1),
+      0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+</style>
