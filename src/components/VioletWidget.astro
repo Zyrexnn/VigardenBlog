@@ -53,28 +53,30 @@
         id="widget-iris"
         class="absolute rounded-full"
         style="
-          width: 14px; height: 14px; 
-          top: 34.6%; left: 63.8%; 
-          background: radial-gradient(circle at 40% 40%, #5de0e6 0%, #0077cc 60%, #003366 100%);
-          box-shadow: 0 0 8px rgba(0,119,204,0.5), inset 0 0 4px rgba(0,0,0,0.4);
+          width: 9px; height: 11px; 
+          top: 24.5%; left: 75.8%; 
+          background: radial-gradient(circle at 35% 35%, #b2f8ff 0%, #0077cc 50%, #001a33 100%);
+          box-shadow: 0 0 10px rgba(0,191,255,0.6), inset 0 0 3px rgba(0,0,0,0.6);
           transform: translate(-50%, -50%);
         "
       >
         <!-- Pupil -->
         <div class="absolute inset-0 flex items-center justify-center">
-          <div class="w-4 h-4 bg-black/80 rounded-full"></div>
+          <div class="w-3.5 h-4.5 bg-black/95 rounded-full"></div>
         </div>
         <!-- Eye Highlight -->
-        <div class="absolute w-2 h-2 bg-white/60 rounded-full top-0.5 right-1">
+        <div
+          class="absolute w-2 h-2 bg-white/80 rounded-full top-0.5 left-1 shadow-inner"
+        >
         </div>
       </div>
     </div>
 
-    <!-- Face Image (Ensure it has eye holes!) -->
+    <!-- Face Image -->
     <img
       src="/images/charviolet-removebg-preview.webp"
       alt="Violet Evergarden"
-      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]"
       loading="eager"
     />
 
@@ -83,8 +85,8 @@
       id="widget-eyelid"
       class="absolute bg-[#e8c0a8] dark:bg-[#b08870] z-20 origin-top pointer-events-none"
       style="
-        width: 32px; height: 20px; 
-        top: 32%; left: 60%; 
+        width: 20px; height: 16px; 
+        top: 22%; left: 70%; 
         border-radius: 50%;
         transform: scaleY(0);
       "
@@ -207,13 +209,13 @@
     const updateIris = (e: MouseEvent) => {
       if (!iris) return;
       const rect = widget.getBoundingClientRect();
-      const eyeX = rect.left + rect.width * 0.638;
-      const eyeY = rect.top + rect.height * 0.346;
+      const eyeAnchorX = rect.left + rect.width * 0.758;
+      const eyeAnchorY = rect.top + rect.height * 0.245;
 
-      const dx = e.clientX - eyeX;
-      const dy = e.clientY - eyeY;
+      const dx = e.clientX - eyeAnchorX;
+      const dy = e.clientY - eyeAnchorY;
       const angle = Math.atan2(dy, dx);
-      const dist = Math.min(5, Math.hypot(dx, dy) / 40);
+      const dist = Math.min(6, Math.hypot(dx, dy) / 35);
 
       iris.style.transform = `translate(calc(-50% + ${Math.cos(angle) * dist}px), calc(-50% + ${Math.sin(angle) * dist}px))`;
     };
