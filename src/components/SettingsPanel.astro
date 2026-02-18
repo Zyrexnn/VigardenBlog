@@ -1,0 +1,131 @@
+---
+/**
+ * SettingsPanel.astro
+ * Handles Language (ID/JP) and Custom UI Colors.
+ */
+---
+
+<div class="flex items-center gap-4">
+  <!-- Language Toggle -->
+  <button
+    id="lang-toggle"
+    class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-accent/40 transition-all group"
+    title="Change Language"
+  >
+    <span
+      class="text-[10px] font-bold text-white/40 group-hover:text-white transition-colors uppercase tracking-widest"
+      id="lang-label"
+    >
+      JP
+    </span>
+  </button>
+
+  <!-- Color Picker (Minimalist Pill) -->
+  <div
+    class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10"
+  >
+    <button
+      class="color-swatch w-4 h-4 rounded-full bg-[#4facfe] hover:scale-125 transition-transform"
+      data-accent="#4facfe"
+      data-gold="#c5a059"
+      title="Violet Blue"></button>
+    <button
+      class="color-swatch w-4 h-4 rounded-full bg-[#f6ad55] hover:scale-125 transition-transform"
+      data-accent="#f6ad55"
+      data-gold="#dd6b20"
+      title="Sunset Gold"></button>
+    <button
+      class="color-swatch w-4 h-4 rounded-full bg-[#68d391] hover:scale-125 transition-transform"
+      data-accent="#68d391"
+      data-gold="#38a169"
+      title="Forest Green"></button>
+    <button
+      class="color-swatch w-4 h-4 rounded-full bg-[#f687b3] hover:scale-125 transition-transform"
+      data-accent="#f687b3"
+      data-gold="#d53f8c"
+      title="Cherry Blossom"></button>
+  </div>
+</div>
+
+<script>
+  function initSettings() {
+    const langToggle = document.getElementById("lang-toggle");
+    const langLabel = document.getElementById("lang-label");
+    const colorSwatches = document.querySelectorAll(".color-swatch");
+
+    if (!langToggle || !langLabel) return;
+
+    // --- LANGUAGE LOGIC ---
+    let currentLang = localStorage.getItem("vigarden-lang") || "JP";
+
+    const updateLangUI = () => {
+      langLabel.textContent = currentLang;
+      document.body.setAttribute("data-lang", currentLang);
+
+      // Update elements with [data-id] and [data-jp]
+      document.querySelectorAll("[data-id], [data-jp]").forEach((el) => {
+        const idText = el.getAttribute("data-id");
+        const jpText = el.getAttribute("data-jp");
+        if (currentLang === "ID" && idText) {
+          el.textContent = idText;
+        } else if (currentLang === "JP" && jpText) {
+          el.textContent = jpText;
+        }
+      });
+    };
+
+    langToggle.onclick = (e) => {
+      e.preventDefault();
+      currentLang = currentLang === "JP" ? "ID" : "JP";
+      localStorage.setItem("vigarden-lang", currentLang);
+      updateLangUI();
+    };
+
+    // --- COLOR LOGIC ---
+    const applyColors = (accent, gold) => {
+      if (!accent || !gold) return;
+      document.documentElement.style.setProperty("--accent", accent);
+      document.documentElement.style.setProperty("--gold", gold);
+
+      const hexToRgb = (hex) => {
+        if (!hex || hex.length < 7) return "0,0,0";
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `${r}, ${g}, ${b}`;
+      };
+
+      document.documentElement.style.setProperty(
+        "--accent-rgb",
+        hexToRgb(accent),
+      );
+      document.documentElement.style.setProperty("--gold-rgb", hexToRgb(gold));
+    };
+
+    colorSwatches.forEach((swatch) => {
+      swatch.onclick = (e) => {
+        e.preventDefault();
+        const accent = swatch.getAttribute("data-accent");
+        const gold = swatch.getAttribute("data-gold");
+        applyColors(accent, gold);
+        localStorage.setItem("vigarden-accent", accent);
+        localStorage.setItem("vigarden-gold", gold);
+      };
+    });
+
+    // Load persisted settings
+    const savedAccent = localStorage.getItem("vigarden-accent");
+    const savedGold = localStorage.getItem("vigarden-gold");
+    if (savedAccent && savedGold) {
+      applyColors(savedAccent, savedGold);
+    }
+
+    updateLangUI();
+  }
+
+  // Initial run
+  initSettings();
+
+  // Re-run on page navigation
+  document.addEventListener("astro:after-swap", initSettings);
+</script>

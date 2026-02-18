@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import VioletWidget from "../components/VioletWidget.astro";
+import SettingsPanel from "../components/SettingsPanel.astro";
 
 interface Props {
   title: string;
@@ -58,33 +59,47 @@ const canonicalURL = new URL(
 
     <ViewTransitions />
 
-    <!-- FOUC Prevention -->
+    <!-- FOUC Prevention & Initial Config -->
     <script is:inline>
-      (function () {
-        var stored = localStorage.getItem("theme");
+      function initTheme() {
+        const storedTheme = localStorage.getItem("theme");
         if (
-          stored === "dark" ||
-          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+          storedTheme === "dark" ||
+          (!storedTheme &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
         ) {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
         }
-      })();
-    </script>
 
-    <script is:inline>
-      document.addEventListener("astro:after-swap", function () {
-        var stored = localStorage.getItem("theme");
-        if (
-          stored === "dark" ||
-          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
+        const savedAccent = localStorage.getItem("vigarden-accent");
+        const savedGold = localStorage.getItem("vigarden-gold");
+        if (savedAccent && savedGold) {
+          document.documentElement.style.setProperty("--accent", savedAccent);
+          document.documentElement.style.setProperty("--gold", savedGold);
+          const hexToRgb = (hex) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `${r}, ${g}, ${b}`;
+          };
+          document.documentElement.style.setProperty(
+            "--accent-rgb",
+            hexToRgb(savedAccent),
+          );
+          document.documentElement.style.setProperty(
+            "--gold-rgb",
+            hexToRgb(savedGold),
+          );
         }
-      });
+      }
+
+      // Run on initial load
+      initTheme();
+
+      // Run on View Transitions navigation
+      document.addEventListener("astro:after-swap", initTheme);
     </script>
   </head>
 
@@ -93,47 +108,46 @@ const canonicalURL = new URL(
   >
     <!-- Background Noise overlay -->
     <div
-      class="fixed inset-0 pointer-events-none opacity-[0.03] z-[60] noise-bg"
+      class="fixed inset-0 pointer-events-none opacity-[0.02] z-[60] noise-bg"
     >
     </div>
 
-    <!-- Background Noise overlay -->
-    <div
-      class="fixed inset-0 pointer-events-none opacity-[0.03] z-[60] noise-bg"
-    >
-    </div>
-
-    <!-- Header (Mizuki Style - Floating Pill) -->
+    <!-- Header (Mizuki Style - Floating Pill & Tidied) -->
     <header
       id="main-header"
-      class="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-24 flex items-center justify-center px-6"
+      class="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-24 flex items-center justify-center px-4 sm:px-6"
     >
       <nav
-        class="w-full max-w-5xl h-14 bg-black/20 dark:bg-white/5 backdrop-blur-2xl border border-white/10 dark:border-white/5 rounded-full px-8 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-500"
+        class="w-full max-w-6xl h-14 bg-black/10 dark:bg-white/5 backdrop-blur-xl border border-white/10 dark:border-white/5 rounded-full px-4 sm:px-10 flex items-center justify-between shadow-xl transition-all duration-500"
       >
-        <div class="flex items-center gap-10">
+        <div class="flex items-center gap-4 sm:gap-10">
           <a href="/" class="flex items-center gap-2 group">
             <span
-              class="font-heading text-2xl text-white group-hover:text-gold transition-all duration-300 tracking-tight"
-              >Vigarden</span
+              class="font-heading text-xl text-white group-hover:text-accent transition-all duration-300 tracking-tight"
             >
+              Vigarden
+            </span>
           </a>
 
-          <div class="hidden md:flex items-center gap-8">
+          <div class="hidden lg:flex items-center gap-8">
             <a
               href="/"
-              class="text-[10px] font-semibold text-white/70 hover:text-white uppercase tracking-[0.2em] transition-all duration-300"
-              >ホーム (Home)</a
+              class="text-[9px] font-bold text-white/50 hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              data-jp="ホーム"
+              data-id="BERANDA">ホーム (Home)</a
             >
             <a
               href="/blog/"
-              class="text-[10px] font-semibold text-white/70 hover:text-white uppercase tracking-[0.2em] transition-all duration-300"
-              >アーカイブ (Archive)</a
+              class="text-[9px] font-bold text-white/50 hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              data-jp="アーカイブ"
+              data-id="ARSIP">アーカイブ (Archive)</a
             >
           </div>
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 sm:gap-6">
+          <SettingsPanel />
+          <div class="h-6 w-[1px] bg-white/10 hidden sm:block"></div>
           <slot name="header-right" />
         </div>
       </nav>
@@ -141,20 +155,25 @@ const canonicalURL = new URL(
 
     <script is:inline>
       const header = document.getElementById("main-header");
-      const nav = header.querySelector("nav");
+      const nav = header?.querySelector("nav");
       window.addEventListener("scroll", () => {
+        if (!nav) return;
         if (window.scrollY > 40) {
-          header.classList.add("h-20");
-          header.classList.remove("h-24");
-          nav.classList.add("scale-[0.98]", "bg-black/50", "dark:bg-black/40");
-        } else {
-          header.classList.add("h-24");
-          header.classList.remove("h-20");
-          nav.classList.remove(
-            "scale-[0.98]",
-            "bg-black/50",
-            "dark:bg-black/40",
+          nav.classList.add(
+            "bg-black/60",
+            "dark:bg-black/80",
+            "shadow-2xl",
+            "max-w-5xl",
           );
+          nav.classList.remove("max-w-6xl");
+        } else {
+          nav.classList.remove(
+            "bg-black/60",
+            "dark:bg-black/80",
+            "shadow-2xl",
+            "max-w-5xl",
+          );
+          nav.classList.add("max-w-6xl");
         }
       });
     </script>
@@ -178,12 +197,9 @@ const canonicalURL = new URL(
         }
       }
 
-      // Run on load and after swap
       syncBackgroundGif();
       document.addEventListener("astro:after-swap", syncBackgroundGif);
 
-      // Listen for custom theme change events if necessary, or just rely on the toggle button
-      // But since we want it to react immediately to the toggle button in another component:
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.attributeName === "class") {
@@ -198,6 +214,8 @@ const canonicalURL = new URL(
       :root {
         --accent: #4facfe;
         --gold: #c5a059;
+        --accent-rgb: 79, 172, 254;
+        --gold-rgb: 197, 160, 89;
       }
 
       .noise-bg {
@@ -211,35 +229,59 @@ const canonicalURL = new URL(
       h5,
       h6 {
         font-family: "Playfair Display", serif;
+        letter-spacing: -0.02em;
       }
 
       .font-body {
         font-family: "Courier Prime", monospace;
       }
 
-      /* Prose styling */
-      .prose {
-        max-width: 65ch;
-        line-height: 1.8;
-      }
-      .prose blockquote {
-        border-left: 3px solid var(--gold);
-        padding-left: 1em;
-        font-style: italic;
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
       }
 
-      /* Scrollbar */
+      /* Prose styling - Refined for comfort */
+      .prose {
+        max-width: 70ch;
+        line-height: 1.8;
+        font-size: 1.05rem;
+      }
+
+      /* Scrollbar - Minimal & Non-intrusive */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 5px;
       }
       ::-webkit-scrollbar-track {
         background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--gold);
+        background: rgba(var(--gold-rgb), 0.2);
         border-radius: 10px;
-        border: 2px solid transparent;
-        background-clip: content-box;
+        transition: background 0.3s;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(var(--gold-rgb), 0.5);
+      }
+
+      /* Custom Color Overrides */
+      .text-accent {
+        color: var(--accent);
+      }
+      .bg-accent {
+        background-color: var(--accent);
+      }
+      .border-accent {
+        border-color: var(--accent);
+      }
+      .text-gold {
+        color: var(--gold);
+      }
+      .bg-gold {
+        background-color: var(--gold);
+      }
+      .border-gold {
+        border-color: var(--gold);
       }
     </style>
   </body>

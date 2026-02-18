@@ -1,8 +1,8 @@
 ---
 /**
  * VioletWidget.astro
- * Interactive floating character with dragging, speech bubbles,
- * and eye-tracking. Refined for Mizuki aesthetic.
+ * Interactive floating character with dragging and speech bubbles.
+ * Simplified design for performance.
  */
 ---
 
@@ -35,7 +35,7 @@
     >
     <a
       href="/blog/"
-      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg- gold transition-all shadow-lg text-lg"
+      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-all shadow-lg text-lg"
       >📜</a
     >
     <button
@@ -45,53 +45,14 @@
     >
   </div>
 
-  <!-- Character Box -->
-  <div class="relative w-[160px] h-[160px] cursor-grab active:cursor-grabbing">
-    <!-- Iris (Eye Tracking) -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <div
-        id="widget-iris"
-        class="absolute rounded-full"
-        style="
-          width: 9px; height: 11px; 
-          top: 24.5%; left: 75.8%; 
-          background: radial-gradient(circle at 35% 35%, #b2f8ff 0%, #0077cc 50%, #001a33 100%);
-          box-shadow: 0 0 10px rgba(0,191,255,0.6), inset 0 0 3px rgba(0,0,0,0.6);
-          transform: translate(-50%, -50%);
-        "
-      >
-        <!-- Pupil -->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div class="w-3.5 h-4.5 bg-black/95 rounded-full"></div>
-        </div>
-        <!-- Eye Highlight -->
-        <div
-          class="absolute w-2 h-2 bg-white/80 rounded-full top-0.5 left-1 shadow-inner"
-        >
-        </div>
-      </div>
-    </div>
-
-    <!-- Face Image -->
+  <!-- Character Container (Optimized) -->
+  <div class="relative w-[150px] h-[150px] cursor-grab active:cursor-grabbing">
     <img
       src="/images/charviolet-removebg-preview.png"
       alt="Violet Evergarden"
-      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)]"
+      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)]"
       loading="eager"
     />
-
-    <!-- Eyelid (Blink) -->
-    <div
-      id="widget-eyelid"
-      class="absolute bg-[#e8c0a8] dark:bg-[#b08870] z-20 origin-top pointer-events-none"
-      style="
-        width: 20px; height: 16px; 
-        top: 22%; left: 70%; 
-        border-radius: 50%;
-        transform: scaleY(0);
-      "
-    >
-    </div>
   </div>
 </div>
 
@@ -101,8 +62,6 @@
   function initWidget() {
     const widget = document.getElementById("violet-widget");
     const speech = document.getElementById("violet-speech");
-    const iris = document.getElementById("widget-iris");
-    const eyelid = document.getElementById("widget-eyelid");
     const closeBtn = document.getElementById("close-widget");
 
     if (!widget) return;
@@ -111,22 +70,6 @@
     let isDragging = false;
     let startX: number, startY: number;
     let initialX: number, initialY: number;
-
-    const onStart = (e: MouseEvent | TouchEvent) => {
-      if (
-        (e.target as HTMLElement).tagName === "A" ||
-        (e.target as HTMLElement).tagName === "BUTTON"
-      )
-        return;
-      isDragging = true;
-      const pos = e instanceof MouseEvent ? e : e.touches[0];
-      startX = pos.clientX;
-      startY = pos.clientY;
-      const rect = widget.getBoundingClientRect();
-      initialX = rect.left;
-      initialY = rect.top;
-      widget.style.transition = "none";
-    };
 
     const onMove = (e: MouseEvent | TouchEvent) => {
       if (!isDragging) return;
@@ -137,37 +80,61 @@
       const nextX = initialX + dx;
       const nextY = initialY + dy;
 
-      // Keep within viewport bounds
       const padding = 20;
       const maxX = window.innerWidth - widget.offsetWidth - padding;
       const maxY = window.innerHeight - widget.offsetHeight - padding;
 
       widget.style.left = `${Math.max(padding, Math.min(nextX, maxX))}px`;
       widget.style.top = `${Math.max(padding, Math.min(nextY, maxY))}px`;
-      widget.style.bottom = "auto";
     };
 
     const onEnd = () => {
       isDragging = false;
-      widget.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+      widget.style.transition =
+        "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+
+      // Clean up listeners
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+    };
+
+    const onStart = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
+        target.closest("button")
+      )
+        return;
+      isDragging = true;
+      const pos = e instanceof MouseEvent ? e : e.touches[0];
+      startX = pos.clientX;
+      startY = pos.clientY;
+      const rect = widget.getBoundingClientRect();
+      initialX = rect.left;
+      initialY = rect.top;
+      widget.style.transition = "none";
+
+      // Attach listeners only when dragging starts
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onEnd);
+      window.addEventListener("touchmove", onMove, { passive: false });
+      window.addEventListener("touchend", onEnd);
     };
 
     widget.addEventListener("mousedown", onStart);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onEnd);
-
     widget.addEventListener("touchstart", onStart, { passive: false });
-    window.addEventListener("touchmove", onMove, { passive: false });
-    window.addEventListener("touchend", onEnd);
 
     // --- RANDOM DIALOGUES ---
     const messages = [
       "What are you doing? ✉️",
-      "I am learning about 'love'.",
-      "Do you need a letter written?",
-      "Auto Memories Doll service, at your disposal.",
       "Sincerely, Violet Evergarden.",
-      "The scenery here is beautiful...",
+      "It's a beautiful day, isn't it?",
+      "Delivering feelings to those in need.",
+      "May your day be full of joy.",
     ];
 
     let speechTimeout: any;
@@ -179,63 +146,30 @@
 
       animate(speech, {
         opacity: [0, 1],
-        translateY: [10, 0],
+        translateY: [15, 0],
         duration: 500,
-        easing: "easeOutExpo",
+        easing: "easeOutQuart",
       });
 
       speechTimeout = setTimeout(() => {
         animate(speech, {
           opacity: 0,
           translateY: -10,
-          duration: 500,
-          easing: "easeInExpo",
+          duration: 4000,
+          easing: "easeInQuart",
         });
       }, 5000);
     }
 
     widget.addEventListener("click", (e) => {
-      if (!isDragging && (e.target as HTMLElement).closest("div")) {
+      if (!isDragging && !(e.target as HTMLElement).closest("a, button")) {
         showSpeech();
       }
     });
 
-    // Auto speech interval
-    setInterval(() => {
-      if (Math.random() > 0.7) showSpeech();
-    }, 20000);
-
-    // --- EYE TRACKING ---
-    const updateIris = (e: MouseEvent) => {
-      if (!iris) return;
-      const rect = widget.getBoundingClientRect();
-      const eyeAnchorX = rect.left + rect.width * 0.758;
-      const eyeAnchorY = rect.top + rect.height * 0.245;
-
-      const dx = e.clientX - eyeAnchorX;
-      const dy = e.clientY - eyeAnchorY;
-      const angle = Math.atan2(dy, dx);
-      const dist = Math.min(6, Math.hypot(dx, dy) / 35);
-
-      iris.style.transform = `translate(calc(-50% + ${Math.cos(angle) * dist}px), calc(-50% + ${Math.sin(angle) * dist}px))`;
-    };
-
-    window.addEventListener("mousemove", updateIris);
-
-    // --- BLINKING ---
-    function blink() {
-      if (!eyelid) return;
-      animate(eyelid, {
-        scaleY: [0, 1, 0],
-        duration: 180,
-        easing: "easeInOutQuad",
-        onComplete: () => setTimeout(blink, 3000 + Math.random() * 5000),
-      });
-    }
-    blink();
-
     if (closeBtn) {
-      closeBtn.onclick = () => {
+      closeBtn.onclick = (e) => {
+        e.stopPropagation(); // Prevent drag start just in case
         widget.style.opacity = "0";
         widget.style.transform = "scale(0.8)";
         setTimeout(() => (widget.style.display = "none"), 300);
@@ -243,7 +177,10 @@
     }
   }
 
-  // Handle initialization and View Transitions
+  // Initial run
   initWidget();
+1
+  // Re-run on page swap (View Transitions)
   document.addEventListener("astro:after-swap", initWidget);
 </script>
+  
