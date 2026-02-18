@@ -1,46 +1,69 @@
-# Astro Starter Kit: Basics
+# VigardenBLog
 
-```sh
-npm create astro@latest -- --template basics
-```
+A personal blog themed around Violet Evergarden, built with Astro and Tailwind CSS.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Features
 
-## 🚀 Project Structure
+- **Violet Evergarden Theme** - Beautiful design inspired by the anime
+- **Dark/Light Mode** - Theme switching with animated transitions
+- **Blog System** - Content collections for blog posts with markdown support
+- **Responsive Design** - Mobile-first approach with Tailwind CSS
+- **Animations** - Smooth animations using Anime.js
+- **Multi-language Text** - Japanese text with Indonesian/English translations
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tech Stack
+
+- [Astro](https://astro.build/) - Static site generator
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Anime.js](https://animejs.com/) - JavaScript animation library
+
+## Project Structure
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+│   ├── favicon.svg
+│   └── images/
+│       ├── charviolet-removebg-preview.png
+│       ├── violet-dark.gif
+│       └── violet-light.gif
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Layout.astro
+│   │   ├── ThemeController.astro
+│   │   ├── VioletWidget.astro
+│   │   ├── VioletHero.astro
+│   │   └── Welcome.astro
+│   ├── content/
+│   │   └── blog/
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       ├── index.astro
+│       └── blog/
+│           ├── index.astro
+│           └── [slug].astro
+├── astro.config.mjs
+├── tailwind.config.mjs
+├── tsconfig.json
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Commands
 
-## 🧞 Commands
+| Command           | Action                                           |
+| :---------------- | :----------------------------------------------- |
+| `npm install`     | Install dependencies                             |
+| `npm run dev`     | Start local dev server at `localhost:4321`       |
+| `npm run build`   | Build production site to `./dist/`               |
+| `npm run preview` | Preview build locally before deploying           |
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+The site is configured for deployment at `https://vigarden.blog`.
 
-## 👀 Want to learn more?
+## Credits
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Theme inspired by [Violet Evergarden](https://en.wikipedia.org/wiki/Violet_Evergarden) anime
+- Built with [Astro](https://astro.build)
