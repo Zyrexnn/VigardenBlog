@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ThemeController from "../../components/ThemeController.astro";
 import { getCollection } from "astro:content";
 
 const letters = await getCollection("letters");
@@ -9,87 +10,122 @@ const letters = await getCollection("letters");
   title="Letters | Vigarden"
   description="A collection of heartfelt letters delivered by the Auto Memories Doll service."
 >
-  <main class="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-16">
-      
-      <!-- Header -->
-      <section class="text-center space-y-6" transition:animate="fade">
-        <p
-          class="text-[10px] font-bold text-gold tracking-[0.4em] uppercase"
-          data-i18n="service"
-          data-jp="サービス"
-          data-id="LAYANAN"
-          data-en="SERVICE"
-        >
-          Service
-        </p>
-        <h1
-          class="text-4xl md:text-6xl font-heading text-ink dark:text-white drop-shadow-sm"
-          data-i18n="letters"
-          data-jp="手紙"
-          data-id="SURAT"
-          data-en="LETTERS"
-        >
-          Letters
-        </h1>
-        <div class="w-16 h-[2px] bg-accent/30 mx-auto"></div>
-        <p
-          class="max-w-xl mx-auto text-sm md:text-base font-body text-ink/70 dark:text-white/70 leading-relaxed italic"
-          data-i18n="lettersSubtitle"
-          data-jp="心温まる手紙のコレクション。"
-          data-id="Kumpulan surat yang menyentuh hati."
-          data-en="A collection of heartfelt letters."
-        >
-          A collection of heartfelt letters.
-        </p>
-      </section>
+  <ThemeController slot="header-right" />
 
-      <!-- Letters Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {
-          letters.map((letter) => (
-            <a
-              href={`/letters/${letter.id}/`}
-              class="group relative block bg-paper dark:bg-[#161B22] border-[8px] border-double border-gold/20 dark:border-white/10 p-8 rounded-sm shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-            >
-              <!-- Envelope Flap Effect (Pseudo) -->
-              <div class="absolute top-0 left-0 w-full h-full pointer-events-none opacity-5 dark:opacity-0 bg-[repeating-linear-gradient(45deg,#C5A059_0,#C5A059_1px,transparent_1px,transparent_10px)]"></div>
-              
-              <!-- Content -->
-              <div class="relative z-10 space-y-4 text-center">
-                 <div class="flex justify-center mb-4">
-                     <span class="w-12 h-12 rounded-full bg-accent/10 dark:bg-white/5 flex items-center justify-center text-accent dark:text-gold">
-                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                        </svg>
-                     </span>
-                 </div>
-                 
-                <p class="text-[9px] uppercase tracking-widest text-ink/40 dark:text-white/40">
+  <!-- Hero Section -->
+  <section
+    class="relative min-h-[40vh] flex flex-col items-center justify-center text-center
+           overflow-hidden bg-paper dark:bg-dark-bg pt-32 pb-16 px-4"
+  >
+    <div class="z-10 space-y-6" transition:animate="fade">
+      <p
+        class="text-[10px] font-bold text-gold tracking-[0.4em] uppercase"
+        data-i18n="service"
+        data-jp="サービス"
+        data-id="LAYANAN"
+        data-en="SERVICE"
+      >
+        Service
+      </p>
+      <h1
+        class="text-5xl md:text-7xl font-heading text-ink dark:text-white drop-shadow-sm"
+        data-i18n="letters"
+        data-jp="手紙"
+        data-id="SURAT"
+        data-en="LETTERS"
+      >
+        手紙
+      </h1>
+      <div class="w-16 h-[2px] bg-gold/30 mx-auto"></div>
+      <p
+        class="max-w-xl mx-auto text-sm md:text-base font-body text-ink/70 dark:text-white/60 leading-relaxed italic"
+        data-i18n="lettersSubtitle"
+        data-jp="心温まる手紙のコレクション。"
+        data-id="Kumpulan surat yang menyentuh hati."
+        data-en="A collection of heartfelt letters."
+      >
+        心温まる手紙のコレクション。
+      </p>
+    </div>
+  </section>
+
+  <!-- Letters Grid -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        letters.map((letter) => (
+          <a
+            href={`/letters/${letter.id}/`}
+            class="group relative block overflow-hidden rounded-sm
+                   shadow-xl hover:shadow-2xl hover:-translate-y-2
+                   transition-all duration-500"
+            transition:name={`letter-${letter.id}`}
+          >
+            {/* Airmail Border Top */}
+            <div class="airmail-border" />
+
+            {/* Card Body */}
+            <div class="letter-paper p-8 border-x border-gold/15 dark:border-white/5">
+              {/* Envelope Texture Overlay */}
+              <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(45deg,#8B7355_0,#8B7355_1px,transparent_1px,transparent_12px)]" />
+
+              <div class="relative z-10 space-y-5 text-center">
+                {/* Wax Seal */}
+                <div class="flex justify-center mb-2">
+                  <span
+                    class="w-14 h-14 rounded-full bg-red-800/90 dark:bg-red-900/70
+                               shadow-lg border-[3px] border-red-900/40 dark:border-red-800/30
+                               flex items-center justify-center text-red-200 font-heading
+                               font-bold text-sm tracking-wide
+                               group-hover:scale-110 transition-transform duration-500"
+                  >
+                    CH
+                  </span>
+                </div>
+
+                {/* Recipient */}
+                <p class="text-[9px] uppercase tracking-[0.3em] text-ink/40 dark:text-white/40 font-sans">
                   To: {letter.data.recipient}
                 </p>
-                
-                <h2 class="text-2xl font-heading text-ink dark:text-white group-hover:text-accent transition-colors">
+
+                {/* Title */}
+                <h2
+                  class="text-xl font-heading text-ink dark:text-white
+                           group-hover:text-accent transition-colors duration-300 leading-snug"
+                >
                   {letter.data.title}
                 </h2>
-                
-                <div class="w-8 h-[1px] bg-ink/10 dark:bg-white/10 mx-auto"></div>
-                
-                 <p class="text-xs font-body text-ink/60 dark:text-white/60 line-clamp-3 italic">
-                  "{letter.data.description}"
+
+                <div class="w-10 h-[1px] bg-gold/20 dark:bg-white/10 mx-auto" />
+
+                {/* Description */}
+                <p class="text-xs font-body text-ink/55 dark:text-white/50 line-clamp-3 italic leading-relaxed">
+                  "{letter.data.description || "A heartfelt letter..."}"
                 </p>
-                
-                <div class="pt-6">
-                    <span class="inline-block text-[10px] font-bold text-gold uppercase tracking-widest border border-gold/30 px-3 py-1 rounded hover:bg-gold hover:text-white transition-colors">
-                        Open Letter
-                    </span>
+
+                {/* CTA */}
+                <div class="pt-4">
+                  <span
+                    class="inline-block text-[9px] font-bold text-gold uppercase
+                           tracking-[0.2em] border border-gold/30 px-4 py-1.5
+                           group-hover:bg-gold group-hover:text-white
+                           transition-all duration-300 rounded-sm"
+                    data-i18n="openLetter"
+                    data-jp="手紙を開く"
+                    data-id="Buka Surat"
+                    data-en="Open Letter"
+                  >
+                    手紙を開く
+                  </span>
                 </div>
               </div>
-            </a>
-          ))
-        }
-      </div>
+            </div>
 
+            {/* Airmail Border Bottom */}
+            <div class="airmail-border" />
+          </a>
+        ))
+      }
     </div>
   </main>
 </Layout>

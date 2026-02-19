@@ -1,8 +1,8 @@
 ---
 /**
  * ThemeController.astro
- * Persistent dark/light toggle button.
- * Uses astro:page-load for View Transitions compatibility.
+ * Anti-flicker dark/light toggle.
+ * Uses is:inline so the script runs BEFORE painting.
  */
 ---
 
@@ -12,11 +12,13 @@
   type="button"
   aria-label="Toggle dark mode"
   class="w-10 h-10 rounded-full flex items-center justify-center
-         text-ink dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 group relative overflow-hidden"
+         text-ink dark:text-white hover:bg-black/5 dark:hover:bg-white/10
+         transition-all duration-300 group relative overflow-hidden"
 >
-  <!-- Sun Icon (Visible in Dark Mode) -->
+  <!-- Sun Icon (visible in dark mode) -->
   <svg
-    class="w-5 h-5 text-gold absolute transition-all duration-500 scale-0 rotate-90 dark:scale-100 dark:rotate-0"
+    class="w-5 h-5 text-gold absolute transition-all duration-500
+           scale-0 rotate-90 dark:scale-100 dark:rotate-0"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -28,9 +30,10 @@
     ></path>
   </svg>
 
-  <!-- Moon Icon (Visible in Light Mode) -->
+  <!-- Moon Icon (visible in light mode) -->
   <svg
-    class="w-5 h-5 text-post-blue absolute transition-all duration-500 scale-100 rotate-0 dark:scale-0 dark:-rotate-90"
+    class="w-5 h-5 text-post-blue absolute transition-all duration-500
+           scale-100 rotate-0 dark:scale-0 dark:-rotate-90"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -40,38 +43,61 @@
   </svg>
 </button>
 
-<script>
-  function setupThemeToggle() {
-    const btn = document.getElementById("theme-toggle");
+<script is:inline>
+  // ── Theme Toggle ──────────────────────────────────────────
+  // is:inline = runs synchronously BEFORE paint. No flicker.
+  (function initThemeToggle() {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
 
-    // Check current state
-    const isDark = document.documentElement.classList.contains("dark");
+    // Remove previous listener by replacing the node
+    var fresh = btn.cloneNode(true);
+    btn.parentNode.replaceChild(fresh, btn);
 
-    // Update button visual state if needed (though CSS handles most of it via dark: classes)
+    fresh.addEventListener("click", function () {
+      var html = document.documentElement;
+      html.classList.toggle("dark");
+      var nowDark = html.classList.contains("dark");
+      localStorage.setItem("theme", nowDark ? "dark" : "light");
 
-    if (btn) {
-      // Clone button to remove old event listeners if any (essential for View Transitions)
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode?.replaceChild(newBtn, btn);
+      // Let other scripts know (GIF sync, etc.)
+      window.dispatchEvent(
+        new CustomEvent("theme-changed", {
+          detail: { theme: nowDark ? "dark" : "light" },
+        }),
+      );
+    });
+  })();
 
-      newBtn.addEventListener("click", () => {
-        // Toggle Class
-        document.documentElement.classList.toggle("dark");
-
-        // Save Preference
-        const isNowDark = document.documentElement.classList.contains("dark");
-        localStorage.setItem("theme", isNowDark ? "dark" : "light");
-
-        // Dispatch event for other components to react (like the GIF background)
-        window.dispatchEvent(
-          new CustomEvent("theme-changed", {
-            detail: { theme: isNowDark ? "dark" : "light" },
-          }),
-        );
-      });
+  // Re-bind after every View Transition swap
+  document.addEventListener("astro:after-swap", function () {
+    // 1. Re-apply saved theme instantly (anti-flicker on navigation)
+    var stored = localStorage.getItem("theme");
+    if (
+      stored === "dark" ||
+      (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
     }
-  }
 
-  // Run on initial load and after every View Transition swap
-  document.addEventListener("astro:page-load", setupThemeToggle);
+    // 2. Re-bind the toggle button
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    var fresh = btn.cloneNode(true);
+    btn.parentNode.replaceChild(fresh, btn);
+
+    fresh.addEventListener("click", function () {
+      var html = document.documentElement;
+      html.classList.toggle("dark");
+      var nowDark = html.classList.contains("dark");
+      localStorage.setItem("theme", nowDark ? "dark" : "light");
+      window.dispatchEvent(
+        new CustomEvent("theme-changed", {
+          detail: { theme: nowDark ? "dark" : "light" },
+        }),
+      );
+    });
+  });
 </script>

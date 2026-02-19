@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ThemeController from "../../components/ThemeController.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -18,74 +19,129 @@ const { Content } = await render(letter);
   title={`${letter.data.title} | Vigarden`}
   description={letter.data.description}
 >
-  <main
-    class="min-h-screen flex items-center justify-center py-32 px-4 relative z-10"
-  >
-    <!-- Wax Seal (Decorative) -->
-    <div class="absolute top-24 left-1/2 -translate-x-1/2 z-20">
-      <div
-        class="w-16 h-16 rounded-full bg-red-800 shadow-xl border-4 border-red-900/50 flex items-center justify-center text-red-950 font-heading font-bold text-xl opacity-80"
-      >
-        CH
-      </div>
-    </div>
+  <ThemeController slot="header-right" />
 
+  <main
+    class="min-h-screen flex flex-col items-center justify-center py-32 px-4 relative z-10"
+  >
+    <!-- Letter Container -->
     <article
-      class="max-w-2xl w-full bg-[#F5F5DC] dark:bg-[#161B22] text-ink dark:text-[#c9d1d9] p-8 md:p-16 shadow-2xl relative rotate-0 md:rotate-1 transition-transform duration-500"
+      class="max-w-2xl w-full relative"
       transition:name={`letter-${letter.id}`}
     >
-      <!-- Paper Texture -->
-      <div
-        class="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"
-      >
-      </div>
-
-      <!-- Letter Header -->
-      <div
-        class="text-right mb-12 font-body text-sm text-ink/50 dark:text-white/40 italic"
-      >
-        {letter.data.date || "Unknown Date"}
-        <br />
-        Location: Unknown
-      </div>
-
-      <div class="mb-12 space-y-2">
-        <p class="font-heading text-lg text-ink dark:text-white">
-          Dearest {letter.data.recipient},
-        </p>
-      </div>
-
-      <!-- Content -->
-      <div
-        class="prose prose-p:font-body prose-p:text-lg prose-p:leading-loose prose-headings:font-heading prose-a:text-accent dark:prose-invert"
-      >
-        <Content />
-      </div>
-
-      <!-- Footer / Signature -->
-      <div class="mt-20 text-right space-y-4">
-        <p class="font-body text-sm italic text-ink/60 dark:text-white/50">
-          Sincerely,
-        </p>
+      <!-- Wax Seal (floats above the letter) -->
+      <div class="flex justify-center -mb-8 relative z-30">
         <div
-          class="font-heading text-2xl text-accent dark:text-gold signatures"
+          class="w-16 h-16 rounded-full bg-red-800 shadow-xl
+                 border-4 border-red-900/50 flex items-center justify-center
+                 text-red-200 font-heading font-bold text-lg tracking-wide"
         >
-          {letter.data.sender}
+          CH
         </div>
-        <p
-          class="text-[10px] uppercase tracking-widest text-ink/30 dark:text-white/30"
-        >
-          Auto Memories Doll Service
-        </p>
       </div>
+
+      <!-- Airmail Border Top -->
+      <div class="airmail-border rounded-t-sm"></div>
+
+      <!-- Paper Body -->
+      <div
+        class="letter-paper border-x border-gold/15 dark:border-white/5 p-8 md:p-16 shadow-2xl relative"
+      >
+        <!-- Paper Texture (inline SVG, no external dependency) -->
+        <div
+          class="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E&quot;)"
+        >
+        </div>
+
+        <!-- Ruled Lines (faint, like real letter paper) -->
+        <div
+          class="absolute inset-x-16 inset-y-0 pointer-events-none opacity-[0.06] dark:opacity-[0.03]"
+          style="background-image: repeating-linear-gradient(transparent, transparent 31px, #8B7355 31px, #8B7355 32px); background-size: 100% 32px"
+        >
+        </div>
+
+        <!-- Letter Date / Location -->
+        <div
+          class="relative z-10 text-right mb-12 font-body text-sm text-ink/50 dark:text-white/40 italic"
+        >
+          <span>{letter.data.date || "Unknown Date"}</span>
+          <br />
+          <span
+            data-i18n="writtenAt"
+            data-jp="執筆場所"
+            data-id="Ditulis di"
+            data-en="Written at">執筆場所</span
+          >: Leiden
+        </div>
+
+        <!-- Salutation -->
+        <div class="relative z-10 mb-10">
+          <p class="font-heading text-xl text-ink dark:text-white">
+            Dearest {letter.data.recipient},
+          </p>
+        </div>
+
+        <!-- Content (Markdown) -->
+        <div
+          class="relative z-10 prose prose-lg max-w-none
+                    prose-p:font-body prose-p:text-ink/85 dark:prose-p:text-white/70
+                    prose-p:leading-[2] prose-p:mb-6
+                    prose-headings:font-heading
+                    prose-a:text-accent
+                    dark:prose-invert"
+        >
+          <Content />
+        </div>
+
+        <!-- Signature -->
+        <div class="relative z-10 mt-20 text-right space-y-3">
+          <p
+            class="font-body text-sm italic text-ink/55 dark:text-white/45"
+            data-i18n="sincerely"
+            data-jp="敬具"
+            data-id="Hormat kami"
+            data-en="Sincerely"
+          >
+            敬具,
+          </p>
+          <div class="font-heading text-3xl text-accent dark:text-gold italic">
+            {letter.data.sender}
+          </div>
+          <p
+            class="text-[9px] uppercase tracking-[0.3em] text-ink/30 dark:text-white/25 font-sans"
+          >
+            Auto Memories Doll Service
+          </p>
+        </div>
+
+        <!-- Episode Context -->
+        {
+          letter.data.episode && (
+            <div class="relative z-10 mt-12 pt-6 border-t border-dashed border-ink/10 dark:border-white/10">
+              <p class="text-[10px] text-ink/40 dark:text-white/30 uppercase tracking-widest font-sans">
+                Episode: {letter.data.episode}
+              </p>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Airmail Border Bottom -->
+      <div class="airmail-border rounded-b-sm"></div>
 
       <!-- Back Button -->
-      <div class="mt-16 text-center">
+      <div class="mt-10 text-center">
         <a
           href="/letters/"
-          class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gold hover:text-accent transition-colors"
+          class="inline-flex items-center gap-2 text-xs font-bold uppercase
+                 tracking-[0.15em] text-gold hover:text-accent transition-colors duration-300"
+          data-i18n="returnToCollection"
+          data-jp="← コレクションに戻る"
+          data-id="← Kembali ke Koleksi"
+          data-en="← Return to Collection"
         >
-          ← Return to Collection
+          ← コレクションに戻る
         </a>
       </div>
     </article>
