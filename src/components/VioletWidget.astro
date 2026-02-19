@@ -2,19 +2,20 @@
 /**
  * VioletWidget.astro
  * Interactive floating character with dragging and speech bubbles.
- * Simplified design for performance.
+ * Optimized: no animejs dependency, uses CSS transitions instead.
  */
 ---
 
 <div
   id="violet-widget"
-  class="fixed bottom-10 left-10 z-[200] select-none transition-all duration-300 group"
-  style="touch-action: none; transition-property: transform, opacity;"
+  class="fixed bottom-10 left-10 z-[200] select-none group"
+  style="touch-action: none;"
 >
-  <!-- Speech Bubble (Mizuki Glass Style) -->
+  <!-- Speech Bubble -->
   <div
     id="violet-speech"
-    class="absolute -top-24 left-1/2 -translate-x-1/2 bg-[#1e1a1b]/90 dark:bg-[#161213]/90 text-white py-3 px-6 rounded-2xl shadow-2xl border border-white/10 text-xs font-sans whitespace-nowrap opacity-0 transition-all duration-300 pointer-events-none backdrop-blur-md"
+    class="absolute -top-24 left-1/2 -translate-x-1/2 bg-[#1e1a1b]/90 dark:bg-[#161213]/90 text-white py-3 px-6 rounded-2xl shadow-2xl border border-white/10 text-xs font-sans whitespace-nowrap opacity-0 pointer-events-none"
+    style="transition: opacity 0.4s ease, transform 0.4s ease; transform: translateX(-50%) translateY(10px);"
   >
     What are you doing?
     <div
@@ -23,50 +24,48 @@
     </div>
   </div>
 
-  <!-- Interactive Menu (Floating Pill Style) -->
+  <!-- Interactive Menu -->
   <div
     id="violet-menu"
-    class="absolute -right-14 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0"
+    class="absolute -right-14 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-4 group-hover:translate-x-0"
   >
     <a
       href="/"
-      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-all shadow-lg text-lg"
+      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-colors shadow-lg text-lg"
       >🏠</a
     >
     <a
       href="/blog/"
-      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-all shadow-lg text-lg"
+      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-colors shadow-lg text-lg"
       >📜</a
     >
     <button
       id="close-widget"
-      class="w-10 h-10 rounded-xl bg-red-500/20 backdrop-blur-xl border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-lg text-lg"
+      class="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors shadow-lg text-lg"
       >×</button
     >
   </div>
 
-  <!-- Character Container (Optimized) -->
-  <div class="relative w-[150px] h-[150px] cursor-grab active:cursor-grabbing">
+  <!-- Character -->
+  <div class="relative w-[120px] h-[120px] cursor-grab active:cursor-grabbing">
     <img
       src="/images/charviolet-removebg-preview.png"
       alt="Violet Evergarden"
-      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)]"
-      loading="eager"
+      class="w-full h-full object-contain relative z-10 pointer-events-none drop-shadow-[0_8px_8px_rgba(0,0,0,0.25)]"
+      loading="lazy"
+      width="120"
+      height="120"
     />
   </div>
 </div>
 
 <script>
-  import { animate } from "animejs";
-
   function initWidget() {
     const widget = document.getElementById("violet-widget");
     const speech = document.getElementById("violet-speech");
     const closeBtn = document.getElementById("close-widget");
-
     if (!widget) return;
 
-    // --- DRAGGING LOGIC ---
     let isDragging = false;
     let startX: number, startY: number;
     let initialX: number, initialY: number;
@@ -76,24 +75,16 @@
       const pos = e instanceof MouseEvent ? e : e.touches[0];
       const dx = pos.clientX - startX;
       const dy = pos.clientY - startY;
-
-      const nextX = initialX + dx;
-      const nextY = initialY + dy;
-
       const padding = 20;
       const maxX = window.innerWidth - widget.offsetWidth - padding;
       const maxY = window.innerHeight - widget.offsetHeight - padding;
-
-      widget.style.left = `${Math.max(padding, Math.min(nextX, maxX))}px`;
-      widget.style.top = `${Math.max(padding, Math.min(nextY, maxY))}px`;
+      widget.style.left = `${Math.max(padding, Math.min(initialX + dx, maxX))}px`;
+      widget.style.top = `${Math.max(padding, Math.min(initialY + dy, maxY))}px`;
     };
 
     const onEnd = () => {
       isDragging = false;
-      widget.style.transition =
-        "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-
-      // Clean up listeners
+      widget.style.transition = "transform 0.3s ease";
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onEnd);
       window.removeEventListener("touchmove", onMove);
@@ -105,8 +96,7 @@
       if (
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button")
+        target.closest("a, button")
       )
         return;
       isDragging = true;
@@ -117,8 +107,6 @@
       initialX = rect.left;
       initialY = rect.top;
       widget.style.transition = "none";
-
-      // Attach listeners only when dragging starts
       window.addEventListener("mousemove", onMove);
       window.addEventListener("mouseup", onEnd);
       window.addEventListener("touchmove", onMove, { passive: false });
@@ -128,7 +116,7 @@
     widget.addEventListener("mousedown", onStart);
     widget.addEventListener("touchstart", onStart, { passive: false });
 
-    // --- RANDOM DIALOGUES ---
+    // Speech bubbles — pure CSS transitions, no animejs
     const messages = [
       "What are you doing? ✉️",
       "Sincerely, Violet Evergarden.",
@@ -137,39 +125,28 @@
       "May your day be full of joy.",
     ];
 
-    let speechTimeout: any;
+    let speechTimeout: ReturnType<typeof setTimeout>;
     function showSpeech() {
       if (!speech) return;
       clearTimeout(speechTimeout);
       speech.textContent =
         messages[Math.floor(Math.random() * messages.length)];
-
-      animate(speech, {
-        opacity: [0, 1],
-        translateY: [15, 0],
-        duration: 500,
-        easing: "easeOutQuart",
-      });
-
+      speech.style.opacity = "1";
+      speech.style.transform = "translateX(-50%) translateY(0)";
       speechTimeout = setTimeout(() => {
-        animate(speech, {
-          opacity: 0,
-          translateY: -10,
-          duration: 4000,
-          easing: "easeInQuart",
-        });
-      }, 5000);
+        speech.style.opacity = "0";
+        speech.style.transform = "translateX(-50%) translateY(-8px)";
+      }, 4000);
     }
-      
+
     widget.addEventListener("click", (e) => {
-      if (!isDragging && !(e.target as HTMLElement).closest("a, button")) {
+      if (!isDragging && !(e.target as HTMLElement).closest("a, button"))
         showSpeech();
-      }
     });
 
     if (closeBtn) {
       closeBtn.onclick = (e) => {
-        e.stopPropagation(); // Prevent drag start just in case
+        e.stopPropagation();
         widget.style.opacity = "0";
         widget.style.transform = "scale(0.8)";
         setTimeout(() => (widget.style.display = "none"), 300);
@@ -177,10 +154,6 @@
     }
   }
 
-  // Initial run
   initWidget();
-
-  // Re-run on page swap (View Transitions)
   document.addEventListener("astro:after-swap", initWidget);
 </script>
-  

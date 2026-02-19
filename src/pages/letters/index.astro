@@ -6,126 +6,102 @@ import { getCollection } from "astro:content";
 const letters = await getCollection("letters");
 ---
 
-<Layout
-  title="Letters | Vigarden"
-  description="A collection of heartfelt letters delivered by the Auto Memories Doll service."
->
+<Layout title="手紙のコレクション (Letters) | Vigarden">
   <ThemeController slot="header-right" />
 
   <!-- Hero Section -->
-  <section
-    class="relative min-h-[40vh] flex flex-col items-center justify-center text-center
-           overflow-hidden bg-paper dark:bg-dark-bg pt-32 pb-16 px-4"
-  >
-    <div class="z-10 space-y-6" transition:animate="fade">
-      <p
-        class="text-[10px] font-bold text-gold tracking-[0.4em] uppercase"
-        data-i18n="service"
-        data-jp="サービス"
-        data-id="LAYANAN"
-        data-en="SERVICE"
-      >
-        Service
-      </p>
-      <h1
-        class="text-5xl md:text-7xl font-heading text-ink dark:text-white drop-shadow-sm"
-        data-i18n="letters"
-        data-jp="手紙"
-        data-id="SURAT"
-        data-en="LETTERS"
-      >
-        手紙
-      </h1>
-      <div class="w-16 h-[2px] bg-gold/30 mx-auto"></div>
-      <p
-        class="max-w-xl mx-auto text-sm md:text-base font-body text-ink/70 dark:text-white/60 leading-relaxed italic"
-        data-i18n="lettersSubtitle"
-        data-jp="心温まる手紙のコレクション。"
-        data-id="Kumpulan surat yang menyentuh hati."
-        data-en="A collection of heartfelt letters."
-      >
-        心温まる手紙のコレクション。
-      </p>
-    </div>
-  </section>
+  <div class="bg-paper dark:bg-dark-bg relative">
+    <section
+      class="relative h-[35vh] sm:h-[40vh] min-h-[250px] sm:min-h-[300px] w-full flex flex-col items-center justify-center text-center overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="/images/violet-dark.gif"
+          alt=""
+          class="w-full h-full object-cover opacity-10 dark:opacity-20 blur-[1px] scale-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-dark-bg"></div>
+      </div>
 
-  <!-- Letters Grid -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 relative z-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {
-        letters.map((letter) => (
+      <div class="relative z-10 space-y-3 sm:space-y-4 px-4 sm:px-6" transition:animate="fade">
+        <h1
+          class="text-4xl sm:text-6xl md:text-8xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter"
+          data-jp="手紙のコレクション"
+          data-id="Koleksi Surat"
+          data-en="Letter Collection"
+        >
+          手紙 Collection
+        </h1>
+        <p
+          class="text-ink/40 dark:text-white/40 font-body text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.5em] uppercase"
+          data-i18n="lettersSubtitle"
+        >
+          A collection of heartfelt letters.
+        </p>
+      </div>
+
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+        <svg class="block w-full h-10 sm:h-12 md:h-20" viewBox="0 24 150 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><path id="letters-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+          <use href="#letters-wave" x="48" y="7" fill="currentColor" class="text-paper dark:text-dark-bg"></use>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Letters Grid -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+        {letters.map((letter) => (
           <a
             href={`/letters/${letter.id}/`}
-            class="group relative block overflow-hidden rounded-sm
-                   shadow-xl hover:shadow-2xl hover:-translate-y-2
-                   transition-all duration-500"
+            class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
             transition:name={`letter-${letter.id}`}
           >
-            {/* Airmail Border Top */}
-            <div class="airmail-border" />
+            <!-- Airmail Border Top -->
+            <div class="airmail-border"></div>
 
-            {/* Card Body */}
-            <div class="letter-paper p-8 border-x border-gold/15 dark:border-white/5">
-              {/* Envelope Texture Overlay */}
-              <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-[repeating-linear-gradient(45deg,#8B7355_0,#8B7355_1px,transparent_1px,transparent_12px)]" />
+            <!-- Card Body -->
+            <div class="letter-paper p-5 sm:p-8 border-x border-gold/15 dark:border-white/5 relative min-h-[180px] sm:min-h-[220px] flex flex-col justify-between">
+              <!-- Wax Seal -->
+              <div class="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800/80 shadow-md border-2 border-red-900/40 flex items-center justify-center text-red-200 font-heading text-[8px] sm:text-[10px] font-bold opacity-70 group-hover:opacity-100 transition-opacity">
+                CH
+              </div>
 
-              <div class="relative z-10 space-y-5 text-center">
-                {/* Wax Seal */}
-                <div class="flex justify-center mb-2">
-                  <span
-                    class="w-14 h-14 rounded-full bg-red-800/90 dark:bg-red-900/70
-                               shadow-lg border-[3px] border-red-900/40 dark:border-red-800/30
-                               flex items-center justify-center text-red-200 font-heading
-                               font-bold text-sm tracking-wide
-                               group-hover:scale-110 transition-transform duration-500"
-                  >
-                    CH
-                  </span>
-                </div>
-
-                {/* Recipient */}
-                <p class="text-[9px] uppercase tracking-[0.3em] text-ink/40 dark:text-white/40 font-sans">
-                  To: {letter.data.recipient}
+              <!-- Letter Content -->
+              <div class="space-y-2 sm:space-y-3 pr-12 sm:pr-16">
+                <p class="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold">
+                  {letter.data.episode || "—"}
                 </p>
-
-                {/* Title */}
-                <h2
-                  class="text-xl font-heading text-ink dark:text-white
-                           group-hover:text-accent transition-colors duration-300 leading-snug"
-                >
-                  {letter.data.title}
+                <h2 class="font-heading text-xl sm:text-2xl text-ink dark:text-white group-hover:text-accent transition-colors leading-tight">
+                  <span data-content-lang="en">{letter.data.title}</span>
+                  <span data-content-lang="jp" class="hidden">{letter.data.title_jp || letter.data.title}</span>
+                  <span data-content-lang="id" class="hidden">{letter.data.title_id || letter.data.title}</span>
                 </h2>
-
-                <div class="w-10 h-[1px] bg-gold/20 dark:bg-white/10 mx-auto" />
-
-                {/* Description */}
-                <p class="text-xs font-body text-ink/55 dark:text-white/50 line-clamp-3 italic leading-relaxed">
-                  "{letter.data.description || "A heartfelt letter..."}"
+                <p class="text-xs sm:text-sm text-ink/50 dark:text-white/40 italic font-body line-clamp-2">
+                  <span data-content-lang="en">{letter.data.description || ""}</span>
+                  <span data-content-lang="jp" class="hidden">{letter.data.description_jp || letter.data.description || ""}</span>
+                  <span data-content-lang="id" class="hidden">{letter.data.description_id || letter.data.description || ""}</span>
                 </p>
+              </div>
 
-                {/* CTA */}
-                <div class="pt-4">
-                  <span
-                    class="inline-block text-[9px] font-bold text-gold uppercase
-                           tracking-[0.2em] border border-gold/30 px-4 py-1.5
-                           group-hover:bg-gold group-hover:text-white
-                           transition-all duration-300 rounded-sm"
-                    data-i18n="openLetter"
-                    data-jp="手紙を開く"
-                    data-id="Buka Surat"
-                    data-en="Open Letter"
-                  >
-                    手紙を開く
-                  </span>
-                </div>
+              <div class="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-dashed border-ink/10 dark:border-white/10">
+                <p class="text-[9px] sm:text-[10px] text-ink/40 dark:text-white/30 font-body italic">
+                  — {letter.data.sender}
+                </p>
+                <span
+                  class="text-[9px] sm:text-[10px] uppercase tracking-widest text-accent/60 group-hover:text-accent font-bold transition-colors"
+                  data-i18n="openLetter"
+                >
+                  Open Letter →
+                </span>
               </div>
             </div>
 
-            {/* Airmail Border Bottom */}
-            <div class="airmail-border" />
+            <!-- Airmail Border Bottom -->
+            <div class="airmail-border"></div>
           </a>
-        ))
-      }
-    </div>
-  </main>
+        ))}
+      </div>
+    </main>
+  </div>
 </Layout>

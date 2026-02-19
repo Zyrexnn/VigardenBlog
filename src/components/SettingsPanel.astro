@@ -2,19 +2,32 @@
 /**
  * SettingsPanel.astro
  * Language (ID/JP/EN) toggle + accent color picker.
- * Uses is:inline for instant execution + View Transitions compatibility.
+ * Handles full content translation via data-content-lang containers.
  */
 ---
 
-<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 sm:gap-4">
   <!-- Language Toggle -->
   <button
     id="lang-toggle"
-    class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/5 dark:bg-white/5
+    class="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-full bg-ink/5 dark:bg-white/5
            border border-ink/10 dark:border-white/10 hover:border-accent/40
            transition-all group"
     title="Change Language"
   >
+    <svg
+      class="w-3 h-3 text-ink/50 dark:text-white/50"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+      ></path>
+    </svg>
     <span
       class="text-[10px] font-bold text-ink/70 dark:text-white/70
              group-hover:text-ink dark:group-hover:text-white
@@ -27,35 +40,35 @@
 
   <!-- Color Picker -->
   <div
-    class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/5 dark:bg-white/5
+    class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-ink/5 dark:bg-white/5
            border border-ink/10 dark:border-white/10"
   >
     <button
-      class="color-swatch w-4 h-4 rounded-full bg-[#4facfe] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
+      class="color-swatch w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#4facfe] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
       data-accent="#4facfe"
       data-gold="#c5a059"
       title="Violet Blue"></button>
     <button
-      class="color-swatch w-4 h-4 rounded-full bg-[#00563B] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
+      class="color-swatch w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#00563B] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
       data-accent="#00563B"
       data-gold="#C5A059"
       title="Emerald Green"></button>
     <button
-      class="color-swatch w-4 h-4 rounded-full bg-[#f6ad55] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
+      class="color-swatch w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#f6ad55] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
       data-accent="#f6ad55"
       data-gold="#dd6b20"
       title="Sunset Gold"></button>
     <button
-      class="color-swatch w-4 h-4 rounded-full bg-[#f687b3] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
+      class="color-swatch w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#f687b3] hover:scale-125 transition-transform ring-1 ring-transparent hover:ring-offset-1 hover:ring-ink/20 dark:hover:ring-white/20"
       data-accent="#f687b3"
       data-gold="#d53f8c"
       title="Cherry Blossom"></button>
   </div>
 </div>
 
-<script is:inline>
+<script>
   // ── Translation Dictionaries ──────────────────────────────
-  var _t = {
+  const translations: Record<string, Record<string, string>> = {
     home: { en: "Home", jp: "ホーム", id: "Beranda" },
     archive: { en: "Archive", jp: "アーカイブ", id: "Arsip" },
     letters: { en: "Letters", jp: "手紙", id: "Surat" },
@@ -83,14 +96,14 @@
       id: "Selamat datang! Ini adalah blog Sun. Layanan Boneka Memori Otomatis juga tersedia.",
     },
     heroSubtitle: {
-      en: "Auto Memories Doll Service",
-      jp: "Auto Memories Doll Service",
-      id: "Layanan Boneka Memori Otomatis",
+      en: "— Auto Memories Doll Service —",
+      jp: "— Auto Memories Doll Service —",
+      id: "— Layanan Boneka Memori Otomatis —",
     },
     archiveSubtitle: {
-      en: "The Archive of Memories",
-      jp: "The Archive of Memories",
-      id: "Arsip Kenangan",
+      en: "— The Archive of Memories —",
+      jp: "— 思い出のアーカイブ —",
+      id: "— Arsip Kenangan —",
     },
     lettersSubtitle: {
       en: "A collection of heartfelt letters.",
@@ -98,14 +111,14 @@
       id: "Kumpulan surat yang menyentuh hati.",
     },
     authorQuote: {
-      en: "I will run as fast as I can to wherever my customer desires. I am the Auto Memories Doll, Violet Evergarden.",
+      en: '"I will run as fast as I can to wherever my customer desires. I am the Auto Memories Doll, Violet Evergarden."',
       jp: "「お客様がお望みならどこでも駆けつけます。自動手記人形サービス、ヴァイオレット・エヴァーガーデンです。」",
-      id: "Saya akan berlari secepat mungkin ke mana pun pelanggan saya inginkan. Saya adalah Boneka Memori Otomatis, Violet Evergarden.",
+      id: '"Saya akan berlari secepat mungkin ke mana pun pelanggan saya inginkan. Saya adalah Boneka Memori Otomatis, Violet Evergarden."',
     },
     memories: { en: "Memories", jp: "思い出", id: "Kenangan" },
     service: { en: "Service", jp: "サービス", id: "Layanan" },
     readMore: { en: "Read More", jp: "続きを読む", id: "Baca Selengkapnya" },
-    sincerely: { en: "Sincerely", jp: "敬具", id: "Hormat kami" },
+    sincerely: { en: "Sincerely,", jp: "敬具、", id: "Hormat kami," },
     writtenAt: { en: "Written at", jp: "執筆場所", id: "Ditulis di" },
     openLetter: { en: "Open Letter", jp: "手紙を開く", id: "Buka Surat" },
     returnToCollection: {
@@ -115,166 +128,124 @@
     },
   };
 
-  var _bt = {
-    "first-letter": {
-      en: {
-        title: "The First Letter I Ever Wrote",
-        description:
-          "A letter penned under the candlelight of the CH Postal Company, reflecting on what it means to understand the words 'I love you'.",
-      },
-      jp: {
-        title: "私が初めて書いた手紙",
-        description:
-          "CH郵便会社のろうそくの灯りの下で書いた手紙。「愛しています」という言葉の意味を理解することについて。",
-      },
-      id: {
-        title: "Surat Pertama yang Pernah Kutulis",
-        description:
-          "Sebuah surat yang ditulis di bawah cahaya lilin CH Postal Company, merenungkan makna dari kata-kata 'Aku mencintaimu'.",
-      },
-    },
-    "memories-of-war": {
-      en: {
-        title: "Memories of the Great War",
-        description:
-          "Reflections from the battlefield — how the war shaped the Auto Memories Dolls and the letters they carry.",
-      },
-      jp: {
-        title: "大戦の記憶",
-        description:
-          "戦場からの回想 — 戦争が自動手記人形と彼らが運ぶ手紙にどのような影響を与えたか。",
-      },
-      id: {
-        title: "Kenangan Perang Besar",
-        description:
-          "Renungan dari medan perang — bagaimana perang membentuk Boneka Memori Otomatis dan surat-surat yang mereka bawa.",
-      },
-    },
-  };
+  // ── Helpers ───────────────────────────────────────────────
+  const langMap: Record<string, string> = { JP: "jp", ID: "id", EN: "en" };
+  const htmlLangMap: Record<string, string> = { JP: "ja", ID: "id", EN: "en" };
 
-  // ── Lang Map ──────────────────────────────────────────────
-  var _langMap = { JP: "jp", ID: "id", EN: "en" };
-  var _htmlLangMap = { JP: "ja", ID: "id", EN: "en" };
+  // ── Core init ─────────────────────────────────────────────
+  function initSettings(): void {
+    const langToggle = document.getElementById(
+      "lang-toggle",
+    ) as HTMLButtonElement | null;
+    const langLabel = document.getElementById("lang-label");
+    const colorSwatches =
+      document.querySelectorAll<HTMLButtonElement>(".color-swatch");
 
-  function _initSettings() {
-    var langToggle = document.getElementById("lang-toggle");
-    var langLabel = document.getElementById("lang-label");
-    var swatches = document.querySelectorAll(".color-swatch");
+    let currentLang = localStorage.getItem("vigarden-lang") || "JP";
 
-    var currentLang = localStorage.getItem("vigarden-lang") || "JP";
-
-    // ── Update all translatable elements ─────────────────
-    function updateLangUI() {
+    const updateLangUI = (): void => {
       if (langLabel) langLabel.textContent = currentLang;
 
-      var langKey = _langMap[currentLang] || "en";
+      const langKey = langMap[currentLang] || "en";
 
-      // 1. Sync <html lang> for accessibility
+      // 1. Sync <html lang>
       document.documentElement.setAttribute(
         "lang",
-        _htmlLangMap[currentLang] || "en",
+        htmlLangMap[currentLang] || "en",
       );
       document.body.setAttribute("data-lang", currentLang);
 
-      // 2. Sync lang on article / prose containers
-      document.querySelectorAll("article, .prose").forEach(function (el) {
-        el.setAttribute("lang", _htmlLangMap[currentLang] || "en");
+      // 2. Set lang on article / prose
+      document.querySelectorAll("article, .prose").forEach((el) => {
+        el.setAttribute("lang", htmlLangMap[currentLang] || "en");
       });
 
-      // 3. Dict-based translations: [data-i18n]
-      document.querySelectorAll("[data-i18n]").forEach(function (el) {
-        var key = el.getAttribute("data-i18n");
-        if (key && _t[key] && _t[key][langKey]) {
-          el.textContent = _t[key][langKey];
+      // 3. Dictionary translations: [data-i18n]
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (key && translations[key] && translations[key][langKey]) {
+          el.textContent = translations[key][langKey];
         }
       });
 
-      // 4. Blog title/desc translations
-      document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
-        var slug = el.getAttribute("data-i18n-title");
-        if (slug && _bt[slug] && _bt[slug][langKey]) {
-          el.textContent = _bt[slug][langKey].title;
-        }
-      });
-      document.querySelectorAll("[data-i18n-desc]").forEach(function (el) {
-        var slug = el.getAttribute("data-i18n-desc");
-        if (slug && _bt[slug] && _bt[slug][langKey]) {
-          el.textContent = _bt[slug][langKey].description;
-        }
-      });
-
-      // 5. Inline data-xx attributes
+      // 4. Inline data-xx attributes
       document
         .querySelectorAll("[data-id], [data-jp], [data-en]")
-        .forEach(function (el) {
-          var txt;
+        .forEach((el) => {
+          // Skip elements that have data-content-lang (handled separately)
+          if (el.hasAttribute("data-content-lang")) return;
+          let txt: string | null = null;
           if (currentLang === "ID") txt = el.getAttribute("data-id");
           else if (currentLang === "JP") txt = el.getAttribute("data-jp");
           else txt = el.getAttribute("data-en");
           if (txt) el.textContent = txt;
         });
-    }
 
-    // ── Language button ──────────────────────────────────
+      // 5. ★ FULL CONTENT TRANSLATION — show/hide data-content-lang containers
+      document.querySelectorAll("[data-content-lang]").forEach((el) => {
+        const elLang = el.getAttribute("data-content-lang");
+        if (elLang === langKey) {
+          el.classList.remove("hidden");
+        } else {
+          el.classList.add("hidden");
+        }
+      });
+    };
+
+    // ── Language button click handler ────────────────────
     if (langToggle) {
-      var freshLang = langToggle.cloneNode(true);
-      langToggle.parentNode.replaceChild(freshLang, langToggle);
-
-      freshLang.addEventListener("click", function (e) {
+      langToggle.onclick = (e: Event) => {
         e.preventDefault();
         if (currentLang === "JP") currentLang = "ID";
         else if (currentLang === "ID") currentLang = "EN";
         else currentLang = "JP";
         localStorage.setItem("vigarden-lang", currentLang);
         updateLangUI();
-      });
+      };
     }
 
-    // ── Color swatches ───────────────────────────────────
-    function applyColors(accent, gold) {
+    // ── Color swatch handlers ────────────────────────────
+    const applyColors = (accent: string, gold: string): void => {
       if (!accent || !gold) return;
       document.documentElement.style.setProperty("--accent", accent);
       document.documentElement.style.setProperty("--gold", gold);
-      var hexToRgb = function (hex) {
+
+      const hexToRgb = (hex: string): string => {
         if (!hex || hex.length < 7) return "0,0,0";
-        var r = parseInt(hex.slice(1, 3), 16);
-        var g = parseInt(hex.slice(3, 5), 16);
-        var b = parseInt(hex.slice(5, 7), 16);
-        return r + ", " + g + ", " + b;
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `${r}, ${g}, ${b}`;
       };
+
       document.documentElement.style.setProperty(
         "--accent-rgb",
         hexToRgb(accent),
       );
       document.documentElement.style.setProperty("--gold-rgb", hexToRgb(gold));
-    }
+    };
 
-    swatches.forEach(function (swatch) {
-      var freshSwatch = swatch.cloneNode(true);
-      swatch.parentNode.replaceChild(freshSwatch, swatch);
-
-      freshSwatch.addEventListener("click", function (e) {
+    colorSwatches.forEach((swatch) => {
+      swatch.onclick = (e: Event) => {
         e.preventDefault();
-        var accent = freshSwatch.getAttribute("data-accent");
-        var gold = freshSwatch.getAttribute("data-gold");
+        const accent = swatch.getAttribute("data-accent");
+        const gold = swatch.getAttribute("data-gold");
         if (accent && gold) {
           applyColors(accent, gold);
           localStorage.setItem("vigarden-accent", accent);
           localStorage.setItem("vigarden-gold", gold);
         }
-      });
+      };
     });
 
     // Restore saved colors
-    var savedAccent = localStorage.getItem("vigarden-accent");
-    var savedGold = localStorage.getItem("vigarden-gold");
+    const savedAccent = localStorage.getItem("vigarden-accent");
+    const savedGold = localStorage.getItem("vigarden-gold");
     if (savedAccent && savedGold) applyColors(savedAccent, savedGold);
 
-    // Always run on init
+    // Always update on init
     updateLangUI();
   }
 
-  // Run immediately + on every View Transition
-  _initSettings();
-  document.addEventListener("astro:after-swap", _initSettings);
+  document.addEventListener("astro:page-load", initSettings);
 </script>

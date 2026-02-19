@@ -10,6 +10,13 @@ const blog = defineCollection({
     category: z.string().default("Letters"),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Full translation support
+    title_jp: z.string().optional(),
+    title_id: z.string().optional(),
+    description_jp: z.string().optional(),
+    description_id: z.string().optional(),
+    body_jp: z.string().optional(),
+    body_id: z.string().optional(),
   }),
 });
 
@@ -22,6 +29,15 @@ const letters = defineCollection({
     episode: z.string().optional(),
     date: z.string().optional(),
     description: z.string().optional(),
+    // Full translation support
+    title_jp: z.string().optional(),
+    title_id: z.string().optional(),
+    description_jp: z.string().optional(),
+    description_id: z.string().optional(),
+    recipient_jp: z.string().optional(),
+    recipient_id: z.string().optional(),
+    body_jp: z.string().optional(),
+    body_id: z.string().optional(),
   }),
 });
 

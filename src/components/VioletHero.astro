@@ -2,7 +2,7 @@
 /**
  * VioletHero.astro
  * Interactive hero: iris tracks the cursor behind the open eye.
- * Optimized for floating placement in Mizuki-style layout.
+ * Optimized: no animejs, uses CSS transitions and requestAnimationFrame.
  */
 ---
 
@@ -21,6 +21,7 @@
         background: radial-gradient(circle at 40% 40%, #4facfe 0%, #0077cc 55%, #003366 100%);
         box-shadow: 0 0 15px rgba(79,172,254,0.6), inset 0 0 5px rgba(0,0,0,0.4);
         transform: translate(-50%, -50%);
+        transition: transform 0.15s ease-out;
       "
     >
       <div
@@ -42,6 +43,8 @@
     alt="Violet Evergarden"
     class="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none drop-shadow-2xl"
     loading="eager"
+    width="350"
+    height="450"
   />
 
   <!-- Z-20: Eyelid -->
@@ -53,6 +56,7 @@
         top: 32%; left: 60%;
         border-radius: 50%;
         transform: scaleY(0);
+        transition: transform 0.1s ease-in-out;
       "
     >
     </div>
@@ -60,8 +64,6 @@
 </div>
 
 <script>
-  import { animate } from "animejs";
-
   function initHero(): void {
     const hero = document.getElementById("violet-hero");
     if (!hero) return;
@@ -70,6 +72,7 @@
     const eyelid = hero.querySelector(".eyelid-main") as HTMLElement | null;
     const canHover = window.matchMedia("(hover: hover)").matches;
 
+    // Eye tracking — CSS transition handles smoothing
     if (iris && canHover) {
       window.addEventListener("mousemove", (e: MouseEvent) => {
         const rect = hero.getBoundingClientRect();
@@ -79,24 +82,18 @@
         const dy = e.clientY - eyeY;
         const angle = Math.atan2(dy, dx);
         const dist = Math.min(6, Math.hypot(dx, dy) / 40);
-
-        animate(iris, {
-          translateX: Math.cos(angle) * dist,
-          translateY: Math.sin(angle) * dist,
-          duration: 200,
-          ease: "outQuad",
-        });
+        iris.style.transform = `translate(-50%, -50%) translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
       });
     }
 
+    // Blink — CSS transitions, no animejs
     function blink(): void {
       if (!eyelid) return;
-      animate(eyelid, {
-        scaleY: [0, 1, 0],
-        duration: 200,
-        ease: "inOutQuad",
-        onComplete: () => setTimeout(blink, 3000 + Math.random() * 5000),
-      });
+      eyelid.style.transform = "scaleY(1)";
+      setTimeout(() => {
+        eyelid.style.transform = "scaleY(0)";
+        setTimeout(blink, 3000 + Math.random() * 5000);
+      }, 150);
     }
 
     setTimeout(blink, 2000);

@@ -21,10 +21,10 @@ const { Content } = await render(post);
 >
   <ThemeController slot="header-right" />
 
-<!-- Single Post Banner (Tidied) -->
-  <article>
+  <div class="bg-paper dark:bg-[#0D1117] relative">
+    <!-- Hero Banner -->
     <section
-      class="relative h-[50vh] min-h-[400px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-paper dark:bg-[#0D1117]"
+      class="relative h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] w-full flex flex-col items-center justify-center text-center overflow-hidden"
     >
       <div class="absolute inset-0 z-0">
         <img
@@ -33,32 +33,42 @@ const { Content } = await render(post);
           class="w-full h-full object-cover opacity-10 dark:opacity-30 blur-sm scale-105"
         />
         <div
-          class="absolute inset-0 bg-gradient-to-t from-ink/10 via-transparent to-ink/20 dark:from-black dark:via-black/20 dark:to-black/40"
+          class="absolute inset-0 bg-gradient-to-t from-paper/80 via-transparent to-ink/10
+                 dark:from-[#0D1117] dark:via-[#0D1117]/20 dark:to-black/40"
         >
         </div>
       </div>
 
       <div
-        class="z-10 max-w-4xl px-8 space-y-6 pt-16"
+        class="relative z-10 max-w-4xl px-4 sm:px-8 space-y-4 sm:space-y-6 pt-16"
         transition:animate="fade"
       >
         <div
-          class="flex items-center justify-center gap-4 text-[10px] font-body text-gold tracking-[0.4em] uppercase font-bold"
+          class="flex items-center justify-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-body text-gold tracking-[0.3em] sm:tracking-[0.4em] uppercase font-bold"
         >
           <span>{post.data.pubDate.toLocaleDateString()}</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-accent/40"></span>
+          <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-accent/40"
+          ></span>
           <span>{post.data.category}</span>
         </div>
         <h1
-          class="text-4xl md:text-6xl font-heading text-ink dark:text-white drop-shadow-xl tracking-tighter leading-tight"
-          data-i18n-title={post.id}
+          class="text-3xl sm:text-4xl md:text-6xl font-heading text-ink dark:text-white drop-shadow-xl tracking-tighter leading-tight"
+          data-content-title={post.id}
         >
-          {post.data.title}
+          <span data-content-lang="en">{post.data.title}</span>
+          <span data-content-lang="jp" class="hidden"
+            >{post.data.title_jp || post.data.title}</span
+          >
+          <span data-content-lang="id" class="hidden"
+            >{post.data.title_id || post.data.title}</span
+          >
         </h1>
-        <div class="flex justify-center flex-wrap gap-2 pt-4">
+        <div
+          class="flex justify-center flex-wrap gap-1.5 sm:gap-2 pt-2 sm:pt-4"
+        >
           {
-            post.data.tags.map((tag) => (
-              <span class="text-[9px] px-4 py-1.5 rounded-full border border-ink/10 dark:border-white/10 bg-ink/5 dark:bg-white/5 text-ink/60 dark:text-white/60 uppercase tracking-widest">
+            post.data.tags.map((tag: string) => (
+              <span class="text-[8px] sm:text-[9px] px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full border border-ink/10 dark:border-white/10 bg-ink/5 dark:bg-white/5 text-ink/60 dark:text-white/60 uppercase tracking-widest">
                 #{tag}
               </span>
             ))
@@ -66,40 +76,44 @@ const { Content } = await render(post);
         </div>
       </div>
 
-      <!-- Wavy Divider (Flush & No Artifacts) -->
       <div
-        class="absolute bottom-[-2px] left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none"
+        class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none"
       >
         <svg
-          class="block w-full h-12 md:h-20"
+          class="block w-full h-10 sm:h-12 md:h-20"
           viewBox="0 24 150 28"
           preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
+          <defs>
+            <path
+              id="wave-post"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            ></path>
+          </defs>
           <use
-            href="#gentle-wave"
+            href="#wave-post"
             x="48"
             y="7"
             fill="currentColor"
-            class="text-paper dark:text-[#0D1117] transition-colors duration-500"
-          ></use>
+            class="text-paper dark:text-[#0D1117]"></use>
         </svg>
       </div>
     </section>
 
     <main
-      class="max-w-[1600px] mx-auto px-6 sm:px-8 lg:px-12 py-24 relative z-30"
+      class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 relative"
     >
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-        <!-- Left Sidebar: Author & Info -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-20">
+        <!-- Left Sidebar -->
         <aside
-          class="lg:col-span-4 space-y-12 order-2 lg:order-1 lg:sticky lg:top-32"
+          class="lg:col-span-4 space-y-8 sm:space-y-12 order-2 lg:order-1 lg:sticky lg:top-32"
         >
-          <!-- Post Meta Info Card (Refined) -->
           <section
-            class="bg-white/80 dark:bg-[#161213]/80 border border-ink/10 dark:border-white/5 rounded-[3rem] p-10 backdrop-blur-xl shadow-2xl flex flex-col items-center text-center"
+            class="bg-white/90 dark:bg-[#161213]/80 border border-ink/10 dark:border-white/5 rounded-2xl sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl flex flex-col items-center text-center"
           >
             <div
-              class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-ink/10 dark:border-white/10 p-1 mb-6 bg-ink/5 dark:bg-white/5 shadow-inner"
+              class="w-16 h-16 sm:w-24 sm:h-24 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-ink/10 dark:border-white/10 p-1 mb-4 sm:mb-6 bg-ink/5 dark:bg-white/5 shadow-inner"
             >
               <img
                 src="/images/charviolet-removebg-preview.png"
@@ -107,26 +121,25 @@ const { Content } = await render(post);
                 class="w-full h-full object-contain"
               />
             </div>
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
               <p
-                class="text-[9px] font-body text-gold uppercase tracking-[0.4em] font-bold opacity-80 dark:opacity-60"
+                class="text-[8px] sm:text-[9px] font-body text-gold uppercase tracking-[0.3em] sm:tracking-[0.4em] font-bold opacity-80 dark:opacity-60"
                 data-i18n="autoMemoriesDoll"
-                data-jp="自動手記人形"
-                data-id="Boneka Memori Otomatis"
-                data-en="Auto Memories Doll"
               >
                 Auto Memories Doll
               </p>
-              <h2 class="font-heading text-3xl text-ink dark:text-white leading-tight">
+              <h2
+                class="font-heading text-2xl sm:text-3xl text-ink dark:text-white leading-tight"
+              >
                 Violet Evergarden
               </h2>
-              <div class="w-12 h-[1px] bg-gold/30 dark:bg-gold/20 mx-auto"></div>
+              <div
+                class="w-10 sm:w-12 h-[1px] bg-gold/30 dark:bg-gold/20 mx-auto"
+              >
+              </div>
               <p
-                class="text-xs font-sans text-ink/60 dark:text-white/40 leading-relaxed italic"
+                class="text-[10px] sm:text-xs font-sans text-ink/60 dark:text-white/40 leading-relaxed italic"
                 data-i18n="authorQuote"
-                data-jp="「お客様がお望みならどこでも駆けつけます。自動手記人形サービス、ヴァイオレット・エヴァーガーデンです。」"
-                data-id="Saya akan berlari secepat mungkin ke mana pun pelanggan saya inginkan. Saya adalah Boneka Memori Otomatis, Violet Evergarden."
-                data-en="I will run as fast as I can to wherever my customer desires. I am the Auto Memories Doll, Violet Evergarden."
               >
                 "I will run as fast as I can to wherever my customer desires. I
                 am the Auto Memories Doll, Violet Evergarden."
@@ -134,43 +147,68 @@ const { Content } = await render(post);
             </div>
           </section>
 
-          <!-- Navigation Action -->
           <a
             href="/blog/"
-            class="flex items-center justify-center gap-4 py-4 rounded-2xl border border-ink/10 dark:border-white/5 bg-ink/5 dark:bg-white/5 text-[10px] font-body tracking-[0.4em] uppercase text-gold hover:text-ink dark:hover:text-white hover:bg-gold/10 transition-all duration-300 group"
+            class="flex items-center justify-center gap-3 sm:gap-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-ink/10 dark:border-white/5 bg-ink/5 dark:bg-white/5 text-[9px] sm:text-[10px] font-body tracking-[0.3em] sm:tracking-[0.4em] uppercase text-gold hover:text-ink dark:hover:text-white hover:bg-gold/10 transition-all duration-300 group"
           >
             <span
               class="transform group-hover:-translate-x-2 transition-transform"
               >⟵</span
             >
-            <span data-i18n="back" data-jp="戻る" data-id="Kembali" data-en="Back">戻る</span>
+            <span data-i18n="back">Back</span>
           </a>
         </aside>
 
-        <!-- Right Column: Content -->
+        <!-- Right Column: Article Content -->
         <article class="lg:col-span-8 order-1 lg:order-2">
+          <!-- EN Content (Markdown) -->
           <div
             class="prose dark:prose-invert prose-gold max-w-none
-                    prose-h2:font-heading prose-h2:text-4xl prose-h2:tracking-tight prose-h2:mb-8 prose-h2:mt-16
-                    prose-p:text-[1.15rem] prose-p:leading-[2] prose-p:text-ink/90 dark:prose-p:text-white/70 prose-p:mb-8
-                    prose-blockquote:border-gold/30 prose-blockquote:bg-white/5 prose-blockquote:py-6 prose-blockquote:px-10 prose-blockquote:rounded-[2rem] prose-blockquote:italic prose-blockquote:my-12
-                    prose-img:rounded-[2.5rem] prose-img:shadow-2xl prose-img:my-16
+                    prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl prose-h2:tracking-tight prose-h2:mb-6 sm:prose-h2:mb-8 prose-h2:mt-10 sm:prose-h2:mt-16
+                    prose-p:text-base sm:prose-p:text-[1.15rem] prose-p:leading-[1.8] sm:prose-p:leading-[2] prose-p:text-ink/90 dark:prose-p:text-white/70 prose-p:mb-6 sm:prose-p:mb-8
+                    prose-blockquote:border-gold/30 prose-blockquote:bg-white/5 prose-blockquote:py-4 sm:prose-blockquote:py-6 prose-blockquote:px-6 sm:prose-blockquote:px-10 prose-blockquote:rounded-xl sm:prose-blockquote:rounded-[2rem] prose-blockquote:italic prose-blockquote:my-8 sm:prose-blockquote:my-12
+                    prose-img:rounded-xl sm:prose-img:rounded-[2.5rem] prose-img:shadow-2xl prose-img:my-10 sm:prose-img:my-16
+                    prose-li:text-ink/80 dark:prose-li:text-white/60
                     transition-all duration-700"
             transition:animate="slide"
+            data-content-lang="en"
           >
             <Content />
           </div>
+
+          <!-- JP Content -->
+          {
+            post.data.body_jp && (
+              <div
+                class="prose dark:prose-invert prose-gold max-w-none
+                      prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl
+                      prose-p:text-base sm:prose-p:text-[1.15rem] prose-p:leading-[1.8] sm:prose-p:leading-[2]
+                      prose-p:text-ink/90 dark:prose-p:text-white/70
+                      hidden whitespace-pre-line"
+                data-content-lang="jp"
+              >
+                {post.data.body_jp}
+              </div>
+            )
+          }
+
+          <!-- ID Content -->
+          {
+            post.data.body_id && (
+              <div
+                class="prose dark:prose-invert prose-gold max-w-none
+                      prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl
+                      prose-p:text-base sm:prose-p:text-[1.15rem] prose-p:leading-[1.8] sm:prose-p:leading-[2]
+                      prose-p:text-ink/90 dark:prose-p:text-white/70
+                      hidden whitespace-pre-line"
+                data-content-lang="id"
+              >
+                {post.data.body_id}
+              </div>
+            )
+          }
         </article>
       </div>
     </main>
-
-    <!-- Global SVG Assets -->
-    <svg class="hidden">
-      <symbol id="gentle-wave" viewBox="0 24 150 28">
-        <path
-          d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-        ></path>
-      </symbol>
-    </svg>
-  </article>
+  </div>
 </Layout>
