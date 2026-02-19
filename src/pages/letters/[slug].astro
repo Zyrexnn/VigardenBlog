@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const letters = await getCollection("letters");
+  return letters.map((letter) => ({
+    params: { slug: letter.id },
+    props: { letter },
+  }));
+}
+
+const { letter } = Astro.props;
+const { Content } = await render(letter);
+---
+
+<Layout
+  title={`${letter.data.title} | Vigarden`}
+  description={letter.data.description}
+>
+  <main
+    class="min-h-screen flex items-center justify-center py-32 px-4 relative z-10"
+  >
+    <!-- Wax Seal (Decorative) -->
+    <div class="absolute top-24 left-1/2 -translate-x-1/2 z-20">
+      <div
+        class="w-16 h-16 rounded-full bg-red-800 shadow-xl border-4 border-red-900/50 flex items-center justify-center text-red-950 font-heading font-bold text-xl opacity-80"
+      >
+        CH
+      </div>
+    </div>
+
+    <article
+      class="max-w-2xl w-full bg-[#F5F5DC] dark:bg-[#161B22] text-ink dark:text-[#c9d1d9] p-8 md:p-16 shadow-2xl relative rotate-0 md:rotate-1 transition-transform duration-500"
+      transition:name={`letter-${letter.id}`}
+    >
+      <!-- Paper Texture -->
+      <div
+        class="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')]"
+      >
+      </div>
+
+      <!-- Letter Header -->
+      <div
+        class="text-right mb-12 font-body text-sm text-ink/50 dark:text-white/40 italic"
+      >
+        {letter.data.date || "Unknown Date"}
+        <br />
+        Location: Unknown
+      </div>
+
+      <div class="mb-12 space-y-2">
+        <p class="font-heading text-lg text-ink dark:text-white">
+          Dearest {letter.data.recipient},
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div
+        class="prose prose-p:font-body prose-p:text-lg prose-p:leading-loose prose-headings:font-heading prose-a:text-accent dark:prose-invert"
+      >
+        <Content />
+      </div>
+
+      <!-- Footer / Signature -->
+      <div class="mt-20 text-right space-y-4">
+        <p class="font-body text-sm italic text-ink/60 dark:text-white/50">
+          Sincerely,
+        </p>
+        <div
+          class="font-heading text-2xl text-accent dark:text-gold signatures"
+        >
+          {letter.data.sender}
+        </div>
+        <p
+          class="text-[10px] uppercase tracking-widest text-ink/30 dark:text-white/30"
+        >
+          Auto Memories Doll Service
+        </p>
+      </div>
+
+      <!-- Back Button -->
+      <div class="mt-16 text-center">
+        <a
+          href="/letters/"
+          class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gold hover:text-accent transition-colors"
+        >
+          ← Return to Collection
+        </a>
+      </div>
+    </article>
+  </main>
+</Layout>

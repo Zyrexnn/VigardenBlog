@@ -2,7 +2,7 @@
 /**
  * ThemeController.astro
  * Persistent dark/light toggle button.
- * The background GIF logic is now moved to Layout.astro for better layering.
+ * Uses astro:page-load for View Transitions compatibility.
  */
 ---
 
@@ -12,12 +12,11 @@
   type="button"
   aria-label="Toggle dark mode"
   class="w-10 h-10 rounded-full flex items-center justify-center
-         text-ink dark:text-white hover:bg-ink/10 dark:hover:bg-white/10 transition-all duration-300 group"
-  transition:persist
+         text-ink dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 group relative overflow-hidden"
 >
-  <!-- Sun Icon -->
+  <!-- Sun Icon (Visible in Dark Mode) -->
   <svg
-    class="w-5 h-5 text-gold hidden dark:block transition-transform duration-500 group-hover:rotate-90"
+    class="w-5 h-5 text-gold absolute transition-all duration-500 scale-0 rotate-90 dark:scale-100 dark:rotate-0"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -28,9 +27,10 @@
       d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
     ></path>
   </svg>
-  <!-- Moon Icon -->
+
+  <!-- Moon Icon (Visible in Light Mode) -->
   <svg
-    class="w-5 h-5 text-primary block dark:hidden transition-transform duration-500 group-hover:-rotate-12"
+    class="w-5 h-5 text-post-blue absolute transition-all duration-500 scale-100 rotate-0 dark:scale-0 dark:-rotate-90"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -40,27 +40,38 @@
   </svg>
 </button>
 
-<script is:inline>
-  (function () {
-    function initThemeToggle() {
-      const btn = document.getElementById("theme-toggle");
+<script>
+  function setupThemeToggle() {
+    const btn = document.getElementById("theme-toggle");
 
-      function isDark() {
-        return document.documentElement.classList.contains("dark");
-      }
+    // Check current state
+    const isDark = document.documentElement.classList.contains("dark");
 
-      function toggle() {
+    // Update button visual state if needed (though CSS handles most of it via dark: classes)
+
+    if (btn) {
+      // Clone button to remove old event listeners if any (essential for View Transitions)
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode?.replaceChild(newBtn, btn);
+
+      newBtn.addEventListener("click", () => {
+        // Toggle Class
         document.documentElement.classList.toggle("dark");
-        const theme = isDark() ? "dark" : "light";
-        localStorage.setItem("theme", theme);
-      }
 
-      if (btn) {
-        btn.onclick = toggle;
-      }
+        // Save Preference
+        const isNowDark = document.documentElement.classList.contains("dark");
+        localStorage.setItem("theme", isNowDark ? "dark" : "light");
+
+        // Dispatch event for other components to react (like the GIF background)
+        window.dispatchEvent(
+          new CustomEvent("theme-changed", {
+            detail: { theme: isNowDark ? "dark" : "light" },
+          }),
+        );
+      });
     }
+  }
 
-    initThemeToggle();
-    document.addEventListener("astro:after-swap", initThemeToggle);
-  })();
+  // Run on initial load and after every View Transition swap
+  document.addEventListener("astro:page-load", setupThemeToggle);
 </script>

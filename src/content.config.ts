@@ -13,4 +13,16 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const letters = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/letters" }),
+  schema: z.object({
+    title: z.string(),
+    recipient: z.string(),
+    sender: z.string().default("Violet Evergarden"),
+    episode: z.string().optional(),
+    date: z.string().optional(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, letters };

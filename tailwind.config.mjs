@@ -5,19 +5,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#24293E",
-        accent: "#4facfe", // Emerald Eye Blue
-        gold: "#C5A059",
-        paper: "#F7F5E6",
-        ink: "#2D2D2D",
-        "dark-bg": "#0D1117", // Deeper dark for Mizuki style
-        "dark-card": "#161B22", // Card background in dark mode
-        "dark-border": "#30363D",
+        primary: "#1A202C", // Dark Slate (Legacy/Fallback)
+        accent: "#00563B", // Emerald Green (Violet's Brooch)
+        gold: "#C5A059", // Deep Gold (Harp/Metalwork)
+        paper: "#F5F5DC", // Beige/Parchment (Letters)
+        ink: "#2D2D2D", // Typewriter Ink
+        "dark-bg": "#0B0E14", // Deep Navy (Night Sky)
+        "dark-card": "#151922", // Card background
+        "dark-border": "#2A303C",
+        "post-blue": "#2C3E50", // CH Postal Uniform Blue
+        "violet-eye": "#4facfe", // Bright Blue (Eyes)
       },
       fontFamily: {
         heading: ["'Playfair Display'", "serif"],
-        body: ["'Courier Prime'", "monospace"],
+        body: ["'Lora'", "'Courier Prime'", "serif"],
         sans: ["'Inter'", "system-ui", "sans-serif"],
+      },
+      backgroundImage: {
+        'envelope-pattern': "repeating-linear-gradient(45deg, #C5A059 0, #C5A059 10px, transparent 10px, transparent 20px)",
       },
       backdropBlur: {
         xs: '2px',
