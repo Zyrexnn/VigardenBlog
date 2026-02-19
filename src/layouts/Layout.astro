@@ -2,6 +2,7 @@
 import { ViewTransitions } from "astro:transitions";
 import VioletWidget from "../components/VioletWidget.astro";
 import SettingsPanel from "../components/SettingsPanel.astro";
+import SearchModal from "../components/SearchModal.astro";
 
 interface Props {
   title: string;
@@ -19,6 +20,11 @@ const canonicalURL = new URL(
   Astro.url.pathname,
   Astro.site ?? "https://vigarden.blog",
 );
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === "/";
+const isBlog = pathname.startsWith("/blog");
+const isLetters = pathname.startsWith("/letters");
 ---
 
 <!doctype html>
@@ -174,23 +180,42 @@ const canonicalURL = new URL(
           <div class="hidden lg:flex items-center gap-8">
             <a
               href="/"
-              class="text-[10px] font-bold text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold uppercase tracking-[0.2em] transition-all duration-300"
-              data-i18n="home">Home</a
+              class:list={[
+                "text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative pb-1",
+                isHome
+                  ? "text-accent dark:text-gold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-accent dark:after:bg-gold"
+                  : "text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold",
+              ]}
+              data-i18n="home"
+              data-nav-path="/">Beranda</a
             >
             <a
               href="/blog/"
-              class="text-[10px] font-bold text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold uppercase tracking-[0.2em] transition-all duration-300"
-              data-i18n="archive">Archive</a
+              class:list={[
+                "text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative pb-1",
+                isBlog
+                  ? "text-accent dark:text-gold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-accent dark:after:bg-gold"
+                  : "text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold",
+              ]}
+              data-i18n="archive"
+              data-nav-path="/blog">Arsip</a
             >
             <a
               href="/letters/"
-              class="text-[10px] font-bold text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold uppercase tracking-[0.2em] transition-all duration-300"
-              data-i18n="letters">Letters</a
+              class:list={[
+                "text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative pb-1",
+                isLetters
+                  ? "text-accent dark:text-gold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-accent dark:after:bg-gold"
+                  : "text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold",
+              ]}
+              data-i18n="letters"
+              data-nav-path="/letters">Surat</a
             >
           </div>
         </div>
 
-        <div class="flex items-center gap-1.5 sm:gap-6">
+        <div class="flex items-center gap-1.5 sm:gap-4">
+          <SearchModal />
           <SettingsPanel />
           <div class="h-6 w-[1px] bg-ink/10 dark:bg-white/10 hidden sm:block">
           </div>
@@ -244,18 +269,36 @@ const canonicalURL = new URL(
 
       <a
         href="/"
-        class="mobile-nav-link text-2xl font-heading text-ink dark:text-white hover:text-accent transition-colors"
-        data-i18n="home">Home</a
+        class:list={[
+          "mobile-nav-link text-2xl font-heading transition-colors",
+          isHome
+            ? "text-accent dark:text-gold"
+            : "text-ink dark:text-white hover:text-accent",
+        ]}
+        data-i18n="home"
+        data-nav-path="/">Beranda</a
       >
       <a
         href="/blog/"
-        class="mobile-nav-link text-2xl font-heading text-ink dark:text-white hover:text-accent transition-colors"
-        data-i18n="archive">Archive</a
+        class:list={[
+          "mobile-nav-link text-2xl font-heading transition-colors",
+          isBlog
+            ? "text-accent dark:text-gold"
+            : "text-ink dark:text-white hover:text-accent",
+        ]}
+        data-i18n="archive"
+        data-nav-path="/blog">Arsip</a
       >
       <a
         href="/letters/"
-        class="mobile-nav-link text-2xl font-heading text-ink dark:text-white hover:text-accent transition-colors"
-        data-i18n="letters">Letters</a
+        class:list={[
+          "mobile-nav-link text-2xl font-heading transition-colors",
+          isLetters
+            ? "text-accent dark:text-gold"
+            : "text-ink dark:text-white hover:text-accent",
+        ]}
+        data-i18n="letters"
+        data-nav-path="/letters">Surat</a
       >
 
       <div class="w-16 h-[1px] bg-gold/30 dark:bg-gold/20"></div>

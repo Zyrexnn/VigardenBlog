@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import ThemeController from "../../components/ThemeController.astro";
 import { getCollection, render } from "astro:content";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
   const letters = await getCollection("letters");
@@ -13,6 +14,14 @@ export async function getStaticPaths() {
 
 const { letter } = Astro.props;
 const { Content } = await render(letter);
+
+// Parse JP and ID markdown content from frontmatter
+const bodyJpHtml = letter.data.body_jp
+  ? await marked.parse(letter.data.body_jp)
+  : "";
+const bodyIdHtml = letter.data.body_id
+  ? await marked.parse(letter.data.body_id)
+  : "";
 ---
 
 <Layout
@@ -49,13 +58,15 @@ const { Content } = await render(letter);
         <div
           class="absolute inset-0 pointer-events-none opacity-[0.04]"
           style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E&quot;)"
-        ></div>
+        >
+        </div>
 
         <!-- Ruled Lines -->
         <div
           class="absolute inset-x-4 sm:inset-x-16 inset-y-0 pointer-events-none opacity-[0.06] dark:opacity-[0.03]"
           style="background-image: repeating-linear-gradient(transparent, transparent 31px, #8B7355 31px, #8B7355 32px); background-size: 100% 32px"
-        ></div>
+        >
+        </div>
 
         <!-- Date / Location -->
         <div
@@ -75,8 +86,20 @@ const { Content } = await render(letter);
         <div class="relative z-10 mb-6 sm:mb-10">
           <p class="font-heading text-lg sm:text-xl text-ink dark:text-white">
             <span data-content-lang="en">Dearest {letter.data.recipient},</span>
-            <span data-content-lang="jp" class="hidden">{letter.data.recipient_jp ? `${letter.data.recipient_jp}へ、` : `Dearest ${letter.data.recipient},`}</span>
-            <span data-content-lang="id" class="hidden">{letter.data.recipient_id ? `Kepada ${letter.data.recipient_id} tersayang,` : `Dearest ${letter.data.recipient},`}</span>
+            <span data-content-lang="jp" class="hidden"
+              >{
+                letter.data.recipient_jp
+                  ? `${letter.data.recipient_jp}へ、`
+                  : `Dearest ${letter.data.recipient},`
+              }</span
+            >
+            <span data-content-lang="id" class="hidden"
+              >{
+                letter.data.recipient_id
+                  ? `Kepada ${letter.data.recipient_id} tersayang,`
+                  : `Dearest ${letter.data.recipient},`
+              }</span
+            >
           </p>
         </div>
 
@@ -94,30 +117,44 @@ const { Content } = await render(letter);
         </div>
 
         <!-- Content — JP -->
-        {letter.data.body_jp && (
-          <div
-            class="relative z-10 prose prose-sm sm:prose-lg max-w-none
+        {
+          letter.data.body_jp && (
+            <div
+              class="relative z-10 prose prose-sm sm:prose-lg max-w-none
                     prose-p:font-body prose-p:text-ink/85 dark:prose-p:text-white/70
                     prose-p:leading-[1.8] sm:prose-p:leading-[2] prose-p:mb-4 sm:prose-p:mb-6
-                    dark:prose-invert hidden whitespace-pre-line"
-            data-content-lang="jp"
-          >
-            {letter.data.body_jp}
-          </div>
-        )}
+                    prose-headings:font-heading
+                    prose-a:text-accent
+                    prose-blockquote:border-l-4 prose-blockquote:border-gold/40 prose-blockquote:bg-ink/[0.03] dark:prose-blockquote:bg-white/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-6
+                    prose-strong:font-semibold prose-strong:text-ink dark:prose-strong:text-white/90
+                    prose-li:text-ink/80 dark:prose-li:text-white/65 prose-li:leading-[1.8]
+                    prose-hr:border-ink/10 dark:prose-hr:border-white/10 prose-hr:my-6
+                    dark:prose-invert hidden"
+              data-content-lang="jp"
+              set:html={bodyJpHtml}
+            />
+          )
+        }
 
         <!-- Content — ID -->
-        {letter.data.body_id && (
-          <div
-            class="relative z-10 prose prose-sm sm:prose-lg max-w-none
+        {
+          letter.data.body_id && (
+            <div
+              class="relative z-10 prose prose-sm sm:prose-lg max-w-none
                     prose-p:font-body prose-p:text-ink/85 dark:prose-p:text-white/70
                     prose-p:leading-[1.8] sm:prose-p:leading-[2] prose-p:mb-4 sm:prose-p:mb-6
-                    dark:prose-invert hidden whitespace-pre-line"
-            data-content-lang="id"
-          >
-            {letter.data.body_id}
-          </div>
-        )}
+                    prose-headings:font-heading
+                    prose-a:text-accent
+                    prose-blockquote:border-l-4 prose-blockquote:border-gold/40 prose-blockquote:bg-ink/[0.03] dark:prose-blockquote:bg-white/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-6
+                    prose-strong:font-semibold prose-strong:text-ink dark:prose-strong:text-white/90
+                    prose-li:text-ink/80 dark:prose-li:text-white/65 prose-li:leading-[1.8]
+                    prose-hr:border-ink/10 dark:prose-hr:border-white/10 prose-hr:my-6
+                    dark:prose-invert hidden"
+              data-content-lang="id"
+              set:html={bodyIdHtml}
+            />
+          )
+        }
 
         <!-- Signature -->
         <div class="relative z-10 mt-12 sm:mt-20 text-right space-y-3">
@@ -130,7 +167,9 @@ const { Content } = await render(letter);
           >
             敬具,
           </p>
-          <div class="font-heading text-2xl sm:text-3xl text-accent dark:text-gold italic">
+          <div
+            class="font-heading text-2xl sm:text-3xl text-accent dark:text-gold italic"
+          >
             {letter.data.sender}
           </div>
           <p

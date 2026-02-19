@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import ThemeController from "../../components/ThemeController.astro";
 import { getCollection, render } from "astro:content";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -13,6 +14,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Parse JP and ID markdown content from frontmatter
+const bodyJpHtml = post.data.body_jp
+  ? await marked.parse(post.data.body_jp)
+  : "";
+const bodyIdHtml = post.data.body_id
+  ? await marked.parse(post.data.body_id)
+  : "";
 ---
 
 <Layout
@@ -159,67 +168,75 @@ const { Content } = await render(post);
           </a>
         </aside>
 
-        <div
-          class="bg-white/90 dark:bg-[#161213]/80 border border-ink/10 dark:border-white/5 rounded-2xl sm:rounded-[3rem] p-8 sm:p-12 md:p-16 shadow-2xl relative overflow-hidden"
-        >
-          <!-- Paper Texture Overlay (optional, subtle) -->
+        <!-- Right Column: Article Content -->
+        <article class="lg:col-span-8 order-1 lg:order-2 w-full min-w-0">
           <div
-            class="absolute inset-0 opacity-[0.03] dark:opacity-[0.02] pointer-events-none"
-            style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E&quot;);"
+            class="bg-white/90 dark:bg-[#161213]/80 border border-ink/10 dark:border-white/5 rounded-2xl sm:rounded-[3rem] p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden"
           >
-          </div>
-
-          <!-- EN Content (Markdown) -->
-          <div
-            class="prose dark:prose-invert prose-gold max-w-none
-                      prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl prose-h2:tracking-tight prose-h2:mb-6 sm:prose-h2:mb-8 prose-h2:mt-10 sm:prose-h2:mt-16
-                      prose-h3:font-heading prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-8 sm:prose-h3:mt-12 prose-h3:mb-4
-                      prose-p:text-base sm:prose-p:text-lg prose-p:leading-loose prose-p:text-ink/90 dark:prose-p:text-white/80 prose-p:mb-6
-                      prose-blockquote:border-l-4 prose-blockquote:border-gold/50 prose-blockquote:bg-ink/5 dark:prose-blockquote:bg-white/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-8
+            <!-- EN Content (Markdown) -->
+            <div
+              class="prose prose-lg dark:prose-invert prose-gold max-w-none
+                      prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:tracking-tight prose-h2:mb-5 sm:prose-h2:mb-7 prose-h2:mt-8 sm:prose-h2:mt-14
+                      prose-h3:font-heading prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-10 prose-h3:mb-3
+                      prose-p:text-[0.95rem] sm:prose-p:text-[1.05rem] prose-p:leading-[1.9] prose-p:text-ink/85 dark:prose-p:text-white/75 prose-p:mb-5
+                      prose-blockquote:border-l-4 prose-blockquote:border-gold/40 prose-blockquote:bg-ink/[0.03] dark:prose-blockquote:bg-white/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-6 prose-blockquote:not-italic prose-blockquote:text-ink/70 dark:prose-blockquote:text-white/60
                       prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
-                      prose-li:text-ink/80 dark:prose-li:text-white/70
-                      prose-strong:font-bold prose-strong:text-gold dark:prose-strong:text-gold/90
-                      transition-all duration-700 relative z-10"
-            transition:animate="slide"
-            data-content-lang="en"
-          >
-            <Content />
+                      prose-li:text-ink/80 dark:prose-li:text-white/65 prose-li:leading-[1.8]
+                      prose-strong:font-semibold prose-strong:text-ink dark:prose-strong:text-white/90
+                      prose-ol:pl-4 prose-ul:pl-4
+                      prose-hr:border-ink/10 dark:prose-hr:border-white/10 prose-hr:my-8
+                      relative z-10"
+              transition:animate="slide"
+              data-content-lang="en"
+            >
+              <Content />
+            </div>
+
+            <!-- JP Content -->
+            {
+              post.data.body_jp && (
+                <div
+                  class="prose prose-lg dark:prose-invert prose-gold max-w-none
+                          prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:tracking-tight prose-h2:mb-5 sm:prose-h2:mb-7 prose-h2:mt-8 sm:prose-h2:mt-14
+                          prose-h3:font-heading prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-10 prose-h3:mb-3
+                          prose-p:text-[0.95rem] sm:prose-p:text-[1.05rem] prose-p:leading-[1.9] prose-p:text-ink/85 dark:prose-p:text-white/75 prose-p:mb-5
+                          prose-blockquote:border-l-4 prose-blockquote:border-gold/40 prose-blockquote:bg-ink/[0.03] dark:prose-blockquote:bg-white/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-6 prose-blockquote:text-ink/70 dark:prose-blockquote:text-white/60
+                          prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
+                          prose-li:text-ink/80 dark:prose-li:text-white/65 prose-li:leading-[1.8]
+                          prose-strong:font-semibold prose-strong:text-ink dark:prose-strong:text-white/90
+                          prose-ol:pl-4 prose-ul:pl-4
+                          prose-hr:border-ink/10 dark:prose-hr:border-white/10 prose-hr:my-8
+                          relative z-10
+                          hidden"
+                  data-content-lang="jp"
+                  set:html={bodyJpHtml}
+                />
+              )
+            }
+
+            <!-- ID Content -->
+            {
+              post.data.body_id && (
+                <div
+                  class="prose prose-lg dark:prose-invert prose-gold max-w-none
+                          prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:tracking-tight prose-h2:mb-5 sm:prose-h2:mb-7 prose-h2:mt-8 sm:prose-h2:mt-14
+                          prose-h3:font-heading prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-10 prose-h3:mb-3
+                          prose-p:text-[0.95rem] sm:prose-p:text-[1.05rem] prose-p:leading-[1.9] prose-p:text-ink/85 dark:prose-p:text-white/75 prose-p:mb-5
+                          prose-blockquote:border-l-4 prose-blockquote:border-gold/40 prose-blockquote:bg-ink/[0.03] dark:prose-blockquote:bg-white/[0.04] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:my-6 prose-blockquote:text-ink/70 dark:prose-blockquote:text-white/60
+                          prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
+                          prose-li:text-ink/80 dark:prose-li:text-white/65 prose-li:leading-[1.8]
+                          prose-strong:font-semibold prose-strong:text-ink dark:prose-strong:text-white/90
+                          prose-ol:pl-4 prose-ul:pl-4
+                          prose-hr:border-ink/10 dark:prose-hr:border-white/10 prose-hr:my-8
+                          relative z-10
+                          hidden"
+                  data-content-lang="id"
+                  set:html={bodyIdHtml}
+                />
+              )
+            }
           </div>
-
-          <!-- JP Content -->
-          {
-            post.data.body_jp && (
-              <div
-                class="prose dark:prose-invert prose-gold max-w-none
-                        prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl
-                        prose-p:text-base sm:prose-p:text-lg prose-p:leading-loose
-                        prose-p:text-ink/90 dark:prose-p:text-white/80
-                        relative z-10
-                        hidden whitespace-pre-line"
-                data-content-lang="jp"
-              >
-                {post.data.body_jp}
-              </div>
-            )
-          }
-
-          <!-- ID Content -->
-          {
-            post.data.body_id && (
-              <div
-                class="prose dark:prose-invert prose-gold max-w-none
-                        prose-h2:font-heading prose-h2:text-2xl sm:prose-h2:text-4xl
-                        prose-p:text-base sm:prose-p:text-lg prose-p:leading-loose
-                        prose-p:text-ink/90 dark:prose-p:text-white/80
-                        relative z-10
-                        hidden whitespace-pre-line"
-                data-content-lang="id"
-              >
-                {post.data.body_id}
-              </div>
-            )
-          }
-        </div>
+        </article>
       </div>
     </main>
   </div>
