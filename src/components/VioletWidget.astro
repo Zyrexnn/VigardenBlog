@@ -160,7 +160,7 @@
         });
       }, 5000);
     }
-
+      
     widget.addEventListener("click", (e) => {
       if (!isDragging && !(e.target as HTMLElement).closest("a, button")) {
         showSpeech();
@@ -179,7 +179,7 @@
 
   // Initial run
   initWidget();
-1
+
   // Re-run on page swap (View Transitions)
   document.addEventListener("astro:after-swap", initWidget);
 </script>
