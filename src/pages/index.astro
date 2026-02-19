@@ -11,30 +11,33 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
   <ThemeController slot="header-right" />
 
   <!-- Hero Banner Area -->
-  <section class="relative h-[65vh] min-h-[450px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]">
+  <section class="relative h-[65vh] min-h-[450px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117] dark:bg-[#0D1117]">
     <div class="absolute inset-0 z-0">
       <img
         id="theme-gif"
         src="/images/violet-light.gif"
         alt=""
-        class="w-full h-full object-cover opacity-40 blur-[1px] scale-105"
+        class="w-full h-full object-cover opacity-30 dark:opacity-40 blur-[1px] scale-105"
         loading="eager"
       />
-      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#0D1117]"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-paper dark:to-[#0D1117]"></div>
     </div>
 
     <div class="z-30 space-y-6 px-6" transition:animate="fade">
       <h1 
-        class="text-6xl md:text-[8rem] font-heading text-white drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] tracking-tighter leading-none"
+        class="text-6xl md:text-[8rem] font-heading text-ink dark:text-white drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] tracking-tighter leading-none"
         data-jp="わたしの部屋"
-        data-id="KAMAR SAYA"
+        data-id="Kamar Saya"
+        data-en="My Room"
       >
         わたしの部屋
       </h1>
       <p 
-        class="font-body text-white/90 tracking-[0.8em] text-xs sm:text-base uppercase opacity-80"
+        class="font-body text-ink/70 dark:text-white/90 tracking-[0.8em] text-xs sm:text-base uppercase opacity-80"
+        data-i18n="heroSubtitle"
         data-jp="— Auto Memories Doll Service —"
         data-id="— Layanan Boneka Memori Otomatis —"
+        data-en="— Auto Memories Doll Service —"
       >
         — Auto Memories Doll Service —
       </p>
@@ -47,9 +50,9 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
           <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
         </defs>
         <g class="parallax">
-          <use href="#gentle-wave" x="48" y="0" fill="currentColor" class="text-paper/20 dark:text-[#1e1a1b]/20" />
-          <use href="#gentle-wave" x="48" y="3" fill="currentColor" class="text-paper/40 dark:text-[#1e1a1b]/40" />
-          <use href="#gentle-wave" x="48" y="5" fill="currentColor" class="text-paper/60 dark:text-[#1e1a1b]/60" />
+          <use href="#gentle-wave" x="48" y="0" fill="currentColor" class="text-paper/40 dark:text-[#1e1a1b]/20" />
+          <use href="#gentle-wave" x="48" y="3" fill="currentColor" class="text-paper/60 dark:text-[#1e1a1b]/40" />
+          <use href="#gentle-wave" x="48" y="5" fill="currentColor" class="text-paper/80 dark:text-[#1e1a1b]/60" />
           <use href="#gentle-wave" x="48" y="7" fill="currentColor" class="text-paper dark:text-[#1e1a1b]" />
         </g>
       </svg>
@@ -64,52 +67,58 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       <aside class="w-full lg:w-[380px] flex-shrink-0 space-y-12 lg:sticky lg:top-32">
         
         <!-- Profile Card (Premium Glass) -->
-        <section class="bg-[#1e1a1b]/80 dark:bg-[#161213]/80 rounded-[3rem] p-12 border border-white/5 shadow-2xl flex flex-col items-center backdrop-blur-xl transition-all hover:border-gold/20">
+        <section class="bg-white/80 dark:bg-[#161213]/80 rounded-[3rem] p-12 border border-ink/10 dark:border-white/5 shadow-2xl flex flex-col items-center backdrop-blur-xl transition-all hover:border-gold/20">
           <div class="relative w-48 h-48 mb-10">
-            <div class="w-full h-full rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl relative z-10">
+            <div class="w-full h-full rounded-2xl overflow-hidden border-4 border-ink/10 dark:border-white/10 shadow-2xl relative z-10">
                <img src="/images/charviolet-removebg-preview.png" alt="Zyrexnn" class="w-full h-full object-cover" />
             </div>
             <div class="absolute -inset-4 bg-gold/10 blur-2xl rounded-full z-0 opacity-50"></div>
           </div>
           
           <div class="text-center space-y-4 w-full">
-            <h2 class="text-3xl font-heading text-white tracking-wide">Zyrexnn</h2>
+            <h2 class="text-3xl font-heading text-ink dark:text-white tracking-wide">Zyrexnn</h2>
             <p 
-              class="text-[11px] text-white/40 leading-relaxed font-body italic"
+              class="text-[11px] text-ink/60 dark:text-white/40 leading-relaxed font-body italic"
+              data-i18n="profileQuote"
               data-jp="世界は大きい、君は行かなければならない"
-              data-id="Dunia itu luas, kamu harus pergi"
+              data-id="Dunia itu luas, kamu harus menjelajahinya"
+              data-en="The world is vast, you must go explore it"
             >
                世界は大きい、君は行かなければならない
             </p>
-            <div class="w-16 h-[1px] bg-gold/20 mx-auto mt-8"></div>
+            <div class="w-16 h-[1px] bg-gold/30 dark:bg-gold/20 mx-auto mt-8"></div>
             <div class="grid grid-cols-5 gap-3 w-full pt-8">
-               <div class="h-11 bg-white/5 rounded-2xl flex items-center justify-center opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-white/10">📺</div>
-               <div class="h-11 bg-white/5 rounded-2xl flex items-center justify-center opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-white/10">🎮</div>
-               <a href="https://github.com/Zyrexnn" target="_blank" class="h-11 bg-white/10 hover:bg-accent rounded-2xl flex items-center justify-center text-white transition-all shadow-lg group">
+               <div class="h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10">📺</div>
+               <div class="h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10">🎮</div>
+               <a href="https://github.com/Zyrexnn" target="_blank" class="h-11 bg-ink/10 dark:bg-white/10 hover:bg-accent rounded-2xl flex items-center justify-center text-ink dark:text-white transition-all shadow-lg group">
                   <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 transition-transform group-hover:scale-110"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                </a>
-               <div class="h-11 bg-white/5 rounded-2xl flex items-center justify-center opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-white/10">📱</div>
-               <div class="h-11 bg-white/5 rounded-2xl flex items-center justify-center opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-white/10">💬</div>
+               <div class="h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10">📱</div>
+               <div class="h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10">💬</div>
             </div>
           </div>
         </section>
 
         <!-- Notice Card (Refined) -->
-        <section class="bg-[#1e1a1b]/60 dark:bg-[#161213]/60 rounded-[2.5rem] p-10 border border-white/5 shadow-2xl relative overflow-hidden backdrop-blur-md">
+        <section class="bg-white/80 dark:bg-[#161213]/60 rounded-[2.5rem] p-10 border border-ink/10 dark:border-white/5 shadow-2xl relative overflow-hidden backdrop-blur-md">
            <div class="flex items-center gap-4 mb-6">
               <span class="text-accent text-lg">📢</span>
               <h3 
-                class="font-heading text-sm text-white/80 uppercase tracking-widest"
+                class="font-heading text-sm text-ink/80 dark:text-white/80 uppercase tracking-widest"
+                data-i18n="notice"
                 data-jp="お知らせ"
-                data-id="PENGUMUMAN"
+                data-id="Pengumuman"
+                data-en="Notice"
               >
                 お知らせ
               </h3>
            </div>
            <p 
-            class="text-[12px] text-white/40 italic leading-relaxed"
+            class="text-[12px] text-ink/60 dark:text-white/40 italic leading-relaxed"
+            data-i18n="noticeText"
             data-jp="ようこそ！これはサンのブログです。自動手記人形サービスも受付中です。"
             data-id="Selamat datang! Ini adalah blog Sun. Layanan Boneka Memori Otomatis juga tersedia."
+            data-en="Welcome! This is Sun's blog. Auto Memories Doll Service is also available."
            >
               "ようこそ！これはサンのブログです。自動手記人形サービスも受付中です。"
            </p>
@@ -120,21 +129,21 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
       <section class="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-10 w-full">
         {latestPosts.map(post => (
           <a href={`/blog/${post.id}/`} class="group block h-full">
-            <article class="relative h-full bg-white/5 dark:bg-[#1e1a1b]/60 rounded-[3rem] border border-white/5 hover:border-accent/30 transition-all duration-700 overflow-hidden flex flex-col shadow-xl hover:shadow-2xl backdrop-blur-md hover:-translate-y-1">
+            <article class="relative h-full bg-white/80 dark:bg-[#1e1a1b]/60 rounded-[3rem] border border-ink/10 dark:border-white/5 hover:border-accent/30 transition-all duration-700 overflow-hidden flex flex-col shadow-xl hover:shadow-2xl backdrop-blur-md hover:-translate-y-1">
                <!-- Main Content Area -->
                <div class="p-10 md:p-12 space-y-6">
                   <div class="flex items-start gap-4">
                      <span class="text-accent/30 text-xl mt-1 group-hover:text-accent transition-colors duration-500">📌</span>
-                     <h2 class="text-2xl md:text-3xl font-heading text-white/90 group-hover:text-white leading-tight transition-colors duration-500">
+                     <h2 class="text-2xl md:text-3xl font-heading text-ink/90 dark:text-white/90 group-hover:text-ink dark:group-hover:text-white leading-tight transition-colors duration-500" data-i18n-title={post.id}>
                         {post.data.title}
                      </h2>
                   </div>
-                  <p class="text-white/40 text-[14px] leading-relaxed line-clamp-3 pr-4 font-body italic">
+                  <p class="text-ink/60 dark:text-white/40 text-[14px] leading-relaxed line-clamp-3 pr-4 font-body italic" data-i18n-desc={post.id}>
                      {post.data.description}
                   </p>
                   
-                  <div class="flex flex-wrap gap-4 text-[10px] items-center text-white/30 uppercase tracking-[0.2em] font-bold">
-                     <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/5">
+                  <div class="flex flex-wrap gap-4 text-[10px] items-center text-ink/50 dark:text-white/30 uppercase tracking-[0.2em] font-bold">
+                     <div class="flex items-center gap-2 bg-ink/5 dark:bg-white/5 px-4 py-2 rounded-full border border-ink/10 dark:border-white/5">
                          <span>{post.data.pubDate.toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                      </div>
                      <div class="flex items-center gap-2 bg-accent/5 px-4 py-2 rounded-full border border-accent/10 text-accent/60">
@@ -143,7 +152,7 @@ const latestPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
                   </div>
                </div>
                
-               <div class="mt-auto h-2 bg-white/5 group-hover:bg-accent/20 transition-all duration-700"></div>
+               <div class="mt-auto h-2 bg-ink/5 dark:bg-white/5 group-hover:bg-accent/20 transition-all duration-700"></div>
                <div class="absolute left-0 top-16 bottom-16 w-0.5 bg-accent/0 group-hover:bg-accent/60 transition-all duration-700"></div>
             </article>
           </a>

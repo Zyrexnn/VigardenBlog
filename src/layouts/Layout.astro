@@ -108,7 +108,7 @@ const canonicalURL = new URL(
   >
     <!-- Background Noise overlay -->
     <div
-      class="fixed inset-0 pointer-events-none opacity-[0.02] z-[60] noise-bg"
+      class="fixed inset-0 pointer-events-none opacity-[0.015] dark:opacity-[0.02] z-[60] noise-bg"
     >
     </div>
 
@@ -118,12 +118,12 @@ const canonicalURL = new URL(
       class="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-24 flex items-center justify-center px-4 sm:px-6"
     >
       <nav
-        class="w-full max-w-6xl h-14 bg-black/10 dark:bg-white/5 backdrop-blur-xl border border-white/10 dark:border-white/5 rounded-full px-4 sm:px-10 flex items-center justify-between shadow-xl transition-all duration-500"
+        class="w-full max-w-6xl h-14 bg-ink/10 dark:bg-white/5 backdrop-blur-xl border border-ink/10 dark:border-white/10 rounded-full px-4 sm:px-10 flex items-center justify-between shadow-xl transition-all duration-500"
       >
         <div class="flex items-center gap-4 sm:gap-10">
           <a href="/" class="flex items-center gap-2 group">
             <span
-              class="font-heading text-xl text-white group-hover:text-accent transition-all duration-300 tracking-tight"
+              class="font-heading text-xl text-ink dark:text-white group-hover:text-accent transition-all duration-300 tracking-tight"
             >
               Vigarden
             </span>
@@ -132,22 +132,26 @@ const canonicalURL = new URL(
           <div class="hidden lg:flex items-center gap-8">
             <a
               href="/"
-              class="text-[9px] font-bold text-white/50 hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              class="text-[9px] font-bold text-ink/50 dark:text-white/50 hover:text-ink dark:hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              data-i18n="home"
               data-jp="ホーム"
-              data-id="BERANDA">ホーム (Home)</a
+              data-id="BERANDA"
+              data-en="HOME">ホーム (Home)</a
             >
             <a
               href="/blog/"
-              class="text-[9px] font-bold text-white/50 hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              class="text-[9px] font-bold text-ink/50 dark:text-white/50 hover:text-ink dark:hover:text-white uppercase tracking-[0.25em] transition-all duration-300"
+              data-i18n="archive"
               data-jp="アーカイブ"
-              data-id="ARSIP">アーカイブ (Archive)</a
+              data-id="ARSIP"
+              data-en="ARCHIVE">アーカイブ (Archive)</a
             >
           </div>
         </div>
 
         <div class="flex items-center gap-2 sm:gap-6">
           <SettingsPanel />
-          <div class="h-6 w-[1px] bg-white/10 hidden sm:block"></div>
+          <div class="h-6 w-[1px] bg-ink/10 dark:bg-white/10 hidden sm:block"></div>
           <slot name="header-right" />
         </div>
       </nav>
@@ -160,7 +164,7 @@ const canonicalURL = new URL(
         if (!nav) return;
         if (window.scrollY > 40) {
           nav.classList.add(
-            "bg-black/60",
+            "bg-ink/20",
             "dark:bg-black/80",
             "shadow-2xl",
             "max-w-5xl",
@@ -168,7 +172,7 @@ const canonicalURL = new URL(
           nav.classList.remove("max-w-6xl");
         } else {
           nav.classList.remove(
-            "bg-black/60",
+            "bg-ink/20",
             "dark:bg-black/80",
             "shadow-2xl",
             "max-w-5xl",
@@ -194,6 +198,13 @@ const canonicalURL = new URL(
           gif.src = isDark
             ? "/images/violet-dark.gif"
             : "/images/violet-light.gif";
+          if (isDark) {
+            gif.classList.remove("opacity-30");
+            gif.classList.add("opacity-40");
+          } else {
+            gif.classList.remove("opacity-40");
+            gif.classList.add("opacity-30");
+          }
         }
       }
 

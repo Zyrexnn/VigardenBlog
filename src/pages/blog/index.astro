@@ -12,32 +12,35 @@ const sortedPosts = posts.sort(
 <Layout title="手紙の記録 (Archive) | Vigarden">
   <ThemeController slot="header-right" />
 
-  <!-- Archive Banner (Tidied & Artifact-Free) -->
+<!-- Archive Banner (Tidied & Artifact-Free) -->
   <section
-    class="relative h-[45vh] min-h-[350px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]"
+    class="relative h-[45vh] min-h-[350px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-paper dark:bg-[#0D1117]"
   >
     <div class="absolute inset-0 z-0">
       <img
         src="/images/violet-dark.gif"
         alt=""
-        class="w-full h-full object-cover opacity-20 blur-[1px] scale-110 translate-y-2"
+        class="w-full h-full object-cover opacity-10 dark:opacity-20 blur-[1px] scale-110 translate-y-2"
       />
       <!-- Soft Overlay with heavy bottom fade to cover potential gaps -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#0D1117]"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-[#0D1117]"></div>
     </div>
 
     <div class="z-10 space-y-4 px-6" transition:animate="fade">
       <h1
-        class="text-6xl md:text-8xl font-heading text-white drop-shadow-2xl tracking-tighter"
+        class="text-6xl md:text-8xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter"
         data-jp="手紙の記録"
-        data-id="ARSIP SURAT"
+        data-id="Arsip Surat"
+        data-en="Letter Archive"
       >
         手紙 of Memories
       </h1>
       <p 
-        class="text-white/40 font-body text-[10px] sm:text-xs tracking-[0.5em] uppercase"
+        class="text-ink/40 dark:text-white/40 font-body text-[10px] sm:text-xs tracking-[0.5em] uppercase"
+        data-i18n="archiveSubtitle"
         data-jp="— The Archive of Memories —"
-        data-id="— Arsip Memori —"
+        data-id="— Arsip Kenangan —"
+        data-en="— The Archive of Memories —"
       >
         — The Archive of Memories —
       </p>
@@ -67,37 +70,37 @@ const sortedPosts = posts.sort(
           
           <!-- Categories Card -->
           <section
-            class="bg-white/40 dark:bg-[#161213]/60 border border-white/5 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl"
+            class="bg-white/80 dark:bg-[#161213]/60 border border-ink/10 dark:border-white/5 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl"
           >
             <div class="flex items-center gap-4 mb-10">
               <div class="w-1 h-6 bg-accent/40 rounded-full"></div>
-              <h3 class="font-heading text-lg text-white/80 uppercase tracking-widest">
+              <h3 class="font-heading text-lg text-ink/80 dark:text-white/80 uppercase tracking-widest" data-i18n="categories" data-jp="カテゴリー" data-id="Kategori" data-en="Categories">
                 カテゴリー
               </h3>
             </div>
             <ul class="space-y-5 text-xs font-sans">
-              {
-                ["Letters", "Memories", "Service"].map((cat) => (
-                  <li class="flex justify-between items-center group cursor-pointer border-b border-white/5 pb-4 last:border-0 last:pb-0">
-                    <span class="text-white/40 group-hover:text-accent transition-colors tracking-wide">
-                      {cat}
-                    </span>
-                    <span class="text-[9px] bg-white/5 px-3 py-1 rounded-full opacity-40 group-hover:opacity-100 transition-opacity">
-                      5
-                    </span>
-                  </li>
-                ))
-              }
+              <li class="flex justify-between items-center group cursor-pointer border-b border-ink/10 dark:border-white/5 pb-4">
+                <span class="text-ink/60 dark:text-white/40 group-hover:text-accent transition-colors tracking-wide" data-i18n="letters" data-jp="手紙" data-id="Surat" data-en="Letters">Letters</span>
+                <span class="text-[9px] bg-ink/5 dark:bg-white/5 px-3 py-1 rounded-full opacity-60 dark:opacity-40 group-hover:opacity-100 transition-opacity">5</span>
+              </li>
+              <li class="flex justify-between items-center group cursor-pointer border-b border-ink/10 dark:border-white/5 pb-4">
+                <span class="text-ink/60 dark:text-white/40 group-hover:text-accent transition-colors tracking-wide" data-i18n="memories" data-jp="思い出" data-id="Kenangan" data-en="Memories">Memories</span>
+                <span class="text-[9px] bg-ink/5 dark:bg-white/5 px-3 py-1 rounded-full opacity-60 dark:opacity-40 group-hover:opacity-100 transition-opacity">3</span>
+              </li>
+              <li class="flex justify-between items-center group cursor-pointer">
+                <span class="text-ink/60 dark:text-white/40 group-hover:text-accent transition-colors tracking-wide" data-i18n="service" data-jp="サービス" data-id="Layanan" data-en="Service">Service</span>
+                <span class="text-[9px] bg-ink/5 dark:bg-white/5 px-3 py-1 rounded-full opacity-60 dark:opacity-40 group-hover:opacity-100 transition-opacity">2</span>
+              </li>
             </ul>
           </section>
 
           <!-- Popular Posts Card -->
           <section
-            class="bg-white/40 dark:bg-[#161213]/60 border border-white/5 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl"
+            class="bg-white/80 dark:bg-[#161213]/60 border border-ink/10 dark:border-white/5 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl"
           >
             <div class="flex items-center gap-4 mb-10">
               <div class="w-1 h-6 bg-gold/40 rounded-full"></div>
-              <h3 class="font-heading text-lg text-white/80 uppercase tracking-widest">人気の手紙</h3>
+              <h3 class="font-heading text-lg text-ink/80 dark:text-white/80 uppercase tracking-widest" data-i18n="popularPosts" data-jp="人気の手紙" data-id="Surat Populer" data-en="Popular Letters">人気の手紙</h3>
             </div>
             <ul class="space-y-8 text-xs font-sans">
               {
@@ -107,10 +110,10 @@ const sortedPosts = posts.sort(
                       href={`/blog/${p.id}/`}
                       class="block group transition-all"
                     >
-                      <p class="text-[9px] text-gold/40 uppercase tracking-[0.2em] mb-2 font-bold group-hover:text-gold transition-colors">
+                      <p class="text-[9px] text-gold/60 dark:text-gold/40 uppercase tracking-[0.2em] mb-2 font-bold group-hover:text-gold transition-colors">
                         {p.data.pubDate.toLocaleDateString()}
                       </p>
-                      <p class="text-white/50 group-hover:text-white transition-colors line-clamp-2 font-medium leading-relaxed">
+                      <p class="text-ink/70 dark:text-white/50 group-hover:text-ink dark:group-hover:text-white transition-colors line-clamp-2 font-medium leading-relaxed" data-i18n-title={p.id}>
                         {p.data.title}
                       </p>
                     </a>
@@ -128,7 +131,7 @@ const sortedPosts = posts.sort(
           {
             sortedPosts.map((post) => (
               <a href={`/blog/${post.id}/`} class="group block">
-                <article class="relative bg-white/50 dark:bg-[#1e1a1b]/60 border border-gold/5 dark:border-white/5 rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row gap-10 hover:shadow-2xl transition-all duration-700 backdrop-blur-md group-hover:-translate-y-1">
+                <article class="relative bg-white/80 dark:bg-[#1e1a1b]/60 border border-ink/10 dark:border-white/5 rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row gap-10 hover:shadow-2xl transition-all duration-700 backdrop-blur-md group-hover:-translate-y-1">
                   
                   <div class="flex-1 space-y-6">
                     <div class="flex flex-wrap items-center gap-6 text-[9px] font-body text-gold/60 tracking-[0.3em] uppercase font-bold">
@@ -143,11 +146,11 @@ const sortedPosts = posts.sort(
                       <span>{post.data.category}</span>
                     </div>
 
-                    <h2 class="text-3xl md:text-4xl font-heading text-primary dark:text-white/90 group-hover:text-gold dark:group-hover:text-accent transition-colors duration-500 leading-tight">
+                    <h2 class="text-3xl md:text-4xl font-heading text-primary dark:text-white/90 group-hover:text-gold dark:group-hover:text-accent transition-colors duration-500 leading-tight" data-i18n-title={post.id}>
                       {post.data.title}
                     </h2>
 
-                    <p class="text-ink/60 dark:text-white/40 font-sans leading-relaxed line-clamp-2 text-base italic pr-12">
+                    <p class="text-ink/60 dark:text-white/40 font-sans leading-relaxed line-clamp-2 text-base italic pr-12" data-i18n-desc={post.id}>
                       {post.data.description}
                     </p>
                   </div>
