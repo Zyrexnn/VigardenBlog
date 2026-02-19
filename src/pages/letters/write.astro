@@ -1,0 +1,86 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ThemeController from "../../components/ThemeController.astro";
+import LetterCanvas from "../../components/LetterCanvas.astro";
+---
+
+<Layout title="手紙を書く (Write a Letter) | Vigarden">
+  <ThemeController slot="header-right" />
+
+  <div class="bg-paper dark:bg-dark-bg relative">
+    <!-- Hero Section -->
+    <section
+      class="relative h-[30vh] sm:h-[35vh] min-h-[220px] w-full flex flex-col items-center justify-center text-center overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="/images/violet-dark.gif"
+          alt=""
+          class="w-full h-full object-cover opacity-10 dark:opacity-20 blur-[1px] scale-105"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-dark-bg"
+        >
+        </div>
+      </div>
+
+      <div class="relative z-10 space-y-3 px-4" transition:animate="fade">
+        <h1
+          class="text-3xl sm:text-5xl md:text-7xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter"
+          data-jp="届かない手紙"
+          data-id="Surat Tak Terkirim"
+          data-en="The Unsent"
+        >
+          届かない手紙
+        </h1>
+        <p
+          class="text-ink/40 dark:text-white/40 font-body text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.5em] uppercase"
+          data-i18n="writeHeroSubtitle"
+        >
+          The Unsent — Write your letter to someone dear
+        </p>
+      </div>
+
+      <div
+        class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none"
+      >
+        <svg
+          class="block w-full h-10 sm:h-12 md:h-20"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs
+            ><path
+              id="write-wave"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            ></path></defs
+          >
+          <use
+            href="#write-wave"
+            x="48"
+            y="7"
+            fill="currentColor"
+            class="text-paper dark:text-dark-bg"></use>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Letter Canvas -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
+      <LetterCanvas />
+
+      <!-- Back Button -->
+      <div class="mt-10 text-center">
+        <a
+          href="/letters/"
+          class="inline-flex items-center gap-2 text-xs font-bold uppercase
+                 tracking-[0.15em] text-gold hover:text-accent transition-colors duration-300"
+          data-i18n="returnToCollection"
+        >
+          ← Return to Collection
+        </a>
+      </div>
+    </main>
+  </div>
+</Layout>

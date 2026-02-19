@@ -1,0 +1,712 @@
+---
+/**
+ * LetterCanvas.astro — Parchment-textured letter composing interface
+ * Transient write-to-export: no localStorage, export PNG + self-destruct
+ */
+---
+
+<div class="max-w-2xl mx-auto">
+  <!-- Letter Form Container -->
+  <div id="letter-form-container" class="relative transition-all duration-700">
+    <!-- Airmail Top -->
+    <div class="airmail-border rounded-t-sm"></div>
+
+    <!-- Paper Body -->
+    <div
+      id="letter-paper"
+      class="letter-canvas border-x border-gold/15 dark:border-white/5 p-6 sm:p-10 md:p-14 shadow-2xl"
+    >
+      <!-- Header: Date & Location -->
+      <div
+        class="text-right mb-8 text-xs text-ink/40 dark:text-white/30 italic font-typewriter"
+      >
+        <span id="letter-date"></span><br />
+        <span
+          data-i18n="writtenAt"
+          data-jp="執筆場所"
+          data-id="Ditulis di"
+          data-en="Written at">Written at</span
+        > Leiden
+      </div>
+
+      <!-- Recipient Input -->
+      <div class="mb-6">
+        <label
+          class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
+          data-i18n="letterTo"
+        >
+          Kepada (Opsional)
+        </label>
+        <input
+          id="letter-recipient"
+          type="text"
+          placeholder="Nama Penerima..."
+          data-placeholder-jp="受取人の名前..."
+          data-placeholder-id="Nama Penerima..."
+          data-placeholder-en="Recipient Name..."
+          maxlength="100"
+          class="w-full bg-transparent border-b border-dashed border-ink/15 dark:border-white/10
+                 text-ink dark:text-white font-typewriter text-lg py-2 px-1
+                 placeholder:text-ink/20 dark:placeholder:text-white/15
+                 focus:outline-none focus:border-gold/40 transition-colors"
+        />
+      </div>
+
+      <!-- Letter Content Textarea -->
+      <div class="mb-6 relative">
+        <label
+          class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
+          data-i18n="letterContent"
+        >
+          Isi Surat
+        </label>
+        <textarea
+          id="letter-content"
+          rows="12"
+          placeholder="Mulai menulis surat Anda di sini... (Minimal 50 karakter)"
+          data-placeholder-jp="ここに手紙を書き始めてください…（最低50文字）"
+          data-placeholder-id="Mulai menulis surat Anda di sini... (Minimal 50 karakter)"
+          data-placeholder-en="Start writing your letter here... (Minimum 50 characters)"
+          class="w-full bg-transparent resize-none
+                 text-ink/90 dark:text-white/80 font-typewriter text-base sm:text-lg leading-[32px]
+                 placeholder:text-ink/20 dark:placeholder:text-white/15
+                 focus:outline-none p-0 border-none"
+          style="line-height: 32px;"></textarea>
+      </div>
+
+      <!-- Character Counter -->
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-2">
+          <span
+            id="char-count"
+            class="text-xs font-sans font-bold text-red-500/80">0</span
+          >
+          <span class="text-[10px] text-ink/30 dark:text-white/20 font-sans"
+            >/50 min</span
+          >
+        </div>
+        <div
+          id="char-status"
+          class="text-[10px] font-sans italic text-red-500/60"
+          data-i18n="tooShort"
+        >
+          Terlalu pendek — tulis dari hati ♡
+        </div>
+      </div>
+
+      <!-- Stamp Selector -->
+      <div class="mb-8">
+        <label
+          class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
+          data-i18n="selectStamp"
+        >
+          Pilih Perangko
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stamp-grid">
+          <button type="button" class="stamp-option active" data-stamp="postal">
+            <div class="stamp-card">
+              <span class="text-2xl">📮</span>
+              <span class="stamp-label">Postal</span>
+            </div>
+          </button>
+          <button type="button" class="stamp-option" data-stamp="flower">
+            <div class="stamp-card">
+              <span class="text-2xl">🌸</span>
+              <span class="stamp-label">Sakura</span>
+            </div>
+          </button>
+          <button type="button" class="stamp-option" data-stamp="brooch">
+            <div class="stamp-card">
+              <span class="text-2xl">💎</span>
+              <span class="stamp-label">Brooch</span>
+            </div>
+          </button>
+          <button type="button" class="stamp-option" data-stamp="quill">
+            <div class="stamp-card">
+              <span class="text-2xl">🪶</span>
+              <span class="stamp-label">Quill</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sender Alias -->
+      <div class="mb-10">
+        <label
+          class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
+          data-i18n="letterFrom"
+        >
+          Pengirim (Opsional)
+        </label>
+        <input
+          id="letter-sender"
+          type="text"
+          placeholder="Alias Anda..."
+          data-placeholder-jp="あなたの名前..."
+          data-placeholder-id="Alias Anda..."
+          data-placeholder-en="Your Alias..."
+          maxlength="60"
+          class="w-full bg-transparent border-b border-dashed border-ink/15 dark:border-white/10
+                 text-ink dark:text-white font-typewriter text-lg py-2 px-1
+                 placeholder:text-ink/20 dark:placeholder:text-white/15
+                 focus:outline-none focus:border-gold/40 transition-colors"
+        />
+      </div>
+
+      <!-- Submit Area -->
+      <div
+        class="flex flex-col items-center gap-4 pt-6 border-t border-dashed border-ink/10 dark:border-white/10"
+      >
+        <p
+          class="text-[10px] text-ink/30 dark:text-white/20 font-sans uppercase tracking-[0.2em]"
+          data-i18n="sealAndSend"
+        >
+          Segel & Kirim
+        </p>
+        <button
+          id="wax-seal-submit"
+          type="button"
+          class="wax-seal-btn"
+          disabled
+          title="Segel Surat"
+        >
+          CH
+        </button>
+        <p
+          id="seal-hint"
+          class="text-[9px] text-ink/25 dark:text-white/15 font-sans italic"
+          data-i18n="sealHintLocked"
+        >
+          Tulis minimal 50 karakter untuk membuka segel
+        </p>
+      </div>
+    </div>
+
+    <!-- Airmail Bottom -->
+    <div class="airmail-border rounded-b-sm"></div>
+  </div>
+</div>
+
+<!-- Hidden Export Preview (rendered off-screen for html-to-image) -->
+<div
+  id="export-preview-wrapper"
+  class="fixed -left-[9999px] top-0 pointer-events-none"
+  aria-hidden="true"
+>
+  <div
+    id="export-preview"
+    class="w-[600px]"
+    style="font-family: 'Special Elite', 'Courier Prime', monospace;"
+  >
+    <div
+      style="background: linear-gradient(145deg, #f5f0e1 0%, #ede4cc 100%); padding: 48px; position: relative;"
+    >
+      <!-- Date -->
+      <div
+        id="ep-date"
+        style="text-align: right; font-size: 11px; color: rgba(45,45,45,0.4); font-style: italic; margin-bottom: 32px;"
+      >
+      </div>
+      <!-- Salutation -->
+      <div
+        id="ep-salutation"
+        style="font-family: 'Playfair Display', serif; font-size: 18px; color: #2D2D2D; margin-bottom: 24px;"
+      >
+      </div>
+      <!-- Content -->
+      <div
+        id="ep-content"
+        style="font-size: 15px; line-height: 2; color: rgba(45,45,45,0.85); white-space: pre-wrap; margin-bottom: 40px;"
+      >
+      </div>
+      <!-- Signature -->
+      <div style="text-align: right;">
+        <div
+          style="font-style: italic; font-size: 11px; color: rgba(45,45,45,0.5); margin-bottom: 8px;"
+        >
+          敬具,
+        </div>
+        <div
+          id="ep-sender"
+          style="font-family: 'Playfair Display', serif; font-size: 22px; color: #00563B; font-style: italic;"
+        >
+        </div>
+        <div
+          style="font-family: 'Inter', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(45,45,45,0.25); margin-top: 8px;"
+        >
+          Auto Memories Doll Service
+        </div>
+      </div>
+      <!-- Stamp -->
+      <div
+        id="ep-stamp"
+        style="position: absolute; top: 16px; right: 16px; font-size: 28px;"
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Petal Loading Overlay (hidden by default) -->
+<div id="petal-overlay" class="petal-overlay hidden">
+  <div
+    class="absolute inset-0 bg-paper/60 dark:bg-dark-bg/70 flex items-center justify-center"
+  >
+    <div
+      id="overlay-message"
+      class="text-center space-y-4 animate-letter-fadein"
+    >
+      <div class="text-4xl">✉️</div>
+      <p
+        class="font-heading text-lg text-ink/80 dark:text-white/80"
+        data-i18n="sendingLetter"
+      >
+        Mengirim surat Anda...
+      </p>
+      <p class="text-xs text-ink/40 dark:text-white/30 italic font-typewriter">
+        Auto Memories Doll Service
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div
+  id="letter-toast"
+  class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] opacity-0 translate-y-4
+         transition-all duration-500 pointer-events-none"
+>
+  <div
+    class="bg-ink/90 dark:bg-white/90 text-white dark:text-ink rounded-xl px-6 py-4 shadow-2xl
+              flex items-center gap-3 max-w-md backdrop-blur-sm"
+  >
+    <span class="text-xl">📜</span>
+    <div>
+      <p id="toast-title" class="text-sm font-bold font-heading"></p>
+      <p id="toast-desc" class="text-xs opacity-70 font-body mt-0.5"></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .stamp-option {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .stamp-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    background: rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+  }
+  :global(.dark) .stamp-card {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .stamp-option:hover .stamp-card {
+    border-color: rgba(197, 160, 89, 0.3);
+    background: rgba(197, 160, 89, 0.05);
+  }
+  .stamp-option.active .stamp-card {
+    border-color: rgba(197, 160, 89, 0.6);
+    background: rgba(197, 160, 89, 0.08);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+  }
+  .stamp-label {
+    font-size: 0.6rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(45, 45, 45, 0.5);
+  }
+  :global(.dark) .stamp-label {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Self-destruct animation */
+  @keyframes selfDestruct {
+    0% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0px);
+    }
+    30% {
+      opacity: 0.8;
+      transform: scale(0.97) rotate(-0.5deg);
+      filter: blur(1px);
+    }
+    60% {
+      opacity: 0.4;
+      transform: scale(0.92) rotate(0.5deg) translateY(-10px);
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.85) rotate(-1deg) translateY(-30px);
+      filter: blur(8px);
+    }
+  }
+  .self-destructing {
+    animation: selfDestruct 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const textarea = document.getElementById(
+      "letter-content",
+    ) as HTMLTextAreaElement;
+    const charCount = document.getElementById("char-count");
+    const charStatus = document.getElementById("char-status");
+    const sealBtn = document.getElementById(
+      "wax-seal-submit",
+    ) as HTMLButtonElement;
+    const sealHint = document.getElementById("seal-hint");
+    const recipientInput = document.getElementById(
+      "letter-recipient",
+    ) as HTMLInputElement;
+    const senderInput = document.getElementById(
+      "letter-sender",
+    ) as HTMLInputElement;
+    const stampGrid = document.getElementById("stamp-grid");
+    const petalOverlay = document.getElementById("petal-overlay");
+    const dateEl = document.getElementById("letter-date");
+    const formContainer = document.getElementById("letter-form-container");
+    const toast = document.getElementById("letter-toast");
+    const toastTitle = document.getElementById("toast-title");
+    const toastDesc = document.getElementById("toast-desc");
+
+    if (!textarea || !sealBtn) return;
+
+    // Set date
+    if (dateEl) {
+      dateEl.textContent = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
+
+    // --- i18n helper ---
+    const i18nStrings: Record<string, Record<string, string>> = {
+      tooShort: {
+        en: "Too short — write from the heart ♡",
+        jp: "短すぎます — 心を込めて書いて ♡",
+        id: "Terlalu pendek — tulis dari hati ♡",
+      },
+      readyToSeal: {
+        en: "Ready to seal ✦",
+        jp: "封蝋の準備完了 ✦",
+        id: "Siap disegel ✦",
+      },
+      sealHintLocked: {
+        en: "Write at least 50 characters to unlock the seal",
+        jp: "封蝋を解くには50文字以上書いてください",
+        id: "Tulis minimal 50 karakter untuk membuka segel",
+      },
+      sealHintReady: {
+        en: "Click the seal to send your letter",
+        jp: "封蝋をクリックして手紙を送ってください",
+        id: "Klik segel untuk mengirim surat",
+      },
+      toastTitle: {
+        en: "Letter Immortalized",
+        jp: "手紙は永遠に",
+        id: "Surat Telah Diabadikan",
+      },
+      toastDesc: {
+        en: "Your letter has been saved as an image and erased from our system.",
+        jp: "手紙は画像として保存され、システムから消去されました。",
+        id: "Surat Anda telah diabadikan dalam bentuk gambar dan dihapus dari sistem kami.",
+      },
+      exportFail: {
+        en: "Export failed. Please try again.",
+        jp: "Exportに失敗しました。もう一度お試しください。",
+        id: "Export gagal. Silakan coba lagi.",
+      },
+    };
+    const langMap: Record<string, string> = { JP: "jp", ID: "id", EN: "en" };
+    function getLang(): string {
+      return langMap[localStorage.getItem("vigarden-lang") || "JP"] || "jp";
+    }
+    function t(key: string): string {
+      return i18nStrings[key]?.[getLang()] || i18nStrings[key]?.["en"] || "";
+    }
+
+    // --- Update placeholders based on language ---
+    function updatePlaceholders() {
+      const lang = getLang();
+      document
+        .querySelectorAll<
+          HTMLInputElement | HTMLTextAreaElement
+        >("[data-placeholder-" + lang + "]")
+        .forEach((el) => {
+          const val = el.getAttribute("data-placeholder-" + lang);
+          if (val) el.placeholder = val;
+        });
+    }
+    updatePlaceholders();
+
+    // --- Typewriter Audio ---
+    let audioCtx: AudioContext | null = null;
+    let audioBuffer: AudioBuffer | null = null;
+
+    async function initAudio() {
+      if (audioCtx) return;
+      try {
+        audioCtx = new AudioContext();
+        const resp = await fetch("/audio/mesinketik.mp3");
+        const arrayBuffer = await resp.arrayBuffer();
+        audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      } catch (e) {
+        console.warn("Audio init failed:", e);
+      }
+    }
+
+    function playKeystroke() {
+      if (!audioCtx || !audioBuffer) return;
+      try {
+        const source = audioCtx.createBufferSource();
+        source.buffer = audioBuffer;
+        const offset = Math.random() * Math.max(0, audioBuffer.duration - 0.15);
+        const gain = audioCtx.createGain();
+        gain.gain.value = 0.3 + Math.random() * 0.2;
+        source.connect(gain);
+        gain.connect(audioCtx.destination);
+        source.start(0, offset, 0.1 + Math.random() * 0.05);
+      } catch (e) {
+        /* silent fail */
+      }
+    }
+
+    textarea.addEventListener("focus", initAudio, { once: true });
+
+    // --- Character Count & Validation ---
+    textarea.addEventListener("input", () => {
+      const len = textarea.value.length;
+      if (charCount) charCount.textContent = String(len);
+
+      if (len >= 50) {
+        if (charCount)
+          charCount.className = "text-xs font-sans font-bold text-accent/80";
+        if (charStatus) {
+          charStatus.textContent = t("readyToSeal");
+          charStatus.className = "text-[10px] font-sans italic text-accent/60";
+        }
+        sealBtn.disabled = false;
+        if (sealHint) sealHint.textContent = t("sealHintReady");
+      } else {
+        if (charCount)
+          charCount.className = "text-xs font-sans font-bold text-red-500/80";
+        if (charStatus) {
+          charStatus.textContent = t("tooShort");
+          charStatus.className = "text-[10px] font-sans italic text-red-500/60";
+        }
+        sealBtn.disabled = true;
+        if (sealHint) sealHint.textContent = t("sealHintLocked");
+      }
+
+      playKeystroke();
+    });
+
+    // --- Stamp Selection ---
+    let selectedStamp = "postal";
+    stampGrid?.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest(
+        ".stamp-option",
+      ) as HTMLElement;
+      if (!btn) return;
+      stampGrid
+        .querySelectorAll(".stamp-option")
+        .forEach((el) => el.classList.remove("active"));
+      btn.classList.add("active");
+      selectedStamp = btn.dataset.stamp || "postal";
+    });
+
+    // --- XSS Sanitization ---
+    function sanitize(str: string): string {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // --- Petal Animation ---
+    function showPetals() {
+      if (!petalOverlay) return;
+      petalOverlay.classList.remove("hidden");
+      for (let i = 0; i < 12; i++) {
+        const petal = document.createElement("div");
+        petal.classList.add("petal");
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.animationDuration = `${2.5 + Math.random() * 3}s`;
+        petal.style.animationDelay = `${Math.random() * 2}s`;
+        petal.style.transform = `scale(${0.5 + Math.random() * 0.8})`;
+        petalOverlay.appendChild(petal);
+      }
+    }
+
+    function hidePetals() {
+      if (!petalOverlay) return;
+      petalOverlay.classList.add("hidden");
+      petalOverlay.querySelectorAll(".petal").forEach((p) => p.remove());
+    }
+
+    // --- Toast ---
+    function showToast() {
+      if (!toast || !toastTitle || !toastDesc) return;
+      toastTitle.textContent = t("toastTitle");
+      toastDesc.textContent = t("toastDesc");
+      toast.classList.remove("opacity-0", "translate-y-4");
+      toast.classList.add("opacity-100", "translate-y-0");
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "translate-y-4");
+        toast.classList.remove("opacity-100", "translate-y-0");
+      }, 6000);
+    }
+
+    // --- Populate Export Preview ---
+    function populatePreview(
+      content: string,
+      recipient: string,
+      sender: string,
+    ) {
+      const stampIcons: Record<string, string> = {
+        postal: "📮",
+        flower: "🌸",
+        brooch: "💎",
+        quill: "🪶",
+      };
+      const epDate = document.getElementById("ep-date");
+      const epSalutation = document.getElementById("ep-salutation");
+      const epContent = document.getElementById("ep-content");
+      const epSender = document.getElementById("ep-sender");
+      const epStamp = document.getElementById("ep-stamp");
+
+      const dateStr = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      if (epDate) epDate.textContent = dateStr + "\nWritten at Leiden";
+      if (epSalutation)
+        epSalutation.textContent = recipient
+          ? `Dearest ${recipient},`
+          : "Dear Reader,";
+      if (epContent) epContent.textContent = content;
+      if (epSender) epSender.textContent = sender || "Anonymous";
+      if (epStamp) epStamp.textContent = stampIcons[selectedStamp] || "📮";
+    }
+
+    // --- Reset Form ---
+    function resetForm() {
+      textarea.value = "";
+      if (recipientInput) recipientInput.value = "";
+      if (senderInput) senderInput.value = "";
+      if (charCount) {
+        charCount.textContent = "0";
+        charCount.className = "text-xs font-sans font-bold text-red-500/80";
+      }
+      if (charStatus) {
+        charStatus.textContent = t("tooShort");
+        charStatus.className = "text-[10px] font-sans italic text-red-500/60";
+      }
+      sealBtn.disabled = true;
+      if (sealHint) sealHint.textContent = t("sealHintLocked");
+      // Reset stamp
+      stampGrid?.querySelectorAll(".stamp-option").forEach((el, i) => {
+        if (i === 0) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+      selectedStamp = "postal";
+    }
+
+    // --- Submit: Write-to-Export ---
+    sealBtn.addEventListener("click", async () => {
+      const content = textarea.value.trim();
+      if (content.length < 50) return;
+
+      const recipient = sanitize(recipientInput?.value.trim() || "");
+      const sender = sanitize(senderInput?.value.trim() || "Anonymous");
+
+      // 1. Wax seal animation
+      sealBtn.classList.add("stamped");
+
+      // 2. Show petals
+      showPetals();
+
+      // 3. Populate hidden export preview
+      populatePreview(content, recipient, sender);
+
+      // 4. Wait a beat for the animation, then export
+      await new Promise((r) => setTimeout(r, 1500));
+
+      try {
+        // Dynamic import html-to-image from CDN
+        const { toPng } = await import(
+          // @ts-ignore — CDN ESM import, resolved at runtime
+          "https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm"
+        );
+        const preview = document.getElementById("export-preview");
+        if (!preview) throw new Error("Preview element not found");
+
+        const dataUrl = await toPng(preview, {
+          backgroundColor: "#f5f0e1",
+          pixelRatio: 2,
+        });
+
+        // Trigger download
+        const link = document.createElement("a");
+        link.download = `letter-${Date.now().toString(36)}.png`;
+        link.href = dataUrl;
+        link.click();
+      } catch (e) {
+        console.error("Export failed:", e);
+        alert(t("exportFail"));
+        hidePetals();
+        sealBtn.classList.remove("stamped");
+        return;
+      }
+
+      // 5. Hide petals
+      hidePetals();
+
+      // 6. Self-destruct animation
+      if (formContainer) {
+        formContainer.classList.add("self-destructing");
+      }
+
+      // 7. After self-destruct completes, reset
+      setTimeout(() => {
+        // Show toast
+        showToast();
+
+        // Remove self-destruct class and reset form
+        if (formContainer) {
+          formContainer.classList.remove("self-destructing");
+          formContainer.style.opacity = "0";
+          // Fade back in with fresh form
+          setTimeout(() => {
+            resetForm();
+            formContainer.style.transition = "opacity 0.8s ease";
+            formContainer.style.opacity = "1";
+          }, 400);
+        }
+
+        // Clean any stale letter data from localStorage (legacy cleanup)
+        localStorage.removeItem("vigarden-unsent-letters");
+      }, 1800);
+    });
+
+    // Remove animation class after it plays
+    sealBtn.addEventListener("animationend", () => {
+      sealBtn.classList.remove("stamped");
+    });
+  });
+</script>

@@ -59,14 +59,14 @@ const isLetters = pathname.startsWith("/letters");
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
     />
     <noscript
       ><link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap"
         rel="stylesheet"
       /></noscript
     >
@@ -499,6 +499,130 @@ const isLetters = pathname.startsWith("/letters");
         );
         height: 8px;
         width: 100%;
+      }
+
+      /* ── Letter Canvas (Write page) ─────────── */
+      .letter-canvas {
+        background-color: #f5f0e1;
+        background-image:
+          url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.05'/%3E%3C/svg%3E"),
+          repeating-linear-gradient(
+            transparent,
+            transparent 31px,
+            rgba(139, 115, 85, 0.08) 31px,
+            rgba(139, 115, 85, 0.08) 32px
+          );
+        font-family: "Special Elite", "Courier Prime", monospace;
+        position: relative;
+      }
+      .dark .letter-canvas {
+        background-color: #1c2030;
+        background-image: repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          rgba(197, 160, 89, 0.04) 31px,
+          rgba(197, 160, 89, 0.04) 32px
+        );
+      }
+
+      /* ── Petal animation overlay ────────────── */
+      .petal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .petal {
+        position: absolute;
+        top: -20px;
+        width: 12px;
+        height: 16px;
+        background: radial-gradient(ellipse at 30% 30%, #f9c2d0, #e8849a);
+        border-radius: 50% 50% 50% 0;
+        opacity: 0;
+        animation: petal-drift linear forwards;
+      }
+      .dark .petal {
+        background: radial-gradient(ellipse at 30% 30%, #c5a059, #8b7355);
+      }
+      @keyframes petal-drift {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateY(50vh) translateX(40px) rotate(200deg) scale(1);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(110vh) translateX(-30px) rotate(400deg)
+            scale(0.6);
+          opacity: 0;
+        }
+      }
+
+      /* ── Wax Seal Button ────────────────────── */
+      .wax-seal-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 35%,
+          #c0392b,
+          #8b0000 60%,
+          #5a0000
+        );
+        box-shadow:
+          0 4px 15px rgba(139, 0, 0, 0.4),
+          inset 0 2px 4px rgba(255, 255, 255, 0.15),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        border: 3px solid rgba(90, 0, 0, 0.5);
+        color: #f5d5c8;
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .wax-seal-btn::before {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .wax-seal-btn:hover:not(:disabled) {
+        transform: scale(1.08);
+        box-shadow:
+          0 6px 25px rgba(139, 0, 0, 0.6),
+          inset 0 2px 4px rgba(255, 255, 255, 0.2),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+      }
+      .wax-seal-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        filter: grayscale(0.5);
+      }
+      .wax-seal-btn.stamped {
+        animation: wax-stamp 0.6s ease-out;
+      }
+
+      /* ── Typewriter cursor ──────────────────── */
+      .tw-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1.1em;
+        background: currentColor;
+        margin-left: 2px;
+        vertical-align: text-bottom;
+        animation: typewriter-cursor 0.8s steps(1) infinite;
       }
     </style>
   </body>

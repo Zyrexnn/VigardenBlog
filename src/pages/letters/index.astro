@@ -48,60 +48,107 @@ const letters = await getCollection("letters");
       </div>
     </section>
 
-    <!-- Letters Grid -->
+    <!-- Main Content -->
     <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-        {letters.map((letter) => (
-          <a
-            href={`/letters/${letter.id}/`}
-            class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
-            transition:name={`letter-${letter.id}`}
-          >
-            <!-- Airmail Border Top -->
-            <div class="airmail-border"></div>
 
-            <!-- Card Body -->
-            <div class="letter-paper p-5 sm:p-8 border-x border-gold/15 dark:border-white/5 relative min-h-[180px] sm:min-h-[220px] flex flex-col justify-between">
-              <!-- Wax Seal -->
-              <div class="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800/80 shadow-md border-2 border-red-900/40 flex items-center justify-center text-red-200 font-heading text-[8px] sm:text-[10px] font-bold opacity-70 group-hover:opacity-100 transition-opacity">
-                CH
+      <!-- Write Your Own Letter CTA -->
+      <a
+        href="/letters/write/"
+        class="group block mb-10 sm:mb-14 relative overflow-hidden rounded-xl hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
+      >
+        <div class="letter-canvas p-6 sm:p-10 border border-gold/20 dark:border-white/10 rounded-xl relative">
+          <!-- Decorative quill -->
+          <div class="absolute top-4 right-4 sm:top-6 sm:right-6 text-3xl sm:text-4xl opacity-30 group-hover:opacity-60 transition-opacity">
+            ✍️
+          </div>
+          <div class="space-y-3 pr-16">
+            <p class="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold"
+              data-i18n="writeHeroSubtitle"
+            >
+              届かない手紙 — The Unsent
+            </p>
+            <h2 class="font-heading text-xl sm:text-2xl md:text-3xl text-ink dark:text-white group-hover:text-accent transition-colors leading-tight"
+              data-i18n="writeYourOwn"
+            >
+              Write Your Own Letter
+            </h2>
+            <p class="text-xs sm:text-sm text-ink/50 dark:text-white/40 italic font-body max-w-lg"
+              data-i18n="writeYourOwnDesc"
+            >
+              Write your feelings to someone precious. Letters will be saved as beautiful memories.
+            </p>
+          </div>
+          <div class="mt-4 sm:mt-6 flex items-center gap-2">
+            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-accent/60 group-hover:text-accent font-bold transition-colors"
+              data-i18n="startWriting"
+            >
+              Start Writing →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Curated Letters Grid -->
+      <div class="mb-12">
+        <h3 class="text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-6"
+          data-i18n="violetLetters"
+        >
+          Violet's Letter Collection
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+          {letters.map((letter) => (
+            <a
+              href={`/letters/${letter.id}/`}
+              class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
+              transition:name={`letter-${letter.id}`}
+            >
+              <!-- Airmail Border Top -->
+              <div class="airmail-border"></div>
+
+              <!-- Card Body -->
+              <div class="letter-paper p-5 sm:p-8 border-x border-gold/15 dark:border-white/5 relative min-h-[180px] sm:min-h-[220px] flex flex-col justify-between">
+                <!-- Wax Seal -->
+                <div class="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-800/80 shadow-md border-2 border-red-900/40 flex items-center justify-center text-red-200 font-heading text-[8px] sm:text-[10px] font-bold opacity-70 group-hover:opacity-100 transition-opacity">
+                  CH
+                </div>
+
+                <!-- Letter Content -->
+                <div class="space-y-2 sm:space-y-3 pr-12 sm:pr-16">
+                  <p class="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold">
+                    {letter.data.episode || "—"}
+                  </p>
+                  <h2 class="font-heading text-xl sm:text-2xl text-ink dark:text-white group-hover:text-accent transition-colors leading-tight">
+                    <span data-content-lang="en">{letter.data.title}</span>
+                    <span data-content-lang="jp" class="hidden">{letter.data.title_jp || letter.data.title}</span>
+                    <span data-content-lang="id" class="hidden">{letter.data.title_id || letter.data.title}</span>
+                  </h2>
+                  <p class="text-xs sm:text-sm text-ink/50 dark:text-white/40 italic font-body line-clamp-2">
+                    <span data-content-lang="en">{letter.data.description || ""}</span>
+                    <span data-content-lang="jp" class="hidden">{letter.data.description_jp || letter.data.description || ""}</span>
+                    <span data-content-lang="id" class="hidden">{letter.data.description_id || letter.data.description || ""}</span>
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-dashed border-ink/10 dark:border-white/10">
+                  <p class="text-[9px] sm:text-[10px] text-ink/40 dark:text-white/30 font-body italic">
+                    — {letter.data.sender}
+                  </p>
+                  <span
+                    class="text-[9px] sm:text-[10px] uppercase tracking-widest text-accent/60 group-hover:text-accent font-bold transition-colors"
+                    data-i18n="openLetter"
+                  >
+                    Open Letter →
+                  </span>
+                </div>
               </div>
 
-              <!-- Letter Content -->
-              <div class="space-y-2 sm:space-y-3 pr-12 sm:pr-16">
-                <p class="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold">
-                  {letter.data.episode || "—"}
-                </p>
-                <h2 class="font-heading text-xl sm:text-2xl text-ink dark:text-white group-hover:text-accent transition-colors leading-tight">
-                  <span data-content-lang="en">{letter.data.title}</span>
-                  <span data-content-lang="jp" class="hidden">{letter.data.title_jp || letter.data.title}</span>
-                  <span data-content-lang="id" class="hidden">{letter.data.title_id || letter.data.title}</span>
-                </h2>
-                <p class="text-xs sm:text-sm text-ink/50 dark:text-white/40 italic font-body line-clamp-2">
-                  <span data-content-lang="en">{letter.data.description || ""}</span>
-                  <span data-content-lang="jp" class="hidden">{letter.data.description_jp || letter.data.description || ""}</span>
-                  <span data-content-lang="id" class="hidden">{letter.data.description_id || letter.data.description || ""}</span>
-                </p>
-              </div>
-
-              <div class="flex items-center justify-between mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-dashed border-ink/10 dark:border-white/10">
-                <p class="text-[9px] sm:text-[10px] text-ink/40 dark:text-white/30 font-body italic">
-                  — {letter.data.sender}
-                </p>
-                <span
-                  class="text-[9px] sm:text-[10px] uppercase tracking-widest text-accent/60 group-hover:text-accent font-bold transition-colors"
-                  data-i18n="openLetter"
-                >
-                  Open Letter →
-                </span>
-              </div>
-            </div>
-
-            <!-- Airmail Border Bottom -->
-            <div class="airmail-border"></div>
-          </a>
-        ))}
+              <!-- Airmail Border Bottom -->
+              <div class="airmail-border"></div>
+            </a>
+          ))}
+        </div>
       </div>
     </main>
   </div>
 </Layout>
+
