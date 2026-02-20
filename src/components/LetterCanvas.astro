@@ -1,22 +1,18 @@
 ---
 /**
  * LetterCanvas.astro — Violet Evergarden themed letter composing interface
- * Features: editable location, export theme (Parchment/Midnight), VE ornaments
+ * Features: editable location with presets, export theme, VE ornaments, full translate support
  */
 ---
 
 <div class="max-w-2xl mx-auto">
-  <!-- Letter Form Container -->
   <div id="letter-form-container" class="relative transition-all duration-700">
-    <!-- Airmail Top -->
     <div class="airmail-border rounded-t-sm"></div>
 
-    <!-- Paper Body -->
     <div
       id="letter-paper"
       class="letter-canvas border-x border-gold/15 dark:border-white/5 p-6 sm:p-10 md:p-14 shadow-2xl relative"
     >
-      <!-- Corner Ornaments -->
       <svg
         class="letter-ornament top-left"
         viewBox="0 0 100 100"
@@ -126,44 +122,50 @@
         <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
       </svg>
 
-      <!-- Watermark -->
-      <div class="letter-watermark">Auto Memories Doll Service</div>
+      <div class="letter-watermark" data-i18n="watermark">Auto Memories Doll Service</div>
 
-      <!-- Header: Date & Location -->
       <div
         class="text-right mb-8 text-xs text-ink/40 dark:text-white/30 italic font-typewriter relative z-10"
       >
         <span id="letter-date"></span><br />
-        <span
-          data-i18n="writtenAt"
-          data-jp="執筆場所"
-          data-id="Ditulis di"
-          data-en="Written at">Written at</span
-        >
-        <input
-          id="letter-location"
-          type="text"
-          value="Leiden"
-          maxlength="50"
-          class="location-input"
-          data-placeholder-jp="場所を入力..."
-          data-placeholder-id="Ketik lokasi..."
-          data-placeholder-en="Type location..."
-        />
+        <span data-i18n="writtenAt">Written at</span>
+        <div class="inline-flex items-center gap-1">
+          <select
+            id="letter-location-select"
+            class="location-select bg-transparent border-b border-dashed border-ink/15 dark:border-white/10 text-ink dark:text-white font-typewriter text-xs focus:outline-none focus:border-gold/40 cursor-pointer"
+          >
+            <option value="Leiden" data-i18n="loc.leiden">Leiden</option>
+            <option value="Hodinsara" data-i18n="loc.hodinsara">Hodinsara</option>
+            <option value="Shahar" data-i18n="loc.shahar">Shahar</option>
+            <option value="Ecarte Island" data-i18n="loc.ecarte">Ecarte Island</option>
+            <option value="Ctrigal" data-i18n="loc.ctrigal">Ctrigal</option>
+            <option value="Drossel" data-i18n="loc.drossel">Drossel</option>
+            <option value="custom" data-i18n="loc.custom">Custom...</option>
+          </select>
+          <input
+            id="letter-location-custom"
+            type="text"
+            placeholder="Enter location..."
+            maxlength="50"
+            class="location-input hidden"
+            data-placeholder-jp="場所を入力..."
+            data-placeholder-id="Ketik lokasi..."
+            data-placeholder-en="Enter location..."
+          />
+        </div>
       </div>
 
-      <!-- Recipient Input -->
       <div class="mb-6 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
           data-i18n="letterTo"
         >
-          Kepada (Opsional)
+          To (Optional)
         </label>
         <input
           id="letter-recipient"
           type="text"
-          placeholder="Nama Penerima..."
+          placeholder="Recipient Name..."
           data-placeholder-jp="受取人の名前..."
           data-placeholder-id="Nama Penerima..."
           data-placeholder-en="Recipient Name..."
@@ -175,18 +177,17 @@
         />
       </div>
 
-      <!-- Letter Content Textarea -->
       <div class="mb-6 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
           data-i18n="letterContent"
         >
-          Isi Surat
+          Letter Content
         </label>
         <textarea
           id="letter-content"
           rows="12"
-          placeholder="Mulai menulis surat Anda di sini... (Minimal 50 karakter)"
+          placeholder="Start writing your letter here... (Minimum 50 characters)"
           data-placeholder-jp="ここに手紙を書き始めてください…（最低50文字）"
           data-placeholder-id="Mulai menulis surat Anda di sini... (Minimal 50 karakter)"
           data-placeholder-en="Start writing your letter here... (Minimum 50 characters)"
@@ -197,7 +198,6 @@
           style="line-height: 32px;"></textarea>
       </div>
 
-      <!-- Character Counter -->
       <div class="flex items-center justify-between mb-8 relative z-10">
         <div class="flex items-center gap-2">
           <span
@@ -205,7 +205,7 @@
             class="text-xs font-sans font-bold text-red-500/80">0</span
           >
           <span class="text-[10px] text-ink/30 dark:text-white/20 font-sans"
-            >/50 min</span
+            >/50 <span data-i18n="minChars">min</span></span
           >
         </div>
         <div
@@ -213,17 +213,16 @@
           class="text-[10px] font-sans italic text-red-500/60"
           data-i18n="tooShort"
         >
-          Terlalu pendek — tulis dari hati ♡
+          Too short — write from the heart ♡
         </div>
       </div>
 
-      <!-- Export Theme Selector -->
       <div class="mb-8 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
           data-i18n="exportTheme"
         >
-          Tema Surat Ekspor
+          Export Theme
         </label>
         <div class="grid grid-cols-2 gap-3" id="export-theme-grid">
           <button
@@ -233,9 +232,10 @@
           >
             <span class="text-lg">☀️</span>
             <div class="text-left">
-              <div>Parchment</div>
+              <div data-i18n="theme.parchment">Parchment</div>
               <div
                 class="text-[8px] opacity-50 normal-case tracking-normal mt-0.5"
+                data-i18n="theme.parchmentDesc"
               >
                 Classic warm beige
               </div>
@@ -248,9 +248,10 @@
           >
             <span class="text-lg">🌙</span>
             <div class="text-left">
-              <div>Midnight</div>
+              <div data-i18n="theme.midnight">Midnight</div>
               <div
                 class="text-[8px] opacity-50 normal-case tracking-normal mt-0.5"
+                data-i18n="theme.midnightDesc"
               >
                 Elegant dark navy
               </div>
@@ -259,66 +260,64 @@
         </div>
       </div>
 
-      <!-- Stamp Selector -->
       <div class="mb-8 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
           data-i18n="selectStamp"
         >
-          Pilih Perangko
+          Select Stamp
         </label>
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-3" id="stamp-grid">
           <button type="button" class="stamp-option active" data-stamp="postal">
             <div class="stamp-card">
               <span class="text-2xl">📮</span>
-              <span class="stamp-label">Postal</span>
+              <span class="stamp-label" data-i18n="stamp.postal">Postal</span>
             </div>
           </button>
           <button type="button" class="stamp-option" data-stamp="flower">
             <div class="stamp-card">
               <span class="text-2xl">🌸</span>
-              <span class="stamp-label">Sakura</span>
+              <span class="stamp-label" data-i18n="stamp.sakura">Sakura</span>
             </div>
           </button>
           <button type="button" class="stamp-option" data-stamp="brooch">
             <div class="stamp-card">
               <span class="text-2xl">💎</span>
-              <span class="stamp-label">Brooch</span>
+              <span class="stamp-label" data-i18n="stamp.brooch">Brooch</span>
             </div>
           </button>
           <button type="button" class="stamp-option" data-stamp="quill">
             <div class="stamp-card">
               <span class="text-2xl">🪶</span>
-              <span class="stamp-label">Quill</span>
+              <span class="stamp-label" data-i18n="stamp.quill">Quill</span>
             </div>
           </button>
           <button type="button" class="stamp-option" data-stamp="letter">
             <div class="stamp-card">
               <span class="text-2xl">✉️</span>
-              <span class="stamp-label">Letter</span>
+              <span class="stamp-label" data-i18n="stamp.letter">Letter</span>
             </div>
           </button>
           <button type="button" class="stamp-option" data-stamp="tulip">
             <div class="stamp-card">
               <span class="text-2xl">🌷</span>
-              <span class="stamp-label">Tulip</span>
+              <span class="stamp-label" data-i18n="stamp.tulip">Tulip</span>
             </div>
           </button>
         </div>
       </div>
 
-      <!-- Sender Alias -->
       <div class="mb-10 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
           data-i18n="letterFrom"
         >
-          Pengirim (Opsional)
+          From (Optional)
         </label>
         <input
           id="letter-sender"
           type="text"
-          placeholder="Alias Anda..."
+          placeholder="Your Alias..."
           data-placeholder-jp="あなたの名前..."
           data-placeholder-id="Alias Anda..."
           data-placeholder-en="Your Alias..."
@@ -330,7 +329,6 @@
         />
       </div>
 
-      <!-- Submit Area -->
       <div
         class="flex flex-col items-center gap-4 pt-6 border-t border-dashed border-ink/10 dark:border-white/10 relative z-10"
       >
@@ -338,14 +336,15 @@
           class="text-[10px] text-ink/30 dark:text-white/20 font-sans uppercase tracking-[0.2em]"
           data-i18n="sealAndSend"
         >
-          Segel & Kirim
+          Seal & Send
         </p>
         <button
           id="wax-seal-submit"
           type="button"
           class="wax-seal-btn"
           disabled
-          title="Segel Surat"
+          data-i18n-title="sealTitle"
+          title="Seal Letter"
         >
           CH
         </button>
@@ -354,17 +353,15 @@
           class="text-[9px] text-ink/25 dark:text-white/15 font-sans italic"
           data-i18n="sealHintLocked"
         >
-          Tulis minimal 50 karakter untuk membuka segel
+          Write at least 50 characters to unlock the seal
         </p>
       </div>
     </div>
 
-    <!-- Airmail Bottom -->
     <div class="airmail-border rounded-b-sm"></div>
   </div>
 </div>
 
-<!-- Hidden Export Preview: PARCHMENT theme (rendered off-screen for html-to-image) -->
 <div
   id="export-preview-wrapper"
   class="fixed -left-[9999px] top-0 pointer-events-none"
@@ -379,7 +376,6 @@
       id="ep-bg"
       style="padding: 48px; position: relative; border-radius: 4px;"
     >
-      <!-- Corner Ornament SVGs for export -->
       <svg
         id="ep-ornament-tl"
         style="position: absolute; top: 10px; left: 10px; width: 40px; height: 40px; opacity: 0.12;"
@@ -461,31 +457,27 @@
         <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
       </svg>
 
-      <!-- Date -->
       <div
         id="ep-date"
         style="text-align: right; font-size: 11px; font-style: italic; margin-bottom: 32px;"
       >
       </div>
-      <!-- Salutation -->
       <div
         id="ep-salutation"
         style="font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 24px;"
       >
       </div>
-      <!-- Content -->
       <div
         id="ep-content"
         style="font-size: 15px; line-height: 2; white-space: pre-wrap; margin-bottom: 40px;"
       >
       </div>
-      <!-- Signature -->
       <div style="text-align: right;">
         <div
           id="ep-sincerely"
           style="font-style: italic; font-size: 11px; margin-bottom: 8px;"
         >
-          敬具,
+          Sincerely,
         </div>
         <div
           id="ep-sender"
@@ -499,19 +491,16 @@
           Auto Memories Doll Service
         </div>
       </div>
-      <!-- Stamp -->
       <div
         id="ep-stamp"
         style="position: absolute; top: 16px; right: 16px; font-size: 28px;"
       >
       </div>
-      <!-- Airmail border top -->
       <div
         id="ep-airmail-top"
         style="position: absolute; top: 0; left: 0; right: 0; height: 6px; border-radius: 4px 4px 0 0;"
       >
       </div>
-      <!-- Airmail border bottom -->
       <div
         id="ep-airmail-bottom"
         style="position: absolute; bottom: 0; left: 0; right: 0; height: 6px; border-radius: 0 0 4px 4px;"
@@ -521,7 +510,6 @@
   </div>
 </div>
 
-<!-- Petal Loading Overlay (hidden by default) -->
 <div id="petal-overlay" class="petal-overlay hidden">
   <div
     class="absolute inset-0 bg-paper/60 dark:bg-dark-bg/70 flex items-center justify-center"
@@ -535,7 +523,7 @@
         class="font-heading text-lg text-ink/80 dark:text-white/80"
         data-i18n="sendingLetter"
       >
-        Mengirim surat Anda...
+        Sending your letter...
       </p>
       <p class="text-xs text-ink/40 dark:text-white/30 italic font-typewriter">
         Auto Memories Doll Service
@@ -544,7 +532,6 @@
   </div>
 </div>
 
-<!-- Toast Notification -->
 <div
   id="letter-toast"
   class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] opacity-0 translate-y-4
@@ -602,7 +589,25 @@
     color: rgba(255, 255, 255, 0.35);
   }
 
-  /* Self-destruct animation */
+  .location-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%238B7355' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    padding-right: 14px;
+  }
+  :global(.dark) .location-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  }
+  .location-select option {
+    background: #f5f0e1;
+    color: #2D2D2D;
+  }
+  :global(.dark) .location-select option {
+    background: #1a1e2e;
+    color: #fff;
+  }
+
   @keyframes selfDestruct {
     0% {
       opacity: 1;
@@ -633,24 +638,15 @@
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const textarea = document.getElementById(
-      "letter-content",
-    ) as HTMLTextAreaElement;
+    const textarea = document.getElementById("letter-content") as HTMLTextAreaElement;
     const charCount = document.getElementById("char-count");
     const charStatus = document.getElementById("char-status");
-    const sealBtn = document.getElementById(
-      "wax-seal-submit",
-    ) as HTMLButtonElement;
+    const sealBtn = document.getElementById("wax-seal-submit") as HTMLButtonElement;
     const sealHint = document.getElementById("seal-hint");
-    const recipientInput = document.getElementById(
-      "letter-recipient",
-    ) as HTMLInputElement;
-    const senderInput = document.getElementById(
-      "letter-sender",
-    ) as HTMLInputElement;
-    const locationInput = document.getElementById(
-      "letter-location",
-    ) as HTMLInputElement;
+    const recipientInput = document.getElementById("letter-recipient") as HTMLInputElement;
+    const senderInput = document.getElementById("letter-sender") as HTMLInputElement;
+    const locationSelect = document.getElementById("letter-location-select") as HTMLSelectElement;
+    const locationCustom = document.getElementById("letter-location-custom") as HTMLInputElement;
     const stampGrid = document.getElementById("stamp-grid");
     const exportThemeGrid = document.getElementById("export-theme-grid");
     const petalOverlay = document.getElementById("petal-overlay");
@@ -662,7 +658,6 @@
 
     if (!textarea || !sealBtn) return;
 
-    // Set date
     if (dateEl) {
       dateEl.textContent = new Date().toLocaleDateString("en-US", {
         year: "numeric",
@@ -671,70 +666,110 @@
       });
     }
 
-    // --- Export theme state ---
     let selectedExportTheme = "parchment";
 
-    // --- i18n helper ---
     const i18nStrings: Record<string, Record<string, string>> = {
       tooShort: {
         en: "Too short — write from the heart ♡",
-        jp: "短すぎます — 心を込めて書いて ♡",
+        ja: "短すぎます — 心を込めて書いて ♡",
         id: "Terlalu pendek — tulis dari hati ♡",
       },
       readyToSeal: {
         en: "Ready to seal ✦",
-        jp: "封蝋の準備完了 ✦",
+        ja: "封蝋の準備完了 ✦",
         id: "Siap disegel ✦",
       },
       sealHintLocked: {
         en: "Write at least 50 characters to unlock the seal",
-        jp: "封蝋を解くには50文字以上書いてください",
+        ja: "封蝋を解くには50文字以上書いてください",
         id: "Tulis minimal 50 karakter untuk membuka segel",
       },
       sealHintReady: {
         en: "Click the seal to send your letter",
-        jp: "封蝋をクリックして手紙を送ってください",
+        ja: "封蝋をクリックして手紙を送ってください",
         id: "Klik segel untuk mengirim surat",
       },
       toastTitle: {
         en: "Letter Immortalized",
-        jp: "手紙は永遠に",
+        ja: "手紙は永遠に",
         id: "Surat Telah Diabadikan",
       },
       toastDesc: {
         en: "Your letter has been saved as an image and erased from our system.",
-        jp: "手紙は画像として保存され、システムから消去されました。",
-        id: "Surat Anda telah diabadikan dalam bentuk gambar dan dihapus dari sistem kami.",
+        ja: "手紙は画像として保存され、システムから消去されました。",
+        id: "Surat Anda telah diabadikan dan dihapus dari sistem kami.",
       },
       exportFail: {
         en: "Export failed. Please try again.",
-        jp: "Exportに失敗しました。もう一度お試しください。",
+        ja: "Exportに失敗しました。もう一度お試しください。",
         id: "Export gagal. Silakan coba lagi.",
       },
+      sincerely: {
+        en: "Sincerely,",
+        ja: "敬具,",
+        id: "Dengan hormat,",
+      },
+      dearest: {
+        en: "Dearest",
+        ja: "親愛なる",
+        id: "Untuk yang tercinta",
+      },
+      dearReader: {
+        en: "Dear Reader,",
+        ja: "拝啓、",
+        id: "Kepada pembaca,",
+      },
+      writtenAt: {
+        en: "Written at",
+        ja: "執筆場所",
+        id: "Ditulis di",
+      },
     };
-    const langMap: Record<string, string> = { JP: "jp", ID: "id", EN: "en" };
+
+    const langMap: Record<string, string> = { JP: "ja", ID: "id", EN: "en" };
     function getLang(): string {
-      return langMap[localStorage.getItem("vigarden-lang") || "JP"] || "jp";
+      return langMap[localStorage.getItem("vigarden-lang") || "ID"] || "id";
     }
     function t(key: string): string {
       return i18nStrings[key]?.[getLang()] || i18nStrings[key]?.["en"] || "";
     }
 
-    // --- Update placeholders based on language ---
     function updatePlaceholders() {
       const lang = getLang();
-      document
-        .querySelectorAll<
-          HTMLInputElement | HTMLTextAreaElement
-        >("[data-placeholder-" + lang + "]")
-        .forEach((el) => {
-          const val = el.getAttribute("data-placeholder-" + lang);
-          if (val) el.placeholder = val;
-        });
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[data-placeholder-" + lang + "]").forEach((el) => {
+        const val = el.getAttribute("data-placeholder-" + lang);
+        if (val) el.placeholder = val;
+      });
     }
     updatePlaceholders();
 
-    // --- Typewriter Audio ---
+    function updateI18nElements() {
+      const lang = getLang();
+      document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (!key) return;
+        const val = el.getAttribute("data-" + lang);
+        if (val) el.textContent = val;
+      });
+    }
+
+    locationSelect?.addEventListener("change", () => {
+      if (locationSelect.value === "custom") {
+        locationCustom?.classList.remove("hidden");
+        locationCustom?.focus();
+      } else {
+        locationCustom?.classList.add("hidden");
+        locationCustom.value = "";
+      }
+    });
+
+    function getLocation(): string {
+      if (locationSelect?.value === "custom") {
+        return locationCustom?.value.trim() || "Leiden";
+      }
+      return locationSelect?.value || "Leiden";
+    }
+
     let audioCtx: AudioContext | null = null;
     let audioBuffer: AudioBuffer | null = null;
 
@@ -761,21 +796,17 @@
         source.connect(gain);
         gain.connect(audioCtx.destination);
         source.start(0, offset, 0.1 + Math.random() * 0.05);
-      } catch (e) {
-        /* silent fail */
-      }
+      } catch (e) {}
     }
 
     textarea.addEventListener("focus", initAudio, { once: true });
 
-    // --- Character Count & Validation ---
     textarea.addEventListener("input", () => {
       const len = textarea.value.length;
       if (charCount) charCount.textContent = String(len);
 
       if (len >= 50) {
-        if (charCount)
-          charCount.className = "text-xs font-sans font-bold text-accent/80";
+        if (charCount) charCount.className = "text-xs font-sans font-bold text-accent/80";
         if (charStatus) {
           charStatus.textContent = t("readyToSeal");
           charStatus.className = "text-[10px] font-sans italic text-accent/60";
@@ -783,8 +814,7 @@
         sealBtn.disabled = false;
         if (sealHint) sealHint.textContent = t("sealHintReady");
       } else {
-        if (charCount)
-          charCount.className = "text-xs font-sans font-bold text-red-500/80";
+        if (charCount) charCount.className = "text-xs font-sans font-bold text-red-500/80";
         if (charStatus) {
           charStatus.textContent = t("tooShort");
           charStatus.className = "text-[10px] font-sans italic text-red-500/60";
@@ -796,41 +826,29 @@
       playKeystroke();
     });
 
-    // --- Stamp Selection ---
     let selectedStamp = "postal";
     stampGrid?.addEventListener("click", (e) => {
-      const btn = (e.target as HTMLElement).closest(
-        ".stamp-option",
-      ) as HTMLElement;
+      const btn = (e.target as HTMLElement).closest(".stamp-option") as HTMLElement;
       if (!btn) return;
-      stampGrid
-        .querySelectorAll(".stamp-option")
-        .forEach((el) => el.classList.remove("active"));
+      stampGrid.querySelectorAll(".stamp-option").forEach((el) => el.classList.remove("active"));
       btn.classList.add("active");
       selectedStamp = btn.dataset.stamp || "postal";
     });
 
-    // --- Export Theme Selection ---
     exportThemeGrid?.addEventListener("click", (e) => {
-      const btn = (e.target as HTMLElement).closest(
-        ".theme-toggle-btn",
-      ) as HTMLElement;
+      const btn = (e.target as HTMLElement).closest(".theme-toggle-btn") as HTMLElement;
       if (!btn) return;
-      exportThemeGrid
-        .querySelectorAll(".theme-toggle-btn")
-        .forEach((el) => el.classList.remove("active"));
+      exportThemeGrid.querySelectorAll(".theme-toggle-btn").forEach((el) => el.classList.remove("active"));
       btn.classList.add("active");
       selectedExportTheme = btn.dataset.exportTheme || "parchment";
     });
 
-    // --- XSS Sanitization ---
     function sanitize(str: string): string {
       const div = document.createElement("div");
       div.textContent = str;
       return div.innerHTML;
     }
 
-    // --- Petal Animation ---
     function showPetals() {
       if (!petalOverlay) return;
       petalOverlay.classList.remove("hidden");
@@ -851,7 +869,6 @@
       petalOverlay.querySelectorAll(".petal").forEach((p) => p.remove());
     }
 
-    // --- Toast ---
     function showToast() {
       if (!toast || !toastTitle || !toastDesc) return;
       toastTitle.textContent = t("toastTitle");
@@ -864,7 +881,6 @@
       }, 6000);
     }
 
-    // --- Export Theme Configs ---
     const exportThemes = {
       parchment: {
         bg: "linear-gradient(145deg, #f5f0e1 0%, #ede4cc 100%)",
@@ -876,8 +892,7 @@
         sincerelyColor: "rgba(45,45,45,0.5)",
         salutationColor: "#2D2D2D",
         ornamentColor: "#8B7355",
-        airmailBg:
-          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #c0392b 8px, #c0392b 10px, transparent 10px, transparent 18px, #2c3e50 18px, #2c3e50 20px)",
+        airmailBg: "repeating-linear-gradient(-45deg, transparent, transparent 8px, #c0392b 8px, #c0392b 10px, transparent 10px, transparent 18px, #2c3e50 18px, #2c3e50 20px)",
       },
       midnight: {
         bg: "linear-gradient(145deg, #0f1729 0%, #1a2540 100%)",
@@ -889,17 +904,11 @@
         sincerelyColor: "rgba(255,255,255,0.4)",
         salutationColor: "rgba(255,255,255,0.9)",
         ornamentColor: "#C5A059",
-        airmailBg:
-          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #8b4513 8px, #8b4513 10px, transparent 10px, transparent 18px, #c5a059 18px, #c5a059 20px)",
+        airmailBg: "repeating-linear-gradient(-45deg, transparent, transparent 8px, #8b4513 8px, #8b4513 10px, transparent 10px, transparent 18px, #c5a059 18px, #c5a059 20px)",
       },
     };
 
-    // --- Populate Export Preview ---
-    function populatePreview(
-      content: string,
-      recipient: string,
-      sender: string,
-    ) {
+    function populatePreview(content: string, recipient: string, sender: string) {
       const stampIcons: Record<string, string> = {
         postal: "📮",
         flower: "🌸",
@@ -909,10 +918,8 @@
         tulip: "🌷",
       };
 
-      const theme =
-        exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
-        exportThemes.parchment;
-      const location = locationInput?.value.trim() || "Leiden";
+      const theme = exportThemes[selectedExportTheme as keyof typeof exportThemes] || exportThemes.parchment;
+      const location = getLocation();
 
       const epBg = document.getElementById("ep-bg");
       const epDate = document.getElementById("ep-date");
@@ -925,21 +932,11 @@
       const epAirmailTop = document.getElementById("ep-airmail-top");
       const epAirmailBottom = document.getElementById("ep-airmail-bottom");
 
-      // Apply theme colors
-      if (epBg) {
-        epBg.style.background = theme.bg;
-      }
+      if (epBg) epBg.style.background = theme.bg;
       if (epAirmailTop) epAirmailTop.style.backgroundImage = theme.airmailBg;
-      if (epAirmailBottom)
-        epAirmailBottom.style.backgroundImage = theme.airmailBg;
+      if (epAirmailBottom) epAirmailBottom.style.backgroundImage = theme.airmailBg;
 
-      // Apply ornament colors
-      [
-        "ep-ornament-tl",
-        "ep-ornament-tr",
-        "ep-ornament-bl",
-        "ep-ornament-br",
-      ].forEach((id) => {
+      ["ep-ornament-tl", "ep-ornament-tr", "ep-ornament-bl", "ep-ornament-br"].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.style.color = theme.ornamentColor;
       });
@@ -951,13 +948,11 @@
       });
 
       if (epDate) {
-        epDate.textContent = dateStr + "\nWritten at " + location;
+        epDate.textContent = dateStr + "\n" + t("writtenAt") + " " + location;
         epDate.style.color = theme.dateColor;
       }
       if (epSalutation) {
-        epSalutation.textContent = recipient
-          ? `Dearest ${recipient},`
-          : "Dear Reader,";
+        epSalutation.textContent = recipient ? `${t("dearest")} ${recipient},` : t("dearReader");
         epSalutation.style.color = theme.salutationColor;
       }
       if (epContent) {
@@ -965,6 +960,7 @@
         epContent.style.color = theme.textColor;
       }
       if (epSincerely) {
+        epSincerely.textContent = t("sincerely");
         epSincerely.style.color = theme.sincerelyColor;
       }
       if (epSender) {
@@ -977,12 +973,15 @@
       if (epStamp) epStamp.textContent = stampIcons[selectedStamp] || "📮";
     }
 
-    // --- Reset Form ---
     function resetForm() {
       textarea.value = "";
       if (recipientInput) recipientInput.value = "";
       if (senderInput) senderInput.value = "";
-      if (locationInput) locationInput.value = "Leiden";
+      if (locationSelect) locationSelect.value = "Leiden";
+      if (locationCustom) {
+        locationCustom.value = "";
+        locationCustom.classList.add("hidden");
+      }
       if (charCount) {
         charCount.textContent = "0";
         charCount.className = "text-xs font-sans font-bold text-red-500/80";
@@ -993,23 +992,18 @@
       }
       sealBtn.disabled = true;
       if (sealHint) sealHint.textContent = t("sealHintLocked");
-      // Reset stamp
       stampGrid?.querySelectorAll(".stamp-option").forEach((el, i) => {
         if (i === 0) el.classList.add("active");
         else el.classList.remove("active");
       });
       selectedStamp = "postal";
-      // Reset export theme
-      exportThemeGrid
-        ?.querySelectorAll(".theme-toggle-btn")
-        .forEach((el, i) => {
-          if (i === 0) el.classList.add("active");
-          else el.classList.remove("active");
-        });
+      exportThemeGrid?.querySelectorAll(".theme-toggle-btn").forEach((el, i) => {
+        if (i === 0) el.classList.add("active");
+        else el.classList.remove("active");
+      });
       selectedExportTheme = "parchment";
     }
 
-    // --- Submit: Write-to-Export ---
     sealBtn.addEventListener("click", async () => {
       const content = textarea.value.trim();
       if (content.length < 50) return;
@@ -1017,37 +1011,23 @@
       const recipient = sanitize(recipientInput?.value.trim() || "");
       const sender = sanitize(senderInput?.value.trim() || "Anonymous");
 
-      // 1. Wax seal animation
       sealBtn.classList.add("stamped");
-
-      // 2. Show petals
       showPetals();
-
-      // 3. Populate hidden export preview
       populatePreview(content, recipient, sender);
-
-      // 4. Wait a beat for the animation, then export
       await new Promise((r) => setTimeout(r, 1500));
 
       try {
-        // Dynamic import html-to-image from CDN
-        const { toPng } = await import(
-          // @ts-ignore — CDN ESM import, resolved at runtime
-          "https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm"
-        );
+        const { toPng } = await import("https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm");
         const preview = document.getElementById("export-preview");
         if (!preview) throw new Error("Preview element not found");
 
-        const theme =
-          exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
-          exportThemes.parchment;
+        const theme = exportThemes[selectedExportTheme as keyof typeof exportThemes] || exportThemes.parchment;
 
         const dataUrl = await toPng(preview, {
           backgroundColor: theme.bgColor,
           pixelRatio: 2,
         });
 
-        // Trigger download
         const link = document.createElement("a");
         link.download = `letter-${Date.now().toString(36)}.png`;
         link.href = dataUrl;
@@ -1060,37 +1040,27 @@
         return;
       }
 
-      // 5. Hide petals
       hidePetals();
 
-      // 6. Self-destruct animation
       if (formContainer) {
         formContainer.classList.add("self-destructing");
       }
 
-      // 7. After self-destruct completes, reset
       setTimeout(() => {
-        // Show toast
         showToast();
-
-        // Remove self-destruct class and reset form
         if (formContainer) {
           formContainer.classList.remove("self-destructing");
           formContainer.style.opacity = "0";
-          // Fade back in with fresh form
           setTimeout(() => {
             resetForm();
             formContainer.style.transition = "opacity 0.8s ease";
             formContainer.style.opacity = "1";
           }, 400);
         }
-
-        // Clean any stale letter data from localStorage (legacy cleanup)
         localStorage.removeItem("vigarden-unsent-letters");
       }, 1800);
     });
 
-    // Remove animation class after it plays
     sealBtn.addEventListener("animationend", () => {
       sealBtn.classList.remove("stamped");
     });

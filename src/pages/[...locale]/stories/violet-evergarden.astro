@@ -7,7 +7,7 @@ import { useTranslations } from "../../../i18n/utils";
 
 export async function getStaticPaths() {
   return [
-    { params: { locale: undefined } }, // id (default)
+    { params: { locale: undefined } },
     { params: { locale: "en" } },
     { params: { locale: "ja" } },
   ];
@@ -17,7 +17,6 @@ const { locale } = Astro.params;
 const currentLang = (locale as keyof typeof ui) || defaultLang;
 const t = useTranslations(currentLang);
 
-// Content loading: fetch all versions to support instant client-side switching
 const allStories = await getCollection("stories");
 const idEntry = allStories.find((s) => s.data.lang === "id");
 const enEntry = allStories.find((s) => s.data.lang === "en");
@@ -33,7 +32,7 @@ const IdContent = renderedId?.Content;
 const EnContent = renderedEn?.Content;
 const JaContent = renderedJa?.Content;
 
-const storyEntry = idEntry || allStories[0]; // Fallback for layout props
+const storyEntry = idEntry || allStories[0];
 ---
 
 <Layout
@@ -43,11 +42,9 @@ const storyEntry = idEntry || allStories[0]; // Fallback for layout props
 >
   <ThemeController slot="header-right" />
 
-  <!-- Hero Section (Matches Letters Page) -->
   <div class="bg-paper dark:bg-dark-bg relative transition-colors duration-300">
-    <section
-      class="relative h-[40vh] sm:h-[50vh] min-h-[300px] w-full flex flex-col items-center justify-center text-center overflow-hidden"
-    >
+    <!-- Hero Section -->
+    <section class="relative min-h-[70vh] sm:min-h-[80vh] w-full flex flex-col items-center justify-center overflow-hidden">
       <div class="absolute inset-0 z-0">
         <img
           id="theme-gif"
@@ -55,211 +52,648 @@ const storyEntry = idEntry || allStories[0]; // Fallback for layout props
           alt=""
           class="w-full h-full object-cover opacity-15 dark:opacity-30 blur-[2px] transition-opacity duration-700"
         />
-        <div
-          class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-dark-bg"
-        >
+        <div class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-dark-bg"></div>
+      </div>
+
+      <!-- Floating Petals Background -->
+      <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="floating-petal" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-petal" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="floating-petal" style="left: 35%; animation-delay: 4s;"></div>
+        <div class="floating-petal" style="left: 50%; animation-delay: 1s;"></div>
+        <div class="floating-petal" style="left: 65%; animation-delay: 3s;"></div>
+        <div class="floating-petal" style="left: 80%; animation-delay: 5s;"></div>
+        <div class="floating-petal" style="left: 90%; animation-delay: 2.5s;"></div>
+      </div>
+
+      <div class="relative z-10 text-center px-4 sm:px-6 space-y-6 sm:space-y-8">
+        <div class="story-hero-title">
+          <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tight leading-tight" data-i18n="story.title">
+            {t("story.title")}
+          </h1>
+        </div>
+        
+        <p class="text-ink/60 dark:text-white/60 font-body text-sm sm:text-base tracking-[0.15em] sm:tracking-[0.2em] uppercase italic max-w-xl mx-auto story-hero-subtitle" data-i18n="story.subtitle">
+          {t("story.subtitle")}
+        </p>
+
+        <!-- Warning Banner -->
+        <div class="story-warnings max-w-lg mx-auto mt-8">
+          <div class="bg-red-900/10 dark:bg-red-900/20 border border-red-900/20 dark:border-red-900/30 rounded-lg p-4 sm:p-5 backdrop-blur-sm">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <svg class="w-4 h-4 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span class="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-widest" data-i18n="story.spoiler">
+                {t("story.spoiler")}
+              </span>
+            </div>
+            <p class="text-[10px] text-ink/50 dark:text-white/50 text-center" data-i18n="story.trigger">
+              {t("story.trigger")}
+            </p>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator mt-12">
+          <div class="w-6 h-10 border-2 border-ink/20 dark:border-white/20 rounded-full mx-auto flex justify-center">
+            <div class="w-1.5 h-3 bg-ink/40 dark:bg-white/40 rounded-full mt-2 animate-bounce"></div>
+          </div>
         </div>
       </div>
 
-      <div class="relative z-10 space-y-4 px-4 sm:px-6 animate-fade-in-up">
-        <h1
-          class="text-4xl sm:text-6xl md:text-8xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter"
-          data-i18n="story.title"
-        >
-          {t("story.title")}
-        </h1>
-        <p
-          class="text-ink/60 dark:text-white/60 font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase italic"
-          data-i18n="story.subtitle"
-        >
-          {t("story.subtitle")}
-        </p>
-      </div>
-
-      <div
-        class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none"
-      >
-        <svg
-          class="block w-full h-10 sm:h-12 md:h-20"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs
-            ><path
-              id="letters-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            ></path></defs
-          >
-          <use
-            href="#letters-wave"
-            x="48"
-            y="7"
-            fill="currentColor"
-            class="text-paper dark:text-dark-bg transition-colors duration-300"
-          ></use>
+      <!-- Wave Divider -->
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+        <svg class="block w-full h-12 sm:h-16 md:h-20" viewBox="0 24 150 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><path id="story-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+          <use href="#story-wave" x="48" y="7" fill="currentColor" class="text-paper dark:text-dark-bg transition-colors duration-300"></use>
         </svg>
       </div>
     </section>
 
-    <!-- Content Section -->
-    <main class="max-w-4xl mx-auto px-4 py-12 md:py-20 relative z-10">
-      <!-- Warnings -->
-      <div
-        class="bg-red-900/5 border border-red-900/10 rounded-lg p-6 mb-12 text-center max-w-2xl mx-auto"
-      >
-        <p
-          class="text-xs font-bold text-red-700 dark:text-red-400 uppercase tracking-widest mb-1"
-          data-i18n="story.spoiler"
-        >
-          {t("story.spoiler")}
-        </p>
-        <p
-          class="text-[10px] text-ink/50 dark:text-white/50 italic"
-          data-i18n="story.trigger"
-        >
-          {t("story.trigger")}
-        </p>
-      </div>
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 relative z-10">
+      
+      <!-- Quote Section -->
+      <section class="mb-16 sm:mb-20 text-center story-section" data-animate="fade-up">
+        <div class="max-w-2xl mx-auto">
+          <div class="text-6xl sm:text-8xl font-heading text-accent/10 dark:text-gold/10 leading-none mb-4">"</div>
+          <blockquote class="text-xl sm:text-2xl md:text-3xl font-heading italic text-ink dark:text-white leading-relaxed" data-i18n="quote.love">
+            {t("quote.love")}
+          </blockquote>
+          <cite class="block mt-6 text-sm font-bold uppercase tracking-widest text-accent dark:text-gold not-italic">
+            — Violet Evergarden
+          </cite>
+        </div>
+      </section>
 
-      <!-- Multi-Language Story Content Containers -->
-      <article class="prose dark:prose-invert mx-auto story-content">
-        <div
-          data-content-lang="id"
-          class={currentLang === "id" ? "" : "hidden"}
-        >
-          {IdContent && <IdContent />}
+      <!-- Timeline Section -->
+      <section class="mb-16 sm:mb-20 story-section" data-animate="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-heading text-center mb-10 sm:mb-12 text-ink dark:text-white" data-i18n="story.timeline.title">
+          {t("story.timeline.title")}
+        </h2>
+        
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+          
+          <div class="timeline-item" data-phase="childhood">
+            <div class="timeline-marker">
+              <span class="timeline-icon">🌱</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="timeline-title" data-i18n="story.chapter.childhood">{t("story.chapter.childhood")}</h3>
+              <p class="timeline-desc">Violet ditemukan sebagai anak yatim piatu tanpa ingatan masa lalu. Dia tidak bisa berbicara, tidak bisa menulis, dan tidak mengerti emosi manusia.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-phase="war">
+            <div class="timeline-marker">
+              <span class="timeline-icon">⚔️</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="timeline-title" data-i18n="story.chapter.war">{t("story.chapter.war")}</h3>
+              <p class="timeline-desc">Diambil oleh Mayor Gilbert Bougainvillea, Violet menjadi senjata perang yang mematikan. Dia hanya mengikuti perintah tanpa mempertanyakan moralitas.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-phase="doll">
+            <div class="timeline-marker">
+              <span class="timeline-icon">✉️</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="timeline-title" data-i18n="story.chapter.doll">{t("story.chapter.doll")}</h3>
+              <p class="timeline-desc">Setelah perang berakhir dan Gilbert menghilang, Violet menjadi Auto Memories Doll di CH Postal Company untuk memahami kata-kata terakhir Gilbert.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-phase="growth">
+            <div class="timeline-marker">
+              <span class="timeline-icon">💝</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="timeline-title" data-i18n="story.chapter.growth">{t("story.chapter.growth")}</h3>
+              <p class="timeline-desc">Melalui berbagai penugasan menulis surat, Violet belajar tentang emosi manusia, cinta, kesedihan, dan arti kehidupan.</p>
+            </div>
+          </div>
+          
+          <div class="timeline-item" data-phase="reunion">
+            <div class="timeline-marker">
+              <span class="timeline-icon">🌸</span>
+            </div>
+            <div class="timeline-content">
+              <h3 class="timeline-title" data-i18n="story.chapter.reunion">{t("story.chapter.reunion")}</h3>
+              <p class="timeline-desc">Violet akhirnya menemukan Gilbert yang masih hidup di pulau terpencil. Mereka dipertemukan kembali dalam reuni yang penuh air mata.</p>
+            </div>
+          </div>
         </div>
-        <div
-          data-content-lang="en"
-          class={currentLang === "en" ? "" : "hidden"}
-        >
-          {EnContent && <EnContent />}
-        </div>
-        <div
-          data-content-lang="jp"
-          class={currentLang === "ja" ? "" : "hidden"}
-        >
-          {JaContent && <JaContent />}
-        </div>
-      </article>
+      </section>
 
-      <!-- Call to Action -->
-      <div
-        class="mt-20 pt-10 border-t border-ink/10 dark:border-white/10 text-center"
-      >
-        <h3
-          class="text-2xl font-heading mb-4 text-accent dark:text-gold"
-          data-i18n="story.cta.title"
-        >
-          {t("story.cta.title")}
-        </h3>
-        <p
-          class="mb-8 font-body text-ink/80 dark:text-white/80"
-          data-i18n="story.cta.text"
-        >
-          {t("story.cta.text")}
-        </p>
-        <a
-          href="/letters/write"
-          class="inline-block px-8 py-3 bg-accent dark:bg-gold text-white dark:text-black font-bold uppercase tracking-widest rounded hover:scale-105 transition-transform duration-300 shadow-lg"
-          data-i18n="story.cta.button"
-        >
-          {t("story.cta.button")}
-        </a>
-      </div>
+      <!-- Characters Section -->
+      <section class="mb-16 sm:mb-20 story-section" data-animate="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-heading text-center mb-10 sm:mb-12 text-ink dark:text-white" data-i18n="story.characters.title">
+          {t("story.characters.title")}
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="character-card">
+            <div class="character-avatar">
+              <img src="/images/charviolet-removebg-preview.png" alt="Violet" class="w-full h-full object-contain" />
+            </div>
+            <h3 class="character-name" data-i18n="character.violet">{t("character.violet")}</h3>
+            <p class="character-role">Protagonist • Auto Memories Doll</p>
+          </div>
+          
+          <div class="character-card">
+            <div class="character-avatar bg-gradient-to-br from-blue-900/20 to-purple-900/20 dark:from-blue-900/30 dark:to-purple-900/30">
+              <span class="text-4xl">🎖️</span>
+            </div>
+            <h3 class="character-name" data-i18n="character.gilbert">{t("character.gilbert")}</h3>
+            <p class="character-role">Deuteragonist • Military Officer</p>
+          </div>
+          
+          <div class="character-card">
+            <div class="character-avatar bg-gradient-to-br from-amber-900/20 to-orange-900/20 dark:from-amber-900/30 dark:to-orange-900/30">
+              <span class="text-4xl">📮</span>
+            </div>
+            <h3 class="character-name" data-i18n="character.hodgins">{t("character.hodgins")}</h3>
+            <p class="character-role">CH Postal Company • Founder</p>
+          </div>
+          
+          <div class="character-card">
+            <div class="character-avatar bg-gradient-to-br from-sky-900/20 to-cyan-900/20 dark:from-sky-900/30 dark:to-cyan-900/30">
+              <span class="text-4xl">✉️</span>
+            </div>
+            <h3 class="character-name" data-i18n="character.benedict">{t("character.benedict")}</h3>
+            <p class="character-role">Auto Memories Doll</p>
+          </div>
+          
+          <div class="character-card">
+            <div class="character-avatar bg-gradient-to-br from-pink-900/20 to-rose-900/20 dark:from-pink-900/30 dark:to-rose-900/30">
+              <span class="text-4xl">🌸</span>
+            </div>
+            <h3 class="character-name" data-i18n="character.cattleya">{t("character.cattleya")}</h3>
+            <p class="character-role">Auto Memories Doll</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Story Chapters -->
+      <section class="mb-16 sm:mb-20 story-section" data-animate="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-heading text-center mb-10 sm:mb-12 text-ink dark:text-white" data-i18n="story.chapters.title">
+          {t("story.chapters.title")}
+        </h2>
+        
+        <article class="prose dark:prose-invert mx-auto story-content">
+          <div data-content-lang="id" class={currentLang === "id" ? "" : "hidden"}>
+            {IdContent && <IdContent />}
+          </div>
+          <div data-content-lang="en" class={currentLang === "en" ? "" : "hidden"}>
+            {EnContent && <EnContent />}
+          </div>
+          <div data-content-lang="ja" class={currentLang === "ja" ? "" : "hidden"}>
+            {JaContent && <JaContent />}
+          </div>
+        </article>
+      </section>
+
+      <!-- Memorable Quotes -->
+      <section class="mb-16 sm:mb-20 story-section" data-animate="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-heading text-center mb-10 sm:mb-12 text-ink dark:text-white" data-i18n="story.quote.title">
+          {t("story.quote.title")}
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="quote-card">
+            <p class="quote-text" data-i18n="quote.love">{t("quote.love")}</p>
+            <span class="quote-author">— Violet Evergarden</span>
+          </div>
+          
+          <div class="quote-card">
+            <p class="quote-text" data-i18n="quote.burning">{t("quote.burning")}</p>
+            <span class="quote-author">— Claudia Hodgins</span>
+          </div>
+          
+          <div class="quote-card">
+            <p class="quote-text" data-i18n="quote.freedom">{t("quote.freedom")}</p>
+            <span class="quote-author">— Major Gilbert</span>
+          </div>
+          
+          <div class="quote-card">
+            <p class="quote-text" data-i18n="quote.letters">{t("quote.letters")}</p>
+            <span class="quote-author">— Violet Evergarden</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="text-center py-12 sm:py-16 border-t border-ink/10 dark:border-white/10 story-section" data-animate="fade-up">
+        <div class="max-w-lg mx-auto">
+          <h3 class="text-xl sm:text-2xl font-heading mb-4 text-accent dark:text-gold" data-i18n="story.cta.title">
+            {t("story.cta.title")}
+          </h3>
+          <p class="mb-8 font-body text-ink/70 dark:text-white/70 text-sm sm:text-base" data-i18n="story.cta.text">
+            {t("story.cta.text")}
+          </p>
+          <a
+            href="/letters/write"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-accent dark:bg-gold text-white dark:text-ink font-bold uppercase tracking-widest rounded-lg hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            <span data-i18n="story.cta.button">{t("story.cta.button")}</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </section>
     </main>
   </div>
 </Layout>
 
 <style is:global>
-  /* Custom Story Styling */
+  /* Hero Animations */
+  .story-hero-title {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .story-hero-subtitle {
+    animation: fadeInUp 1s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+  
+  .story-warnings {
+    animation: fadeInUp 1s ease-out 0.4s forwards;
+    opacity: 0;
+  }
+  
+  .scroll-indicator {
+    animation: fadeIn 1s ease-out 1s forwards;
+    opacity: 0;
+  }
+
+  /* Floating Petals */
+  .floating-petal {
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    background: radial-gradient(ellipse at 30% 30%, #f9c2d0, #e8849a);
+    border-radius: 50% 50% 50% 0;
+    opacity: 0.6;
+    animation: floatPetal 15s linear infinite;
+    top: -20px;
+  }
+  
+  :global(.dark) .floating-petal {
+    background: radial-gradient(ellipse at 30% 30%, #c5a059, #8b7355);
+  }
+  
+  @keyframes floatPetal {
+    0% {
+      transform: translateY(-20px) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(100vh) translateX(100px) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* Timeline Styles */
+  .timeline-container {
+    position: relative;
+    padding-left: 40px;
+  }
+  
+  @media (min-width: 640px) {
+    .timeline-container {
+      padding-left: 60px;
+    }
+  }
+  
+  .timeline-line {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(var(--gold-rgb), 0.3), rgba(var(--gold-rgb), 0.5), rgba(var(--gold-rgb), 0.3), transparent);
+  }
+  
+  @media (min-width: 640px) {
+    .timeline-line {
+      left: 20px;
+    }
+  }
+  
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  
+  .timeline-item:nth-child(2) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(6) { animation-delay: 0.5s; }
+  
+  .timeline-marker {
+    position: absolute;
+    left: -40px;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.2), rgba(var(--gold-rgb), 0.1));
+    border: 2px solid rgba(var(--gold-rgb), 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(var(--gold-rgb), 0.2);
+  }
+  
+  @media (min-width: 640px) {
+    .timeline-marker {
+      left: -50px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  .timeline-icon {
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .timeline-icon {
+      font-size: 1.25rem;
+    }
+  }
+  
+  .timeline-content {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+  }
+  
+  :global(.dark) .timeline-content {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .timeline-content:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(.dark) .timeline-content:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgba(var(--accent-rgb), 1);
+    margin-bottom: 0.5rem;
+  }
+  
+  :global(.dark) .timeline-title {
+    color: rgba(var(--gold-rgb), 1);
+  }
+  
+  .timeline-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(45, 45, 45, 0.7);
+  }
+  
+  :global(.dark) .timeline-desc {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Character Cards */
+  .character-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  :global(.dark) .character-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .character-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(.dark) .character-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .character-avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.1), rgba(var(--accent-rgb), 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .character-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgba(45, 45, 45, 1);
+    margin-bottom: 0.25rem;
+  }
+  
+  :global(.dark) .character-name {
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .character-role {
+    font-size: 0.75rem;
+    color: rgba(45, 45, 45, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  :global(.dark) .character-role {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Quote Cards */
+  .quote-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border-left: 3px solid rgba(var(--gold-rgb), 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  :global(.dark) .quote-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .quote-card:hover {
+    transform: translateX(8px);
+  }
+  
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(45, 45, 45, 0.8);
+    margin-bottom: 0.75rem;
+  }
+  
+  :global(.dark) .quote-text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .quote-author {
+    font-size: 0.75rem;
+    color: rgba(var(--gold-rgb), 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Story Content Styles */
   .story-content h3 {
-    @apply font-heading text-3xl text-center mb-8 text-accent dark:text-gold mt-16;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    color: rgba(var(--accent-rgb), 1);
   }
-
+  
+  :global(.dark) .story-content h3 {
+    color: rgba(var(--gold-rgb), 1);
+  }
+  
   .story-content p {
-    @apply mb-6 leading-relaxed text-lg text-ink/80 dark:text-white/80;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-size: 1rem;
+    color: rgba(45, 45, 45, 0.8);
   }
-
-  /* Drop Cap for Introduction */
-  .story-section.introduction p:first-of-type::first-letter {
-    @apply text-5xl float-left mr-3 mt-[-6px] font-heading text-accent dark:text-gold;
+  
+  :global(.dark) .story-content p {
+    color: rgba(255, 255, 255, 0.8);
   }
-
-  /* Accordion / Details Styling */
-  details.story-arc {
-    @apply mb-8 bg-paper dark:bg-white/5 border border-ink/10 dark:border-white/10 rounded-lg overflow-hidden transition-all duration-300;
+  
+  .story-content details.story-arc {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
-
-  details.story-arc[open] {
-    @apply bg-white dark:bg-black/20 shadow-lg border-accent/20 dark:border-gold/20;
+  
+  :global(.dark) .story-content details.story-arc {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
   }
-
-  details.story-arc summary {
-    @apply cursor-pointer p-6 font-heading text-xl font-bold flex items-center justify-between select-none outline-none text-ink dark:text-white;
-    list-style: none; /* Hide default triangle */
+  
+  .story-content details.story-arc[open] {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   }
-
-  details.story-arc summary::-webkit-details-marker {
+  
+  :global(.dark) .story-content details.story-arc[open] {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .story-content details.story-arc summary {
+    cursor: pointer;
+    padding: 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: rgba(45, 45, 45, 1);
+    transition: all 0.3s ease;
+  }
+  
+  :global(.dark) .story-content details.story-arc summary {
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .story-content details.story-arc summary::-webkit-details-marker {
     display: none;
   }
-
-  details.story-arc summary::after {
+  
+  .story-content details.story-arc summary::after {
     content: "+";
-    @apply text-2xl font-light text-accent dark:text-gold transition-transform duration-300;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(var(--gold-rgb), 1);
+    transition: transform 0.3s ease;
   }
-
-  details.story-arc[open] summary::after {
+  
+  .story-content details.story-arc[open] summary::after {
     transform: rotate(45deg);
   }
-
-  details.story-arc .content {
-    @apply px-6 pb-6 pt-2;
-    animation: slide-down 0.3s ease-out forwards;
+  
+  .story-content details.story-arc .content {
+    padding: 0 1.25rem 1.25rem;
+    animation: slideDown 0.3s ease-out forwards;
   }
 
-  /* Animated Quotes */
-  .quote-container {
-    @apply my-16 text-center relative py-12 px-6;
-  }
-
-  .quote-container::before {
-    content: "“";
-    @apply absolute top-0 left-1/2 -translate-x-1/2 text-8xl font-heading text-accent/10 dark:text-gold/10 font-bold;
-  }
-
-  .quote-container blockquote {
-    @apply font-heading text-2xl md:text-3xl italic text-ink dark:text-white relative z-10;
-  }
-
-  .quote-container cite {
-    @apply block mt-6 text-sm font-bold uppercase tracking-widest text-accent dark:text-gold not-italic opacity-0 translate-y-4 transition-all duration-700 delay-300;
-  }
-
-  /* Animation observer class */
-  .quote-container.visible cite {
-    @apply opacity-100 translate-y-0;
-  }
-
-  .quote-container.visible blockquote {
-    animation: fade-scale-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-
-  @keyframes fade-scale-in {
+  /* Animations */
+  @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: scale(0.95);
-      filter: blur(4px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
-      filter: blur(0);
+      transform: translateY(0);
     }
   }
-
-  @keyframes slide-down {
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideDown {
     from {
       opacity: 0;
       transform: translateY(-10px);
@@ -269,46 +703,34 @@ const storyEntry = idEntry || allStories[0]; // Fallback for layout props
       transform: translateY(0);
     }
   }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  
+  .story-section[data-animate="fade-up"] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 1s ease-out forwards;
-  }
-
-  .delay-200 {
-    animation-delay: 200ms;
+  
+  .story-section[data-animate="fade-up"].visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 
 <script>
-  // Intersection Observer for Quotes
-  const observerOptions = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.3,
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, observerOptions);
-
   document.addEventListener("astro:page-load", () => {
-    document.querySelectorAll(".quote-container").forEach((el) => {
-      observer.observe(el);
+    const sections = document.querySelectorAll('.story-section[data-animate="fade-up"]');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     });
+    
+    sections.forEach(section => observer.observe(section));
   });
 </script>
