@@ -13,17 +13,17 @@ const latestPosts = posts.sort(
   <ThemeController slot="header-right" />
 
   <!-- Hero + Content Wrapper -->
-  <div class="bg-paper dark:bg-dark-bg relative">
+  <div class="bg-paper dark:bg-dark-bg relative transition-colors duration-1000 ease-in-out">
     <!-- Hero Banner -->
     <section
-      class="relative h-[65vh] min-h-[450px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]"
+      class="relative h-[70vh] min-h-[500px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]"
     >
       <div class="absolute inset-0 z-0">
         <img
           id="theme-gif"
           src="/images/violet-light.gif"
           alt=""
-          class="w-full h-full object-cover opacity-15 dark:opacity-25"
+          class="w-full h-full object-cover opacity-15 dark:opacity-25 mix-blend-overlay"
           loading="eager"
         />
         <div
@@ -32,9 +32,9 @@ const latestPosts = posts.sort(
         </div>
       </div>
 
-      <div class="relative z-10 space-y-6 px-6" transition:animate="fade">
+      <div class="relative z-10 space-y-8 px-4 w-full" transition:animate="fade">
         <h1
-          class="text-6xl md:text-[8rem] font-heading text-ink dark:text-white drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] tracking-tighter leading-none"
+          class="text-7xl sm:text-8xl md:text-[10rem] font-heading text-white dark:text-white drop-shadow-2xl tracking-tighter leading-none hero-title-reveal"
           data-jp="わたしの部屋"
           data-id="Kamar Saya"
           data-en="My Room"
@@ -42,7 +42,7 @@ const latestPosts = posts.sort(
           わたしの部屋
         </h1>
         <p
-          class="font-body text-ink/70 dark:text-white/90 tracking-[0.8em] text-xs sm:text-base uppercase opacity-80"
+          class="font-body text-white/90 dark:text-white/80 tracking-[0.4em] sm:tracking-[0.8em] text-[10px] sm:text-sm uppercase opacity-90 hero-subtitle-reveal"
           data-i18n="heroSubtitle"
           data-jp="— Auto Memories Doll Service —"
           data-id="— Layanan Boneka Memori Otomatis —"
@@ -52,12 +52,12 @@ const latestPosts = posts.sort(
         </p>
       </div>
 
-      <!-- Moving Ocean -->
+      <!-- Moving Cinematic Wave -->
       <div
         class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none"
       >
         <svg
-          class="moving-wave block w-full h-[100px]"
+          class="moving-wave block w-full h-[80px] sm:h-[120px]"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 24 150 28"
           preserveAspectRatio="none"
@@ -69,30 +69,10 @@ const latestPosts = posts.sort(
             ></path>
           </defs>
           <g class="parallax">
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="0"
-              fill="currentColor"
-              class="text-paper/40 dark:text-dark-bg/20"></use>
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="3"
-              fill="currentColor"
-              class="text-paper/60 dark:text-dark-bg/40"></use>
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="5"
-              fill="currentColor"
-              class="text-paper/80 dark:text-dark-bg/60"></use>
-            <use
-              href="#gentle-wave"
-              x="48"
-              y="7"
-              fill="currentColor"
-              class="text-paper dark:text-dark-bg"></use>
+            <use href="#gentle-wave" x="48" y="0" fill="currentColor" class="text-paper/40 dark:text-dark-bg/20"></use>
+            <use href="#gentle-wave" x="48" y="3" fill="currentColor" class="text-paper/60 dark:text-dark-bg/40"></use>
+            <use href="#gentle-wave" x="48" y="5" fill="currentColor" class="text-paper/80 dark:text-dark-bg/60"></use>
+            <use href="#gentle-wave" x="48" y="7" fill="currentColor" class="text-paper dark:text-dark-bg transition-colors duration-1000"></use>
           </g>
         </svg>
       </div>
@@ -100,151 +80,93 @@ const latestPosts = posts.sort(
 
     <!-- Main Content -->
     <main
-      class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 relative"
+      class="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-16 py-12 sm:py-20 relative z-10"
     >
-      <div
-        class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-start"
-      >
-        <!-- LEFT SIDEBAR -->
-        <aside
-          class="lg:w-[320px] xl:w-[380px] shrink-0 w-full order-2 lg:order-1"
-        >
-          <div class="lg:sticky lg:top-32 space-y-6 sm:space-y-8">
-            <!-- Profile Card -->
-            <section
-              class="text-center bg-white/90 dark:bg-[#161213]/80 rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-10 border border-ink/10 dark:border-white/5 shadow-2xl flex flex-col items-center transition-colors hover:border-gold/20"
-            >
-              <div class="relative w-40 h-40 sm:w-48 sm:h-48 mb-8 sm:mb-10">
-                <div
-                  class="w-full h-full rounded-2xl overflow-hidden border-4 border-ink/10 dark:border-white/10 shadow-2xl relative z-10"
-                >
-                  <img
-                    src="/images/profildev.jpg"
-                    alt="Zyrexnn"
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                    width="192"
-                    height="192"
-                  />
+      <div class="flex flex-col xl:flex-row gap-12 sm:gap-16 items-start">
+        
+        <!-- LEFT SIDEBAR: Auto Memories Doll License Profile -->
+        <aside class="w-full xl:w-[420px] shrink-0 order-2 xl:order-1">
+          <div class="xl:sticky xl:top-32 space-y-8">
+            
+            <!-- License Card -->
+            <section class="letter-paper dark:bg-[#161213] rounded-sm p-2 shadow-2xl relative overflow-hidden group">
+              <div class="airmail-border absolute top-0 left-0 right-0 z-20"></div>
+              <div class="airmail-border absolute bottom-0 left-0 right-0 z-20"></div>
+              
+              <div class="bg-white/50 dark:bg-black/40 border border-ink/20 dark:border-gold/30 p-8 pt-12 pb-10 flex flex-col items-center relative z-10 backdrop-blur-sm">
+                
+                <!-- Watermark -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 dark:opacity-10 pointer-events-none">
+                  <span class="text-8xl filter blur-sm">🌸</span>
                 </div>
-                <div
-                  class="absolute -inset-4 bg-gold/10 blur-2xl rounded-full z-0 opacity-50"
-                >
-                </div>
-              </div>
 
-              <div class="text-center space-y-4 w-full">
-                <h2
-                  class="text-2xl sm:text-3xl font-heading text-ink dark:text-white tracking-wide"
-                >
-                  Zyrexnn
-                </h2>
-                <p
-                  class="text-[11px] text-ink/60 dark:text-white/40 leading-relaxed font-body italic"
-                  data-i18n="profileQuote"
-                >
-                  世界は大きい、君は行かなければならない
-                </p>
-                <div class="mt-4 px-4">
-                  <p
-                    class="text-[11px] text-ink/50 dark:text-white/30 leading-relaxed font-body"
-                    data-i18n="profileBio"
-                  >
+                <div class="relative w-40 h-40 sm:w-48 sm:h-48 mb-6">
+                  <div class="w-full h-full rounded-full overflow-hidden border-4 border-ink dark:border-gold shadow-lg relative z-10 group-hover:scale-105 transition-transform duration-700">
+                    <img
+                      src="/images/profildev.jpg"
+                      alt="Zyrexnn"
+                      class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="text-center space-y-3 w-full border-b border-ink/20 dark:border-gold/20 pb-6 mb-6">
+                  <h2 class="text-3xl sm:text-4xl font-heading text-ink dark:text-gold tracking-widest uppercase">
+                    Zyrexnn
+                  </h2>
+                  <p class="text-[10px] text-accent dark:text-gold/80 leading-relaxed font-body tracking-[0.3em] uppercase" data-i18n="autoMemoriesDoll">
+                    Auto Memories Doll
+                  </p>
+                </div>
+                
+                <div class="text-center px-4 w-full">
+                  <p class="text-sm text-ink/70 dark:text-white/70 leading-relaxed font-body italic font-serif" data-i18n="profileBio">
                     Seorang software engineer dan penggemar berat Violet
                     Evergarden. Menciptakan pengalaman web yang indah
                     terinspirasi oleh estetika anime.
                   </p>
                 </div>
-                <div
-                  class="w-16 h-[1px] bg-gold/30 dark:bg-gold/20 mx-auto mt-6 sm:mt-8"
-                >
-                </div>
-                <div class="grid grid-cols-5 gap-3 w-full pt-6 sm:pt-8">
-                  <div
-                    class="h-10 sm:h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10"
-                  >
-                    📺
-                  </div>
-                  <div
-                    class="h-10 sm:h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10"
-                  >
-                    🎮
-                  </div>
-                  <a
-                    href="https://github.com/Zyrexnn"
-                    target="_blank"
-                    class="h-10 sm:h-11 bg-ink/10 dark:bg-white/10 hover:bg-accent rounded-2xl flex items-center justify-center text-ink dark:text-white transition-all shadow-lg group"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="w-5 h-5 transition-transform group-hover:scale-110"
-                      ><path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                      ></path></svg
-                    >
+
+                <!-- Socials -->
+                <div class="flex justify-center gap-4 w-full mt-10">
+                  <a href="https://github.com/Zyrexnn" target="_blank" class="w-12 h-12 bg-ink/5 dark:bg-gold/10 hover:bg-accent dark:hover:bg-gold hover:text-white dark:hover:text-black rounded-full flex items-center justify-center text-ink dark:text-gold transition-all duration-300 shadow-md">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
                   </a>
-                  <a
-                    href="https://www.instagram.com/syntax_teras/"
-                    target="_blank"
-                    class="h-10 sm:h-11 bg-ink/10 dark:bg-white/10 hover:bg-accent rounded-2xl flex items-center justify-center text-ink dark:text-white transition-all shadow-lg group"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="w-5 h-5 transition-transform group-hover:scale-110"
-                    >
-                      <path
-                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.251-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.645-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.073 4.948.073s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.949-.073zm0 7.38c-2.517 0-4.557 2.04-4.557 4.557s2.04 4.557 4.557 4.557 4.557-2.04 4.557-4.557-2.04-4.557-4.557-4.557zm0 7.38c-1.579 0-2.859-1.28-2.859-2.859s1.28-2.859 2.859-2.859 2.859 1.28 2.859 2.859-1.28 2.859-2.859 2.859zm5.21-.444c0 1.153-.936 2.089-2.089 2.089s-2.089-.936-2.089-2.089.936-2.089 2.089-2.089 2.089.936 2.089 2.089z"
-                      ></path>
-                    </svg>
+                  <a href="https://www.instagram.com/syntax_teras/" target="_blank" class="w-12 h-12 bg-ink/5 dark:bg-gold/10 hover:bg-accent dark:hover:bg-gold hover:text-white dark:hover:text-black rounded-full flex items-center justify-center text-ink dark:text-gold transition-all duration-300 shadow-md">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.251-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.645-.07-4.85s.012-3.584.07-4.85c.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.073 4.948.073s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.949-.073zm0 7.38c-2.517 0-4.557 2.04-4.557 4.557s2.04 4.557 4.557 4.557 4.557-2.04 4.557-4.557-2.04-4.557-4.557-4.557zm0 7.38c-1.579 0-2.859-1.28-2.859-2.859s1.28-2.859 2.859-2.859 2.859 1.28 2.859 2.859-1.28 2.859-2.859 2.859zm5.21-.444c0 1.153-.936 2.089-2.089 2.089s-2.089-.936-2.089-2.089.936-2.089 2.089-2.089 2.089.936 2.089 2.089z"></path></svg>
                   </a>
-                  <div
-                    class="h-10 sm:h-11 bg-ink/5 dark:bg-white/5 rounded-2xl flex items-center justify-center opacity-60 dark:opacity-40 hover:opacity-100 transition-all cursor-pointer hover:bg-ink/10 dark:hover:bg-white/10"
-                  >
-                    💬
-                  </div>
                 </div>
               </div>
             </section>
 
-            <!-- Notice Card -->
-            <section
-              class="bg-white/90 dark:bg-[#161213]/80 rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-10 border border-ink/10 dark:border-white/5 shadow-2xl relative overflow-hidden"
-            >
-              <div class="flex items-center gap-4 mb-6">
-                <span class="text-accent text-lg">📢</span>
-                <h3
-                  class="font-heading text-sm text-ink/80 dark:text-white/80 uppercase tracking-widest"
-                  data-i18n="notice"
-                >
-                  Notice
-                </h3>
-              </div>
-              <p
-                class="text-[12px] text-ink/60 dark:text-white/40 italic leading-relaxed"
-                data-i18n="noticeText"
-              >
-                Welcome! This is Sun's blog. Auto Memories Doll Service is also
-                available.
-              </p>
-            </section>
           </div>
         </aside>
 
         <!-- RIGHT SIDE: POSTS GRID -->
-        <section class="flex-1 order-1 lg:order-2 w-full">
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-10">
+        <section class="flex-1 order-1 xl:order-2 w-full">
+          <!-- Section title -->
+          <div class="flex items-end gap-4 mb-10 border-b border-ink/10 dark:border-white/10 pb-4">
+             <h2 class="text-3xl sm:text-4xl font-heading text-ink dark:text-gold uppercase tracking-[0.2em]" data-i18n="archiveSubtitle">
+                — Archive —
+             </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
             {
               latestPosts.map((post) => (
                 <a href={`/blog/${post.id}/`} class="group block h-full">
-                  <article class="relative h-full bg-white/90 dark:bg-[#1e1a1b]/80 rounded-2xl sm:rounded-[3rem] border border-ink/10 dark:border-white/5 hover:border-accent/30 transition-colors duration-300 overflow-hidden flex flex-col shadow-xl hover:shadow-2xl hover:-translate-y-1">
-                    <div class="p-6 sm:p-10 md:p-12 space-y-4 sm:space-y-6">
-                      <div class="flex items-start gap-3 sm:gap-4">
-                        <span class="text-accent/30 text-lg sm:text-xl mt-1 group-hover:text-accent transition-colors duration-500">
-                          📌
+                  <article class="relative h-full bg-white/60 dark:bg-black/40 backdrop-blur-md rounded-md sm:rounded-lg border-2 border-transparent group-hover:border-accent dark:group-hover:border-gold transition-all duration-500 overflow-hidden flex flex-col shadow-lg hover:shadow-2xl hover:-translate-y-2">
+                    
+                    <!-- Top Ribbon -->
+                    <div class="h-1.5 w-full bg-gradient-to-r from-ink/5 via-accent/50 dark:via-gold/50 to-ink/5" />
+
+                    <div class="p-6 sm:p-10 flex flex-col flex-1">
+                      <div class="flex items-start gap-4">
+                        <span class="text-accent dark:text-gold text-2xl mt-1 opacity-70 group-hover:opacity-100 transition-colors duration-500">
+                          ✦
                         </span>
-                        <h2 class="text-xl sm:text-2xl md:text-3xl font-heading text-ink/90 dark:text-white/90 group-hover:text-ink dark:group-hover:text-white leading-tight transition-colors duration-500">
+                        <h2 class="text-2xl sm:text-3xl font-heading text-ink dark:text-white group-hover:text-accent dark:group-hover:text-gold leading-tight transition-colors duration-500">
                           <span data-content-lang="en">{post.data.title}</span>
                           <span data-content-lang="jp" class="hidden">
                             {post.data.title_jp || post.data.title}
@@ -254,7 +176,8 @@ const latestPosts = posts.sort(
                           </span>
                         </h2>
                       </div>
-                      <p class="text-ink/60 dark:text-white/40 text-xs sm:text-[14px] leading-relaxed line-clamp-3 pr-2 sm:pr-4 font-body italic">
+                      
+                      <p class="mt-6 text-ink/70 dark:text-white/60 text-sm sm:text-base leading-relaxed line-clamp-3 font-body font-serif italic flex-1">
                         <span data-content-lang="en">
                           {post.data.description}
                         </span>
@@ -266,24 +189,20 @@ const latestPosts = posts.sort(
                         </span>
                       </p>
 
-                      <div class="flex flex-wrap gap-2 sm:gap-4 text-[9px] sm:text-[10px] items-center text-ink/50 dark:text-white/30 uppercase tracking-[0.2em] font-bold">
-                        <div class="flex items-center gap-2 bg-ink/5 dark:bg-white/5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-ink/10 dark:border-white/5">
-                          <span>
-                            {post.data.pubDate.toLocaleDateString("en-US", {
+                      <div class="mt-8 pt-6 border-t border-ink/10 dark:border-white/10 flex flex-wrap gap-4 text-[10px] sm:text-xs items-center text-ink/50 dark:text-white/40 uppercase tracking-[0.2em] font-bold">
+                        <div class="flex items-center gap-2">
+                          <span>📅 {post.data.pubDate.toLocaleDateString("en-US", {
                               month: "short",
                               day: "numeric",
                               year: "numeric",
                             })}
                           </span>
                         </div>
-                        <div class="flex items-center gap-2 bg-accent/5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-accent/10 text-accent/60">
-                          <span>{post.data.category}</span>
+                        <div class="flex items-center gap-2 text-accent dark:text-gold">
+                          <span>🏷️ {post.data.category}</span>
                         </div>
                       </div>
                     </div>
-
-                    <div class="mt-auto h-2 bg-ink/5 dark:bg-white/5 group-hover:bg-accent/20 transition-all duration-700" />
-                    <div class="absolute left-0 top-16 bottom-16 w-0.5 bg-accent/0 group-hover:bg-accent/60 transition-all duration-700" />
                   </article>
                 </a>
               ))
@@ -297,7 +216,7 @@ const latestPosts = posts.sort(
   <style>
     .moving-wave {
       width: 100%;
-      height: 100px;
+      height: 120px;
     }
     .parallax > use {
       animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
@@ -325,6 +244,21 @@ const latestPosts = posts.sort(
       100% {
         transform: translate3d(85px, 0, 0);
       }
+    }
+
+    .hero-title-reveal {
+      opacity: 0;
+      animation: heroPopUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .hero-subtitle-reveal {
+      opacity: 0;
+      animation: heroPopUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+    }
+
+    @keyframes heroPopUp {
+      0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
   </style>
 </Layout>

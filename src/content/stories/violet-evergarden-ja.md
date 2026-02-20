@@ -1,74 +1,83 @@
 ---
-title: "ヴァイオレット・エヴァーガーデンの物語：少佐への最後の手紙"
-description: "感情を持たない戦争の道具から、愛の意味を理解する人間へと成長するヴァイオレットの感動的な旅。"
+title: "ヴァイオレット・エヴァーガーデンの物語"
+description: "かつて殺すことしか知らなかった少女が、「愛してる」という言葉の深い意味を知るまでの壮大な物語。"
 lang: "ja"
 ---
 
-<div class="story-section introduction">
-  <h3>背景</h3>
-  <p>南北大陸を分断した大戦から復興しつつある世界。そこに「武器」としてしか生きる術を知らない一人の少女がいた。彼女には感情がなく、自分の意志もなく、ただ命令に従うためだけに生きていた。彼女の名は、ヴァイオレット・エヴァーガーデン。</p>
+<div class="story-arc-cinematic group" data-color-theme="war">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">⚔️</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">第一章：<br/>激戦の廃墟での最後の命令</h3>
+  </div>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="first-letter:text-7xl first-letter:font-heading first-letter:text-accent dark:first-letter:text-gold first-letter:mr-2 first-letter:float-left fade-in-up">
+      凄惨な大陸戦争の灰の中から立ち上がろうとする世界に、人間としてではなく、純粋な破壊の「武器」として認識されていた一人の少女がいた。記憶の温もりもなく、涙もなく、自らの心の声さえない。彼女の名は、ヴァイオレット・エヴァーガーデン。
+    </p>
+    <p class="fade-in-up">
+      血に染まり、燃え盛る炎に飲み込まれた恐ろしい戦場の中で、ヴァイオレットは彼女を人間として扱ってくれた唯一の存在、ギルベルト・ブーゲンビリア少佐のために必死に戦った。銃弾の嵐が彼女の両腕を砕き、大聖堂の屋根が崩れ落ちようとしたその時、致命傷を負ったギルベルトはヴァイオレットを確実な死の顎から突き飛ばした。
+    </p>
+    <p class="text-2xl font-heading italic text-ink dark:text-white border-l-4 border-accent dark:border-gold pl-6 fade-in-up">
+      「生きて…自由になりなさい。心から…愛してる。」
+    </p>
+    <p class="fade-in-up">
+      ヴァイオレットは大殺戮を生き延びたが、すべてを失った。冷たい金属の義手の抱擁の中で目を覚ました彼女は、指揮官も、進むべき道も、呼吸する理由さえも剥奪されていることに気づいた。<strong>「『愛してる』とは、どういう意味ですか？」</strong>
+    </p>
+  </div>
 </div>
 
-<details class="story-arc" open>
-  <summary>始まり：最後の言葉</summary>
-  <div class="content">
-    <p>激しい戦場で、ヴァイオレットは自分を人間として扱ってくれた唯一の存在、ギルベルト・ブーゲンビリア少佐を救おうとして両腕を失った。建物が崩れ落ち、敵が迫る中、瀕死の重傷を負ったギルベルトはヴァイオレットを突き放した。</p>
-    <p>最期の力を振り絞り、ギルベルトは当時のヴァイオレットには理解できない言葉を残した。<em>「生きて... 自由になりなさい。心から... 愛してる。」</em></p>
-    <p>ヴァイオレットは一命を取り留め、冷たい金属の義手をつけた状態で病院で目を覚ました。しかし、ギルベルト少佐は行方不明とされた。命令もなく、主もいない今、ヴァイオレットは生きる目的を失っていた。彼女は「愛」が何を意味するのか理解できなかった。なぜ少佐はそう言ったのか？ その感情とは何なのか？</p>
+<div class="story-arc-cinematic group" data-color-theme="doll">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">✉️</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">第二章：<br/>凍てついた心を溶かすインク</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>「『愛してる』を... 知りたいのです。」</blockquote>
-  <cite>— ヴァイオレット・エヴァーガーデン、第1話</cite>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      少佐の最後の言葉の深い謎を解き明かすため、ヴァイオレットは想像を絶する道、C.H郵便社での「自動手記人形」になることを選んだ。生の感情を言葉に変換する優雅な代筆者。皮肉なことに、彼女の最初の手紙は共感性に欠け、報告書のように読めた。
+    </p>
+    <p class="fade-in-up">
+      しかし、タイプライターのキーの響きを通じて、彼女は人間の感情の広大な風景をナビゲートしていった。死の淵にある母のために50通の未来の手紙を書きながら、初めて涙を流した。
+    </p>
+    <p class="fade-in-up italic opacity-80 border-t border-ink/20 dark:border-white/20 pt-6 mt-6">
+      一通、また一通と手紙を書くごとに、ヴァイオレットの良心は力強くこじ開けられ、戦場でどれほど多くの命を奪ったかという現実に光が当てられた。彼女は自分が「燃えている」ことに気づいた。
+    </p>
+  </div>
 </div>
 
-<details class="story-arc">
-  <summary>中盤：自動手記人形として</summary>
-  <div class="content">
-    <p>ギルベルトの最期の言葉を理解するため、ヴァイオレットはC.H郵便社で「自動手記人形（オート・メモリーズ・ドール）」として働くことを決意した。それは、誰かのために手紙を代筆する仕事だった。当初、ヴァイオレットの手紙は報告書のように硬く、無味乾燥だった。彼女は人間の感情の機微を捉えることができなかった。</p>
-    <p>しかし、様々な依頼人との出会いを通じて、ヴァイオレットの心は少しずつ溶け始めた：</p>
-    <ul>
-      <li><strong>ルクリア</strong>：戦争で障害を負った兄に感謝の気持ちを伝えたいと願う少女。</li>
-      <li><strong>シャルロッテ姫</strong>：他国の王子と公開恋文を交わし、美しい言葉の裏にある真心をヴァイオレットに教えた。</li>
-      <li><strong>リオン</strong>：孤独な天文学者。彼との出会いで、ヴァイオレットは置き去りにされる寂しさを知った。</li>
-      <li><strong>オスカー・ウェブスター</strong>：娘を亡くした劇作家。ヴァイオレットは彼の戯曲の完成を手伝い、その過程で子供を失う悲しみと、夢の中だけでも再会したいという願いを知った。</li>
-    </ul>
-    <p>転機となったのは、余命いくばくもない母クラーラが、未来の娘アンへ宛てて書いた50通の手紙の代筆だった。ヴァイオレットは任務中涙をこらえたが、仕事が終わった後に崩れ落ちて泣いた。母親が遺していく愛の重さを知ったからだ。ここでヴァイオレットは、多くの命を奪った兵士としての過去によって、自分自身が「燃えている」ことにようやく気づいた。</p>
+<div class="story-arc-cinematic group" data-color-theme="forgiveness">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">🌸</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">第三章：<br/>星明かりの下での許し</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>「君は燃えている。いつか、自分の体が火傷だらけであることに気づく時が来る。」</blockquote>
-  <cite>— クラウディア・ホッジンズ、第1話</cite>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      罪の息苦しい重さが彼女の精神を押し潰した。血に染まった手は愛を紡ぐに値しないと信じ、封筒に触れることさえ拒んだ。しかし、顧客たちからの感謝の手紙を読んだ時、彼女は真実を理解した。
+    </p>
+    <p class="fade-in-up font-bold text-accent dark:text-gold">
+      過去は決して消し去ることはできないが、未来のために書く美しい手紙が、それらの傷跡を愛情深く覆い隠してくれる。
+    </p>
+    <p class="fade-in-up">
+      ハイジャック事件の間、ヴァイオレットは殺す兵士としてではなく、守り抜く守護者として戦った。
+    </p>
+  </div>
 </div>
 
-<details class="story-arc">
-  <summary>クライマックス：受容と許し</summary>
-  <div class="content">
-    <p>ヴァイオレットは罪悪感に苛まれた。多くの命を奪ったその手で、人を結ぶ手紙を書く資格などないと感じていた。しかし、彼女が届けた手紙は、確かに人々の心を救っていた。</p>
-    <p>列車ハイジャック事件では、ヴァイオレットは殺すためではなく、守るために戦った。彼女は武器を使うことを拒否し、義手を使って攻撃を防ぎ、乗客を守り抜いた。彼女はついに、過去は消せないが、未来はまだ書くことができるということを受け入れた。</p>
-    <p>やがて彼女はギルベルトの母と出会い、ギルベルトを忘れず、生きていくように諭される。ギルベルトがくれた「愛」こそが、暗闇から彼女を導き出す光だったのだと、ヴァイオレットは悟った。</p>
+<div class="story-arc-cinematic group" data-color-theme="reunion">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">💌</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">エピローグ：<br/>エカルテ島の岸辺</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>「もう、命令はいりません。」</blockquote>
-  <cite>— ヴァイオレット・エヴァーガーデン、最終話</cite>
-</div>
-
-<details class="story-arc">
-  <summary>結末：少佐への手紙（劇場版）</summary>
-  <div class="content">
-    <p>数年が過ぎた。技術は進歩し、電波塔が建設され、ドールの仕事は徐々に時代遅れになりつつあった。しかし、ヴァイオレット・エヴァーガーデンの名は伝説として残っていた。ある手がかりがヴァイオレットを孤島エカルテへと導いた。そこには、死んだはずのギルベルトが生きていた。彼はヴァイオレットを武器にしてしまった罪悪感と、自らの片目と片腕を失った事実から、身を隠していたのだ。</p>
-    <p>当初、ギルベルトはヴァイオレットに会うことを拒んだ。自分がいなければ、彼女はもっと幸せになれると思ったからだ。しかし、ヴァイオレットは彼に最後の手紙を書いた。報告書としてではなく、恋する一人の少女の心の叫びとして。</p>
-    <p><em>「春、夏、秋、冬... いくつの季節が独りで過ぎたことでしょう。私は、少佐を待っています。」</em></p>
-    <p>ヴァイオレットの真心と兄の叱咤に心を動かされたギルベルトは、ついにヴァイオレットを追いかけた。二人は月明かりの下、海で再会した。ずっと涙をこらえてきたヴァイオレットは、ついに愛する人の腕の中で泣くことができた。今回は命令としてではなく、互いを補完し合う二つの魂の再会として。</p>
-    <p>ヴァイオレットはギルベルトと共に島で生き、地域の郵便サービスとして手紙を書き続けた。そしてドールとしての彼女の偉業は、彼女の顔が描かれた切手を通じて永遠に語り継がれることとなった。</p>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      季節は巡り、手書きの手紙という時代は徐々に浸食されていった。しかし、かすかな囁きがヴァイオレットを辺境のエカルテ島へと運び、奇跡へと彼女を導いた。
+    </p>
+    <p class="fade-in-up">
+      ギルベルト少佐は生きていた。少女の笑顔を奪った罪悪感に自らを追放していたのだ。扉が固く閉ざされたままであっても、ヴァイオレットは言葉の力に寄り添うことを選んだ。
+    </p>
+    <p class="text-2xl font-heading italic text-ink dark:text-white border-l-4 border-accent dark:border-gold pl-6 fade-in-up">
+      「春、夏、秋、冬… いくつの季節が、一人で過ぎ去ったでしょうか。私は、あなたを待っています、少佐。」
+    </p>
+    <p class="fade-in-up">
+      彼らは月明かりの下で再会した。もはや武器とその主としてではなく、真の無条件の愛を通じて永遠に支え合う二つの魂として。
+    </p>
   </div>
-</details>
-
-<div class="story-section conclusion">
-  <h3>エピローグ</h3>
-  <p>ヴァイオレット・エヴァーガーデンは、感情を理解するのに遅すぎることはないということを教えてくれる。手紙は、どんなに小さくても、人の心を伝える力を持っているということ。そして何より、血に染まった手であっても、幸せを掴み、愛に満ちた未来を描く資格があるということを。</p>
 </div>

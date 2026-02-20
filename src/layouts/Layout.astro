@@ -34,12 +34,13 @@ const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="google" content="notranslate" />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -421,7 +422,7 @@ const t = useTranslations(lang);
       function syncBackgroundGif() {
         var gifs = document.querySelectorAll("#theme-gif");
         var isDark = document.documentElement.classList.contains("dark");
-        gifs.forEach(function(gif) {
+        gifs.forEach(function (gif) {
           gif.src = isDark
             ? "/images/violet-dark.gif"
             : "/images/violet-light.gif";
@@ -594,6 +595,28 @@ const t = useTranslations(lang);
           transform: translateY(110vh) translateX(-30px) rotate(400deg)
             scale(0.6);
           opacity: 0;
+        }
+      }
+
+      /* ── Cinematic Text Reveals ─────────────── */
+      .hero-title-reveal {
+        opacity: 0;
+        animation: heroPopUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .hero-subtitle-reveal {
+        opacity: 0;
+        animation: heroPopUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+      }
+      @keyframes heroPopUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95);
+          filter: blur(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
         }
       }
 

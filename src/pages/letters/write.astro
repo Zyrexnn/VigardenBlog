@@ -25,9 +25,9 @@ import LetterCanvas from "../../components/LetterCanvas.astro";
         </div>
       </div>
 
-      <div class="relative z-10 space-y-3 px-4" transition:animate="fade">
+      <div class="relative z-10 space-y-3 px-4">
         <h1
-          class="text-3xl sm:text-5xl md:text-7xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter"
+          class="text-3xl sm:text-5xl md:text-7xl font-heading text-ink dark:text-white drop-shadow-2xl tracking-tighter hero-title-reveal"
           data-jp="届かない手紙"
           data-id="Surat Tak Terkirim"
           data-en="The Unsent"
@@ -35,7 +35,7 @@ import LetterCanvas from "../../components/LetterCanvas.astro";
           届かない手紙
         </h1>
         <p
-          class="text-ink/40 dark:text-white/40 font-body text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.5em] uppercase"
+          class="text-ink/40 dark:text-white/40 font-body text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.5em] uppercase hero-subtitle-reveal"
           data-i18n="writeHeroSubtitle"
         >
           The Unsent — Write your letter to someone dear
@@ -75,8 +75,7 @@ import LetterCanvas from "../../components/LetterCanvas.astro";
       <div class="mt-10 text-center">
         <a
           href="/letters/"
-          class="inline-flex items-center gap-2 text-xs font-bold uppercase
-                 tracking-[0.15em] text-gold hover:text-accent transition-colors duration-300"
+          class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-gold hover:text-accent transition-colors duration-300"
           data-i18n="returnToCollection"
         >
           ← Return to Collection

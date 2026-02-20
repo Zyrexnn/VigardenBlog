@@ -324,7 +324,10 @@
       // 5. ★ FULL CONTENT TRANSLATION — show/hide data-content-lang containers
       document.querySelectorAll("[data-content-lang]").forEach((el) => {
         const elLang = el.getAttribute("data-content-lang");
-        if (elLang === langKey) {
+        const targetHtmlLang = htmlLangMap[currentLang] || "en";
+        // Check both custom app map (langKey) and standard html map (ja)
+        // to handle discrepancies between 'jp' UI keys vs 'ja' content keys
+        if (elLang === langKey || elLang === targetHtmlLang) {
           el.classList.remove("hidden");
         } else {
           el.classList.add("hidden");

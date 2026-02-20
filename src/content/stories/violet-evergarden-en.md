@@ -1,74 +1,83 @@
 ---
-title: "The Story of Violet Evergarden: One Last Letter to the Major"
-description: "Violet's emotional journey from an emotionless weapon of war to a human being who understands the meaning of love."
+title: "The Story of Violet Evergarden"
+description: "The emotional journey of Violet Evergarden from a weapon of war to a human understanding the meaning of love."
 lang: "en"
 ---
 
-<div class="story-section introduction">
-  <h3>Background</h3>
-  <p>In a world recovering from a great war that divided the northern and southern continents, there was a young girl known only as a "weapon." She possessed no emotions, no desires of her own, and lived solely to obey orders. Her name was Violet Evergarden.</p>
+<div class="story-arc-cinematic group" data-color-theme="war">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">⚔️</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">Chapter I:<br/>The Final Orders</h3>
+  </div>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="first-letter:text-7xl first-letter:font-heading first-letter:text-accent dark:first-letter:text-gold first-letter:mr-2 first-letter:float-left fade-in-up">
+      Rising from the ashes of a gruesome continental war, there was a young girl recognized not as a human, but purely as a "weapon" of destruction. Devoid of the warmth of memories, devoid of tears, and devoid of a voice in her own heart. Her name was Violet Evergarden.
+    </p>
+    <p class="fade-in-up">
+      Amidst a grotesque battlefield painted in blood and engulfed in roaring flames, Violet fought desperately for Major Gilbert Bougainvillea—the singular existence who had treated her with humanity. As a storm of bullets shattered her arms and the cathedral roof collapsed, the mortally wounded Gilbert pushed Violet away from the jaws of certain death.
+    </p>
+    <p class="text-2xl font-heading italic text-ink dark:text-white border-l-4 border-accent dark:border-gold pl-6 fade-in-up">
+      "Live... and be free. From the bottom of my heart, I love you."
+    </p>
+    <p class="fade-in-up">
+      Violet survived the massacre, but lost everything. Awakening in the embrace of cold, metallic prosthetic arms, she found herself stripped of her commander, her path, and even her reason to breathe. <strong>"What does 'I love you' mean?"</strong>
+    </p>
+  </div>
 </div>
 
-<details class="story-arc" open>
-  <summary>The Beginning: Last Words</summary>
-  <div class="content">
-    <p>On a brutal battlefield, Violet lost both her arms while trying to save the only person who treated her as a human being: Major Gilbert Bougainvillea. As the building collapsed around them and enemies closed in, a gravely wounded Gilbert pushed Violet away.</p>
-    <p>With his dying breath, Gilbert spoke words that Violet could not comprehend at the time: <em>"Live... and be free. From the bottom of my heart... I love you."</em></p>
-    <p>Violet survived, waking up in a hospital with cold metallic prosthetic arms. However, Major Gilbert was declared missing in action. Without orders and without her master, Violet lost her purpose in life. She did not understand what "Love" meant. Why did the Major say that? What is that feeling?</p>
+<div class="story-arc-cinematic group" data-color-theme="doll">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">✉️</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">Chapter II:<br/>Ink Melting Frozen Grief</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>"I want to know... what 'I love you' means."</blockquote>
-  <cite>— Violet Evergarden, Episode 1</cite>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      To decipher the profound enigma of the Major's final words, Violet chose an unimaginable path: becoming an "Auto Memories Doll" at the C.H Postal Company. An elegant ghostwriter transforming raw emotions into words onto parchment. Ironically, her initial letters lacked empathy, reading like rigid military reports.
+    </p>
+    <p class="fade-in-up">
+      Yet, through the relentless clatter of typewriter keys, Violet navigated the vast landscapes of human emotion. She met broken and pure hearts alike: witnessing Princess Charlotte discover true devotion; sharing playwright Oscar Webster's grief; and shedding her first tears writing fifty future letters for a dying mother, Clara.
+    </p>
+    <p class="fade-in-up italic opacity-80 border-t border-ink/20 dark:border-white/20 pt-6 mt-6">
+      With every single letter written, Violet's conscience was violently pried open, illuminating the harrowing reality of how many cold hands she had severed on the battlefield. She realized she was "burning."
+    </p>
+  </div>
 </div>
 
-<details class="story-arc">
-  <summary>The Middle: Becoming an Auto Memories Doll</summary>
-  <div class="content">
-    <p>To understand Gilbert's final words, Violet decided to work at the CH Postal Company as an "Auto Memories Doll" — a scribe who writes letters for others. Initially, Violet's letters were stiff and report-like. She could not grasp the nuances of human emotion.</p>
-    <p>However, through various encounters with clients, Violet's heart slowly began to thaw:</p>
-    <ul>
-      <li><strong>Luculia</strong>, who wanted to express gratitude to her brother who was disabled by the war.</li>
-      <li><strong>Princess Charlotte</strong>, who exchanged public love letters with a prince from another country, teaching Violet about the sincerity behind beautiful words.</li>
-      <li><strong>Leon</strong>, a lonely astronomer, who made Violet realize the loneliness of being left behind.</li>
-      <li><strong>Oscar Webster</strong>, a playwright who lost his daughter. Violet helped him finish his play, and in the process, she learned about the grief of losing a child and the hope of reuniting, even if only in dreams.</li>
-    </ul>
-    <p>The turning point was when Violet wrote 50 letters for a dying mother, Clara, addressed to her daughter, Ann, in the future. Violet held back her tears during the assignment but broke down afterwards, realizing the heavy weight of the love the mother was leaving behind. Here, Violet finally realized that she herself was "burning" from her past as a soldier who had taken many lives.</p>
+<div class="story-arc-cinematic group" data-color-theme="forgiveness">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">🌸</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">Chapter III:<br/>Forgiveness</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>"You are burning. One day, you will realize that your body is covered in burns."</blockquote>
-  <cite>— Claudia Hodgins, Episode 1</cite>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      The suffocating weight of her sins crushed her spirit. Violet briefly refused to even touch an envelope, believing bloodstained hands had no right to weave love. However, upon reading letters of profound gratitude sent by the very clients she had touched, Violet comprehended an absolute truth.
+    </p>
+    <p class="fade-in-up font-bold text-accent dark:text-gold">
+      Her past could never be erased, but the beautiful letters she writes for the future would lovingly conceal those scars.
+    </p>
+    <p class="fade-in-up">
+      The ultimate testament to her growth occurred during a violent hijacking on a train bound for Drossel. Violet fought not as a soldier ordered to kill, but as a guardian ordered to protect.
+    </p>
+  </div>
 </div>
 
-<details class="story-arc">
-  <summary>The Climax: Acceptance and Forgiveness</summary>
-  <div class="content">
-    <p>Violet was haunted by guilt. She felt that her hands, which had taken so many lives, did not deserve to write letters that brought people together. However, the letters she had delivered proved otherwise. People were grateful to her.</p>
-    <p>During a train hijacking incident, Violet fought not to kill, but to protect. She refused to use weapons, using her metal arms to deflect attacks to save the passengers. She finally accepted that her past could not be erased, but her future could still be written.</p>
-    <p>She eventually met Major Gilbert's mother, who asked her to live on and not forget Gilbert. Violet realized that the "Love" Gilbert gave her was the light guiding her out of the darkness.</p>
+<div class="story-arc-cinematic group" data-color-theme="reunion">
+  <div class="arc-sticky-panel">
+    <span class="arc-icon fade-in-up">💌</span>
+    <h3 class="font-heading text-4xl sm:text-5xl lg:text-6xl text-accent dark:text-gold mb-4 leading-tight fade-in-up">Epilogue:<br/>Shores of Ecarte</h3>
   </div>
-</details>
-
-<div class="quote-container">
-  <blockquote>"I don't need orders anymore."</blockquote>
-  <cite>— Violet Evergarden, Finale</cite>
-</div>
-
-<details class="story-arc">
-  <summary>The Ending: Letter to the Major (Movie)</summary>
-  <div class="content">
-    <p>Years passed. Technology advanced, radio towers were built, and the profession of the Doll slowly began to become obsolete. But the name Violet Evergarden remained legendary. A clue led Violet to the remote island of Ecarté, where Gilbert was actually alive, hiding because of his guilt for making Violet a weapon and losing his own eye and arm.</p>
-    <p>Initially, Gilbert refused to see Violet, feeling she would be happier without him. However, Violet wrote one last letter to him. Not as a report, but as the outpouring of a heart of a girl in love.</p>
-    <p><em>"Spring, summer, autumn, and winter... How many seasons have passed alone? I am waiting for you, Major."</em></p>
-    <p>Gilbert, moved by Violet's sincerity and his brother's encouragement, finally chased after Violet. They met in the sea under the moonlight. Violet, who had been holding back her tears all this time, could finally cry in the arms of the person she loved most. This time, not as an order, but as a reunion of two souls completing each other.</p>
-    <p>Violet continued to live on the island with Gilbert, continuing to write letters as a local postal service, while her legacy as a Doll was remembered forever through a stamp bearing her face.</p>
+  <div class="arc-content text-lg sm:text-xl leading-relaxed text-ink/80 dark:text-white/80 space-y-8">
+    <p class="fade-in-up">
+      Seasons turned and faded away. As human civilization marched relentlessly forward, erecting towering radio towers, the classic era of handwritten letters slowly eroded. Whispers of a faint clue carried Violet across the vast ocean to the remote Ecarte Island.
+    </p>
+    <p class="fade-in-up">
+      Major Gilbert was alive; exiled in the abyss of guilt for robbing a young girl's smile on a battlefield long past. Even when Gilbert's door remained firmly shut to her amidst a raging storm, Violet chose to lean on the power of words.
+    </p>
+    <p class="text-2xl font-heading italic text-ink dark:text-white border-l-4 border-accent dark:border-gold pl-6 fade-in-up">
+      "Spring, summer, autumn, winter... How many seasons have passed by alone. I am waiting for you, Major."
+    </p>
+    <p class="fade-in-up">
+      They reunited beneath the moonlight. No longer bound as a weapon and her master, but as two fragile souls eternally grounding each other through true, unconditional love.
+    </p>
   </div>
-</details>
-
-<div class="story-section conclusion">
-  <h3>Epilogue</h3>
-  <p>Violet Evergarden teaches us that it is never too late to understand feelings. That letters, no matter how small, have the power to convey a person's heart. And most importantly, even hands stained with blood deserve to grasp happiness and write a future full of love.</p>
 </div>
