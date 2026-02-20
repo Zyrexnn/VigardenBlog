@@ -418,16 +418,15 @@ const t = useTranslations(lang);
     <MusicPlayer />
 
     <script is:inline>
-      // Sync hero background for theme changes (lightweight, event-based only)
       function syncBackgroundGif() {
-        var gif = document.getElementById("theme-gif");
-        if (gif) {
-          var isDark = document.documentElement.classList.contains("dark");
+        var gifs = document.querySelectorAll("#theme-gif");
+        var isDark = document.documentElement.classList.contains("dark");
+        gifs.forEach(function(gif) {
           gif.src = isDark
             ? "/images/violet-dark.gif"
             : "/images/violet-light.gif";
           gif.style.opacity = isDark ? "0.25" : "0.15";
-        }
+        });
       }
       syncBackgroundGif();
       document.addEventListener("astro:after-swap", syncBackgroundGif);

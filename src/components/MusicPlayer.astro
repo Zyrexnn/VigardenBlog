@@ -5,37 +5,33 @@
  */
 ---
 
-<!-- Minimized Toggle Button -->
 <button
   id="music-toggle-btn"
-  class="fixed bottom-4 right-4 z-[150] w-10 h-10 rounded-full
+  class="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[150] w-9 h-9 sm:w-10 sm:h-10 rounded-full
          bg-[#181818]/90 backdrop-blur-xl shadow-lg
          flex items-center justify-center
-         hover:scale-110 transition-all duration-300
-         border border-white/10"
+         hover:scale-110 active:scale-95 transition-all duration-300
+         border border-white/10 focus:outline-none focus:ring-0"
   aria-label="Open Music Player"
 >
-  <span class="text-base" id="toggle-icon">🎵</span>
+  <span class="text-sm sm:text-base" id="toggle-icon">🎵</span>
 </button>
 
-<!-- Compact Player Bar -->
 <div
   id="music-player"
   class="fixed bottom-0 left-0 right-0 z-[140]
          translate-y-full opacity-0 transition-all duration-500 ease-out"
 >
   <div
-    class="mx-2 sm:mx-auto sm:max-w-md mb-2 rounded-xl overflow-hidden
+    class="mx-1.5 sm:mx-2 md:mx-auto md:max-w-lg mb-1.5 sm:mb-2 rounded-xl overflow-hidden
            bg-[#181818]/95 backdrop-blur-2xl
            border border-white/[0.06] shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
   >
-    <!-- Main Row -->
-    <div class="flex items-center gap-2.5 p-2">
-      <!-- Album Art -->
+    <div class="flex items-center gap-2 p-2 sm:p-2.5">
       <div class="relative flex-shrink-0">
         <div
           id="album-art"
-          class="w-10 h-10 rounded-md overflow-hidden shadow-md"
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-md overflow-hidden shadow-md"
         >
           <img
             src="/images/coverlagu.jpg"
@@ -44,7 +40,6 @@
             id="album-img"
           />
         </div>
-        <!-- Playing indicator -->
         <div
           id="playing-dots"
           class="absolute -bottom-0.5 left-1/2 -translate-x-1/2 flex gap-px opacity-0 transition-opacity"
@@ -61,45 +56,46 @@
         </div>
       </div>
 
-      <!-- Track Info (compact) -->
       <div class="flex-1 min-w-0">
         <p
           id="track-title"
-          class="text-[11px] sm:text-xs font-semibold text-white truncate leading-tight"
+          class="text-[10px] sm:text-[11px] font-semibold text-white truncate leading-tight"
         >
           みちしるべ (Michishirube)
         </p>
         <p
           id="track-artist"
-          class="text-[9px] sm:text-[10px] text-white/40 truncate leading-tight"
+          class="text-[8px] sm:text-[9px] text-white/40 truncate leading-tight"
         >
           Minori Chihara
         </p>
+        <div class="flex items-center gap-1.5 mt-0.5 sm:hidden">
+          <span id="time-current-mobile" class="text-[7px] text-white/50 font-mono">0:00</span>
+          <span class="text-[7px] text-white/30">/</span>
+          <span id="time-duration-mobile" class="text-[7px] text-white/50 font-mono">0:00</span>
+        </div>
       </div>
 
-      <!-- Controls (compact) -->
-      <div class="flex items-center gap-0.5 flex-shrink-0">
-        <!-- Previous -->
+      <div class="flex items-center gap-0.5 sm:gap-1 flex-shrink-0">
         <button
           id="btn-prev"
-          class="w-6 h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+          class="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors focus:outline-none"
           title="Previous"
         >
-          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
           </svg>
         </button>
 
-        <!-- Play/Pause -->
         <button
           id="btn-play"
-          class="w-7 h-7 rounded-full bg-white flex items-center justify-center
-                 hover:scale-105 active:scale-95 transition-all duration-150 shadow"
+          class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center
+                 hover:scale-105 active:scale-95 transition-all duration-150 shadow focus:outline-none"
           title="Play"
         >
           <svg
             id="icon-play"
-            class="w-3 h-3 text-black ml-px"
+            class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black ml-px"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -107,7 +103,7 @@
           </svg>
           <svg
             id="icon-pause"
-            class="w-3 h-3 text-black hidden"
+            class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black hidden"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -115,22 +111,20 @@
           </svg>
         </button>
 
-        <!-- Next -->
         <button
           id="btn-next"
-          class="w-6 h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+          class="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors focus:outline-none"
           title="Next"
         >
-          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
           </svg>
         </button>
 
-        <!-- Volume (desktop only) -->
-        <div class="hidden sm:flex items-center gap-0.5 ml-1">
+        <div class="hidden sm:flex items-center gap-0.5 ml-0.5">
           <button
             id="btn-volume"
-            class="w-5 h-5 flex items-center justify-center text-white/40 hover:text-white transition-colors"
+            class="w-5 h-5 flex items-center justify-center text-white/40 hover:text-white transition-colors focus:outline-none"
             title="Volume"
           >
             <svg
@@ -160,17 +154,16 @@
             min="0"
             max="100"
             value="70"
-            class="volume-range w-12"
+            class="volume-range w-10 sm:w-12"
           />
         </div>
 
-        <!-- Collapse -->
         <button
           id="btn-collapse"
-          class="w-5 h-5 flex items-center justify-center text-white/20 hover:text-white/50 transition-colors ml-0.5"
+          class="w-5 h-5 flex items-center justify-center text-white/20 hover:text-white/50 transition-colors ml-0.5 focus:outline-none"
           title="Minimize"
         >
-          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
             ></path>
           </svg>
@@ -178,21 +171,24 @@
       </div>
     </div>
 
-    <!-- Progress Bar (full width, thin) -->
-    <div
-      id="progress-container"
-      class="h-[3px] bg-white/10 cursor-pointer -mt-px"
-    >
+    <div class="flex items-center px-2 sm:px-3 gap-2 sm:gap-3">
+      <span id="time-current" class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 text-right hidden sm:block">0:00</span>
       <div
-        id="progress-bar"
-        class="h-full bg-[#1DB954] transition-[width] duration-100 relative"
-        style="width: 0%;"
+        id="progress-container"
+        class="flex-1 h-[3px] bg-white/10 cursor-pointer rounded-full relative group"
       >
         <div
-          class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white opacity-0 hover:opacity-100 shadow-sm"
+          id="progress-bar"
+          class="h-full bg-[#1DB954] transition-[width] duration-75 relative rounded-full"
+          style="width: 0%;"
         >
+          <div
+            class="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white opacity-0 group-hover:opacity-100 shadow-sm transition-opacity"
+          >
+          </div>
         </div>
       </div>
+      <span id="time-duration" class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 hidden sm:block">0:00</span>
     </div>
   </div>
 </div>
@@ -230,34 +226,9 @@
   }
 </style>
 
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const player = document.getElementById("music-player");
-    const toggleBtn = document.getElementById("music-toggle-btn");
-    const toggleIcon = document.getElementById("toggle-icon");
-    const collapseBtn = document.getElementById("btn-collapse");
-    const playBtn = document.getElementById("btn-play");
-    const prevBtn = document.getElementById("btn-prev");
-    const nextBtn = document.getElementById("btn-next");
-    const iconPlay = document.getElementById("icon-play");
-    const iconPause = document.getElementById("icon-pause");
-    const trackTitle = document.getElementById("track-title");
-    const trackArtist = document.getElementById("track-artist");
-    const progressContainer = document.getElementById("progress-container");
-    const progressBar = document.getElementById("progress-bar");
-    const volumeSlider = document.getElementById(
-      "volume-slider",
-    ) as HTMLInputElement;
-    const volumeBtn = document.getElementById("btn-volume");
-    const volIcon = document.getElementById("vol-icon");
-    const volMuteIcon = document.getElementById("vol-mute-icon");
-    const playingDots = document.getElementById("playing-dots");
-    const albumImg = document.getElementById("album-img") as HTMLImageElement;
-
-    if (!player || !toggleBtn || !playBtn) return;
-
-    // === Track List ===
-    const tracks = [
+<script is:inline>
+  (function() {
+    var TRACKS = [
       {
         title: "みちしるべ (Michishirube)",
         artist: "Minori Chihara",
@@ -266,94 +237,157 @@
       },
     ];
 
-    let currentTrackIndex = 0;
-    let isPlayerOpen = false;
-    let audio: HTMLAudioElement | null = null;
-    let isPlaying = false;
-    let animFrameId: number;
+    var STORAGE_KEY = "vigarden-music-state";
+    var audio = window.__vigardenAudio || null;
+    var animFrameId = null;
 
-    // === Audio Setup ===
+    function getState() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      return { trackIndex: 0, currentTime: 0, volume: 70, isPlaying: false, isOpen: false };
+    }
+
+    function saveState(state) {
+      try {
+        var current = getState();
+        var merged = Object.assign({}, current, state);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+      } catch (e) {}
+    }
+
+    function formatTime(seconds) {
+      if (!seconds || !isFinite(seconds)) return "0:00";
+      var mins = Math.floor(seconds / 60);
+      var secs = Math.floor(seconds % 60);
+      return mins + ":" + (secs < 10 ? "0" : "") + secs;
+    }
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
     function initAudio() {
-      if (audio) return;
+      if (audio) return audio;
       audio = new Audio();
       audio.preload = "metadata";
+      window.__vigardenAudio = audio;
 
-      const savedVolume = localStorage.getItem("vigarden-player-vol");
-      const vol = savedVolume ? parseInt(savedVolume) : 70;
-      audio.volume = vol / 100;
-      if (volumeSlider) volumeSlider.value = String(vol);
+      var state = getState();
+      audio.volume = state.volume / 100;
 
-      audio.addEventListener("ended", () => {
-        if (tracks.length > 1) {
-          nextTrack();
-        } else {
-          if (audio) {
-            audio.currentTime = 0;
-            audio.play();
-          }
+      audio.addEventListener("loadedmetadata", function() {
+        updateDurationDisplay();
+        if (state.currentTime > 0) {
+          audio.currentTime = state.currentTime;
         }
       });
 
-      loadTrack(currentTrackIndex);
+      audio.addEventListener("ended", function() {
+        if (TRACKS.length > 1) {
+          nextTrack();
+        } else {
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+
+      audio.addEventListener("timeupdate", function() {
+        updateProgress();
+      });
+
+      audio.addEventListener("play", function() {
+        updatePlayUI(true);
+      });
+
+      audio.addEventListener("pause", function() {
+        updatePlayUI(false);
+      });
+
+      loadTrack(state.trackIndex);
+      return audio;
     }
 
-    function loadTrack(index: number) {
+    function loadTrack(index) {
       if (!audio) return;
-      const track = tracks[index];
+      var track = TRACKS[index];
       audio.src = track.src;
-      if (trackTitle) trackTitle.textContent = track.title;
-      if (trackArtist) trackArtist.textContent = track.artist;
+      var titleEl = getEl("track-title");
+      var artistEl = getEl("track-artist");
+      var albumImg = getEl("album-img");
+      if (titleEl) titleEl.textContent = track.title;
+      if (artistEl) artistEl.textContent = track.artist;
       if (albumImg && track.cover) albumImg.src = track.cover;
     }
 
-    // === Progress ===
     function updateProgress() {
-      if (!audio || audio.paused) return;
-      const pct = (audio.currentTime / audio.duration) * 100 || 0;
-      if (progressBar) progressBar.style.width = `${pct}%`;
-      animFrameId = requestAnimationFrame(updateProgress);
+      if (!audio) return;
+      var pct = (audio.currentTime / audio.duration) * 100 || 0;
+      var progressBar = getEl("progress-bar");
+      if (progressBar) progressBar.style.width = pct + "%";
+
+      var timeCurrent = getEl("time-current");
+      var timeCurrentMobile = getEl("time-current-mobile");
+      if (timeCurrent) timeCurrent.textContent = formatTime(audio.currentTime);
+      if (timeCurrentMobile) timeCurrentMobile.textContent = formatTime(audio.currentTime);
+
+      saveState({ currentTime: audio.currentTime });
     }
 
-    // === Play/Pause ===
+    function updateDurationDisplay() {
+      if (!audio) return;
+      var duration = audio.duration;
+      var timeDuration = getEl("time-duration");
+      var timeDurationMobile = getEl("time-duration-mobile");
+      if (timeDuration) timeDuration.textContent = formatTime(duration);
+      if (timeDurationMobile) timeDurationMobile.textContent = formatTime(duration);
+    }
+
+    function updatePlayUI(isPlaying) {
+      var iconPlay = getEl("icon-play");
+      var iconPause = getEl("icon-pause");
+      var playingDots = getEl("playing-dots");
+      var toggleIcon = getEl("toggle-icon");
+
+      if (isPlaying) {
+        if (iconPlay) iconPlay.classList.add("hidden");
+        if (iconPause) iconPause.classList.remove("hidden");
+        if (playingDots) {
+          playingDots.classList.remove("opacity-0");
+          playingDots.classList.add("opacity-100");
+        }
+        if (toggleIcon) toggleIcon.textContent = "⏸️";
+      } else {
+        if (iconPlay) iconPlay.classList.remove("hidden");
+        if (iconPause) iconPause.classList.add("hidden");
+        if (playingDots) {
+          playingDots.classList.add("opacity-0");
+          playingDots.classList.remove("opacity-100");
+        }
+        if (toggleIcon) toggleIcon.textContent = "🎵";
+      }
+      saveState({ isPlaying: isPlaying });
+    }
+
     function togglePlay() {
       initAudio();
       if (!audio) return;
-      if (isPlaying) {
+
+      if (audio.paused) {
+        audio.play().catch(function() {});
+      } else {
         audio.pause();
-        isPlaying = false;
-      } else {
-        audio.play().catch(() => {});
-        isPlaying = true;
-      }
-      updatePlayUI();
-    }
-
-    function updatePlayUI() {
-      if (isPlaying) {
-        iconPlay?.classList.add("hidden");
-        iconPause?.classList.remove("hidden");
-        playingDots?.classList.remove("opacity-0");
-        playingDots?.classList.add("opacity-100");
-        if (toggleIcon) toggleIcon.textContent = "⏸️";
-        cancelAnimationFrame(animFrameId);
-        animFrameId = requestAnimationFrame(updateProgress);
-      } else {
-        iconPlay?.classList.remove("hidden");
-        iconPause?.classList.add("hidden");
-        playingDots?.classList.add("opacity-0");
-        playingDots?.classList.remove("opacity-100");
-        if (toggleIcon) toggleIcon.textContent = "🎵";
-        cancelAnimationFrame(animFrameId);
       }
     }
 
-    // === Next / Previous ===
     function nextTrack() {
-      currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-      loadTrack(currentTrackIndex);
-      if (isPlaying && audio) {
-        audio.play().catch(() => {});
-        animFrameId = requestAnimationFrame(updateProgress);
+      var state = getState();
+      state.trackIndex = (state.trackIndex + 1) % TRACKS.length;
+      loadTrack(state.trackIndex);
+      saveState({ trackIndex: state.trackIndex, currentTime: 0 });
+      if (audio && !audio.paused) {
+        audio.play().catch(function() {});
       }
     }
 
@@ -362,101 +396,163 @@
         audio.currentTime = 0;
         return;
       }
-      currentTrackIndex =
-        (currentTrackIndex - 1 + tracks.length) % tracks.length;
-      loadTrack(currentTrackIndex);
-      if (isPlaying && audio) {
-        audio.play().catch(() => {});
-        animFrameId = requestAnimationFrame(updateProgress);
+      var state = getState();
+      state.trackIndex = (state.trackIndex - 1 + TRACKS.length) % TRACKS.length;
+      loadTrack(state.trackIndex);
+      saveState({ trackIndex: state.trackIndex, currentTime: 0 });
+      if (audio && !audio.paused) {
+        audio.play().catch(function() {});
       }
     }
 
-    // === Seek ===
-    function seekFromClick(e: MouseEvent) {
-      if (!audio || !audio.duration || !progressContainer) return;
-      const rect = progressContainer.getBoundingClientRect();
-      const pct = Math.max(
-        0,
-        Math.min(1, (e.clientX - rect.left) / rect.width),
-      );
+    function seekFromClick(e) {
+      if (!audio || !audio.duration) return;
+      var container = getEl("progress-container");
+      if (!container) return;
+      var rect = container.getBoundingClientRect();
+      var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       audio.currentTime = pct * audio.duration;
-      if (progressBar) progressBar.style.width = pct * 100 + "%";
+      var progressBar = getEl("progress-bar");
+      if (progressBar) progressBar.style.width = (pct * 100) + "%";
+      saveState({ currentTime: audio.currentTime });
     }
 
-    // === Volume ===
-    function updateVolume(val: number) {
-      if (!audio) initAudio();
+    function updateVolume(val) {
+      initAudio();
       if (audio) audio.volume = val / 100;
-      localStorage.setItem("vigarden-player-vol", String(val));
+      saveState({ volume: val });
+
+      var volIcon = getEl("vol-icon");
+      var volMuteIcon = getEl("vol-mute-icon");
       if (val === 0) {
-        volIcon?.classList.add("hidden");
-        volMuteIcon?.classList.remove("hidden");
+        if (volIcon) volIcon.classList.add("hidden");
+        if (volMuteIcon) volMuteIcon.classList.remove("hidden");
       } else {
-        volIcon?.classList.remove("hidden");
-        volMuteIcon?.classList.add("hidden");
+        if (volIcon) volIcon.classList.remove("hidden");
+        if (volMuteIcon) volMuteIcon.classList.add("hidden");
       }
     }
 
-    // === Expand/Collapse ===
     function openPlayer() {
-      isPlayerOpen = true;
-      player!.classList.remove("translate-y-full", "opacity-0");
-      player!.classList.add("translate-y-0", "opacity-100");
-      toggleBtn!.classList.add("opacity-0", "pointer-events-none", "scale-75");
+      var player = getEl("music-player");
+      var toggleBtn = getEl("music-toggle-btn");
+      if (player) {
+        player.classList.remove("translate-y-full", "opacity-0");
+        player.classList.add("translate-y-0", "opacity-100");
+      }
+      if (toggleBtn) toggleBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
+      saveState({ isOpen: true });
     }
 
     function closePlayer() {
-      isPlayerOpen = false;
-      player!.classList.add("translate-y-full", "opacity-0");
-      player!.classList.remove("translate-y-0", "opacity-100");
-      toggleBtn!.classList.remove(
-        "opacity-0",
-        "pointer-events-none",
-        "scale-75",
-      );
+      var player = getEl("music-player");
+      var toggleBtn = getEl("music-toggle-btn");
+      if (player) {
+        player.classList.add("translate-y-full", "opacity-0");
+        player.classList.remove("translate-y-0", "opacity-100");
+      }
+      if (toggleBtn) toggleBtn.classList.remove("opacity-0", "pointer-events-none", "scale-75");
+      saveState({ isOpen: false });
     }
 
-    // === Event Listeners ===
-    toggleBtn.addEventListener("click", () => {
-      if (isPlayerOpen) closePlayer();
-      else {
-        openPlayer();
-        initAudio();
+    function bindEvents() {
+      var toggleBtn = getEl("music-toggle-btn");
+      var collapseBtn = getEl("btn-collapse");
+      var playBtn = getEl("btn-play");
+      var prevBtn = getEl("btn-prev");
+      var nextBtn = getEl("btn-next");
+      var progressContainer = getEl("progress-container");
+      var volumeSlider = getEl("volume-slider");
+      var volumeBtn = getEl("btn-volume");
+
+      if (toggleBtn) {
+        toggleBtn.onclick = function() {
+          var state = getState();
+          if (state.isOpen) {
+            closePlayer();
+          } else {
+            openPlayer();
+            initAudio();
+          }
+        };
       }
-    });
 
-    collapseBtn?.addEventListener("click", closePlayer);
-    playBtn.addEventListener("click", togglePlay);
-    nextBtn?.addEventListener("click", nextTrack);
-    prevBtn?.addEventListener("click", prevTrack);
-    progressContainer?.addEventListener("click", (e) =>
-      seekFromClick(e as MouseEvent),
-    );
+      if (collapseBtn) collapseBtn.onclick = closePlayer;
+      if (playBtn) playBtn.onclick = togglePlay;
+      if (prevBtn) prevBtn.onclick = prevTrack;
+      if (nextBtn) nextBtn.onclick = nextTrack;
+      if (progressContainer) progressContainer.onclick = seekFromClick;
 
-    volumeSlider?.addEventListener("input", () =>
-      updateVolume(parseInt(volumeSlider.value)),
-    );
-    volumeBtn?.addEventListener("click", () => {
-      if (!audio) return;
-      if (audio.volume > 0) {
-        audio.dataset.prevVol = String(volumeSlider?.value || "70");
-        updateVolume(0);
-        if (volumeSlider) volumeSlider.value = "0";
+      if (volumeSlider) {
+        volumeSlider.oninput = function() {
+          updateVolume(parseInt(volumeSlider.value));
+        };
+      }
+
+      if (volumeBtn) {
+        volumeBtn.onclick = function() {
+          if (!audio) return;
+          if (audio.volume > 0) {
+            audio.dataset.prevVol = volumeSlider ? volumeSlider.value : "70";
+            updateVolume(0);
+            if (volumeSlider) volumeSlider.value = "0";
+          } else {
+            var prev = parseInt(audio.dataset.prevVol || "70");
+            updateVolume(prev);
+            if (volumeSlider) volumeSlider.value = String(prev);
+          }
+        };
+      }
+
+      document.onkeydown = function(e) {
+        var tag = e.target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA") return;
+        var state = getState();
+        if (e.code === "Space" && state.isOpen) {
+          e.preventDefault();
+          togglePlay();
+        }
+      };
+    }
+
+    function init() {
+      var state = getState();
+
+      if (state.isOpen) {
+        var player = getEl("music-player");
+        var toggleBtn = getEl("music-toggle-btn");
+        if (player) {
+          player.classList.remove("translate-y-full", "opacity-0");
+          player.classList.add("translate-y-0", "opacity-100");
+        }
+        if (toggleBtn) toggleBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
+      }
+
+      if (audio) {
+        var volumeSlider = getEl("volume-slider");
+        if (volumeSlider) volumeSlider.value = String(Math.round(audio.volume * 100));
+        updatePlayUI(!audio.paused);
+        updateDurationDisplay();
+        updateProgress();
       } else {
-        const prev = parseInt(audio.dataset.prevVol || "70");
-        updateVolume(prev);
-        if (volumeSlider) volumeSlider.value = String(prev);
+        var volumeSlider = getEl("volume-slider");
+        if (volumeSlider) volumeSlider.value = String(state.volume);
       }
-    });
 
-    // Keyboard: Space = play/pause
-    document.addEventListener("keydown", (e) => {
-      const tag = (e.target as HTMLElement).tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA") return;
-      if (e.code === "Space" && isPlayerOpen) {
-        e.preventDefault();
-        togglePlay();
+      bindEvents();
+
+      if (state.isPlaying && !audio) {
+        initAudio();
+        audio.play().catch(function() {});
       }
-    });
-  });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+
+    document.addEventListener("astro:page-load", init);
+  })();
 </script>
