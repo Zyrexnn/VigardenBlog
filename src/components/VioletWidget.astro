@@ -27,27 +27,29 @@
   <!-- Interactive Menu -->
   <div
     id="violet-menu"
-    class="absolute -right-14 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-4 group-hover:translate-x-0"
+    class="absolute -top-14 left-1/2 -translate-x-1/2 flex flex-row gap-2 opacity-0 pointer-events-none transition-all duration-300 scale-90 origin-bottom"
   >
     <a
       href="/"
-      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-colors shadow-lg text-lg"
-      >🏠</a
+      class="w-10 h-10 rounded-full bg-paper dark:bg-dark-bg border border-accent/20 dark:border-gold/30 flex items-center justify-center text-ink dark:text-white hover:bg-accent hover:text-white dark:hover:bg-gold dark:hover:text-black transition-all shadow-xl text-lg hover:-translate-y-1"
+      title="Home">🏠</a
     >
     <a
-      href="/blog/"
-      class="w-10 h-10 rounded-xl bg-[#1e1a1b]/80 border border-white/10 flex items-center justify-center text-white hover:bg-gold transition-colors shadow-lg text-lg"
-      >📜</a
+      href="/letters/write"
+      class="w-10 h-10 rounded-full bg-paper dark:bg-dark-bg border border-accent/20 dark:border-gold/30 flex items-center justify-center text-ink dark:text-white hover:bg-accent hover:text-white dark:hover:bg-gold dark:hover:text-black transition-all shadow-xl text-lg hover:-translate-y-1"
+      title="Write Letter">✍️</a
     >
     <button
       id="close-widget"
-      class="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/20 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors shadow-lg text-lg"
-      >×</button
+      class="w-10 h-10 rounded-full bg-paper dark:bg-dark-bg border border-accent/20 dark:border-gold/30 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-xl text-lg hover:-translate-y-1"
+      title="Close">×</button
     >
   </div>
 
   <!-- Character -->
-  <div class="relative w-[120px] h-[120px] cursor-grab active:cursor-grabbing">
+  <div
+    class="relative w-20 h-20 sm:w-28 sm:h-28 md:w-[120px] md:h-[120px] cursor-grab active:cursor-grabbing"
+  >
     <img
       src="/images/charviolet-removebg-preview.png"
       alt="Violet Evergarden"
@@ -139,9 +141,27 @@
       }, 4000);
     }
 
+    let menuOpen = false;
     widget.addEventListener("click", (e) => {
-      if (!isDragging && !(e.target as HTMLElement).closest("a, button"))
-        showSpeech();
+      if (isDragging) return;
+      if ((e.target as HTMLElement).closest("a, button")) return;
+
+      const menu = document.getElementById("violet-menu");
+      if (menu) {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          menu.classList.remove("opacity-0", "pointer-events-none", "scale-90");
+          menu.classList.add("opacity-100", "pointer-events-auto", "scale-100");
+        } else {
+          menu.classList.add("opacity-0", "pointer-events-none", "scale-90");
+          menu.classList.remove(
+            "opacity-100",
+            "pointer-events-auto",
+            "scale-100",
+          );
+        }
+      }
+      showSpeech();
     });
 
     if (closeBtn) {
