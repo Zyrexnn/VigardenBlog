@@ -99,7 +99,7 @@ const letters = await getCollection("letters");
           {letters.map((letter) => (
             <a
               href={`/letters/${letter.id}/`}
-              class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
+              class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl letter-card-shimmer"
               transition:name={`letter-${letter.id}`}
             >
               <!-- Airmail Border Top -->

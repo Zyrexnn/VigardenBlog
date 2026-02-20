@@ -626,6 +626,150 @@ const isLetters = pathname.startsWith("/letters");
         vertical-align: text-bottom;
         animation: typewriter-cursor 0.8s steps(1) infinite;
       }
+
+      /* ── Letter Corner Ornaments ─────────────── */
+      .letter-ornament {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        opacity: 0.12;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .dark .letter-ornament {
+        opacity: 0.08;
+      }
+      .letter-ornament.top-left {
+        top: 8px;
+        left: 8px;
+      }
+      .letter-ornament.top-right {
+        top: 8px;
+        right: 8px;
+        transform: scaleX(-1);
+      }
+      .letter-ornament.bottom-left {
+        bottom: 8px;
+        left: 8px;
+        transform: scaleY(-1);
+      }
+      .letter-ornament.bottom-right {
+        bottom: 8px;
+        right: 8px;
+        transform: scale(-1);
+      }
+
+      /* ── Letter Watermark ────────────────────── */
+      .letter-watermark {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Inter", sans-serif;
+        font-size: 7px;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: rgba(139, 115, 85, 0.15);
+        pointer-events: none;
+        z-index: 1;
+        white-space: nowrap;
+      }
+      .dark .letter-watermark {
+        color: rgba(197, 160, 89, 0.1);
+      }
+
+      /* ── Export Theme Toggle ─────────────────── */
+      .theme-toggle-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid transparent;
+        background: rgba(0, 0, 0, 0.02);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Inter", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(45, 45, 45, 0.6);
+      }
+      .dark .theme-toggle-btn {
+        background: rgba(255, 255, 255, 0.03);
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .theme-toggle-btn:hover {
+        border-color: rgba(197, 160, 89, 0.3);
+        background: rgba(197, 160, 89, 0.05);
+      }
+      .theme-toggle-btn.active {
+        border-color: rgba(197, 160, 89, 0.6);
+        background: rgba(197, 160, 89, 0.08);
+        box-shadow: 0 0 15px rgba(197, 160, 89, 0.1);
+        color: rgba(45, 45, 45, 0.85);
+      }
+      .dark .theme-toggle-btn.active {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ── Location Input Style ────────────────── */
+      .location-input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px dashed rgba(139, 115, 85, 0.2);
+        font-family: "Special Elite", "Courier Prime", monospace;
+        font-style: italic;
+        font-size: 0.75rem;
+        color: rgba(45, 45, 45, 0.5);
+        padding: 2px 4px;
+        outline: none;
+        width: 120px;
+        transition: all 0.3s ease;
+      }
+      .location-input:focus {
+        border-bottom-color: rgba(197, 160, 89, 0.5);
+        color: rgba(45, 45, 45, 0.7);
+      }
+      .dark .location-input {
+        color: rgba(255, 255, 255, 0.35);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+      }
+      .dark .location-input:focus {
+        border-bottom-color: rgba(197, 160, 89, 0.4);
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ── Golden shimmer on hover ─────────────── */
+      @keyframes golden-shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      .letter-card-shimmer::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(197, 160, 89, 0.06) 50%,
+          transparent 100%
+        );
+        background-size: 200% 100%;
+        opacity: 0;
+        transition: opacity 0.5s;
+        pointer-events: none;
+        border-radius: inherit;
+      }
+      .letter-card-shimmer:hover::after {
+        opacity: 1;
+        animation: golden-shimmer 2s ease infinite;
+      }
     </style>
   </body>
 </html>

@@ -1,7 +1,7 @@
 ---
 /**
- * LetterCanvas.astro — Parchment-textured letter composing interface
- * Transient write-to-export: no localStorage, export PNG + self-destruct
+ * LetterCanvas.astro — Violet Evergarden themed letter composing interface
+ * Features: editable location, export theme (Parchment/Midnight), VE ornaments
  */
 ---
 
@@ -14,11 +14,124 @@
     <!-- Paper Body -->
     <div
       id="letter-paper"
-      class="letter-canvas border-x border-gold/15 dark:border-white/5 p-6 sm:p-10 md:p-14 shadow-2xl"
+      class="letter-canvas border-x border-gold/15 dark:border-white/5 p-6 sm:p-10 md:p-14 shadow-2xl relative"
     >
+      <!-- Corner Ornaments -->
+      <svg
+        class="letter-ornament top-left"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+        <path
+          d="M15 15 Q15 30 30 30"
+          stroke="currentColor"
+          stroke-width="1"
+          fill="none"
+          opacity="0.3"></path>
+        <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
+      </svg>
+      <svg
+        class="letter-ornament top-right"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+        <path
+          d="M15 15 Q15 30 30 30"
+          stroke="currentColor"
+          stroke-width="1"
+          fill="none"
+          opacity="0.3"></path>
+        <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
+      </svg>
+      <svg
+        class="letter-ornament bottom-left"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+        <path
+          d="M15 15 Q15 30 30 30"
+          stroke="currentColor"
+          stroke-width="1"
+          fill="none"
+          opacity="0.3"></path>
+        <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
+      </svg>
+      <svg
+        class="letter-ornament bottom-right"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+        <path
+          d="M15 15 Q15 30 30 30"
+          stroke="currentColor"
+          stroke-width="1"
+          fill="none"
+          opacity="0.3"></path>
+        <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
+      </svg>
+
+      <!-- Watermark -->
+      <div class="letter-watermark">Auto Memories Doll Service</div>
+
       <!-- Header: Date & Location -->
       <div
-        class="text-right mb-8 text-xs text-ink/40 dark:text-white/30 italic font-typewriter"
+        class="text-right mb-8 text-xs text-ink/40 dark:text-white/30 italic font-typewriter relative z-10"
       >
         <span id="letter-date"></span><br />
         <span
@@ -26,11 +139,21 @@
           data-jp="執筆場所"
           data-id="Ditulis di"
           data-en="Written at">Written at</span
-        > Leiden
+        >
+        <input
+          id="letter-location"
+          type="text"
+          value="Leiden"
+          maxlength="50"
+          class="location-input"
+          data-placeholder-jp="場所を入力..."
+          data-placeholder-id="Ketik lokasi..."
+          data-placeholder-en="Type location..."
+        />
       </div>
 
       <!-- Recipient Input -->
-      <div class="mb-6">
+      <div class="mb-6 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
           data-i18n="letterTo"
@@ -53,7 +176,7 @@
       </div>
 
       <!-- Letter Content Textarea -->
-      <div class="mb-6 relative">
+      <div class="mb-6 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
           data-i18n="letterContent"
@@ -75,7 +198,7 @@
       </div>
 
       <!-- Character Counter -->
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center justify-between mb-8 relative z-10">
         <div class="flex items-center gap-2">
           <span
             id="char-count"
@@ -94,15 +217,57 @@
         </div>
       </div>
 
+      <!-- Export Theme Selector -->
+      <div class="mb-8 relative z-10">
+        <label
+          class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
+          data-i18n="exportTheme"
+        >
+          Tema Surat Ekspor
+        </label>
+        <div class="grid grid-cols-2 gap-3" id="export-theme-grid">
+          <button
+            type="button"
+            class="theme-toggle-btn active"
+            data-export-theme="parchment"
+          >
+            <span class="text-lg">☀️</span>
+            <div class="text-left">
+              <div>Parchment</div>
+              <div
+                class="text-[8px] opacity-50 normal-case tracking-normal mt-0.5"
+              >
+                Classic warm beige
+              </div>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="theme-toggle-btn"
+            data-export-theme="midnight"
+          >
+            <span class="text-lg">🌙</span>
+            <div class="text-left">
+              <div>Midnight</div>
+              <div
+                class="text-[8px] opacity-50 normal-case tracking-normal mt-0.5"
+              >
+                Elegant dark navy
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
       <!-- Stamp Selector -->
-      <div class="mb-8">
+      <div class="mb-8 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-3"
           data-i18n="selectStamp"
         >
           Pilih Perangko
         </label>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stamp-grid">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3" id="stamp-grid">
           <button type="button" class="stamp-option active" data-stamp="postal">
             <div class="stamp-card">
               <span class="text-2xl">📮</span>
@@ -127,11 +292,23 @@
               <span class="stamp-label">Quill</span>
             </div>
           </button>
+          <button type="button" class="stamp-option" data-stamp="letter">
+            <div class="stamp-card">
+              <span class="text-2xl">✉️</span>
+              <span class="stamp-label">Letter</span>
+            </div>
+          </button>
+          <button type="button" class="stamp-option" data-stamp="tulip">
+            <div class="stamp-card">
+              <span class="text-2xl">🌷</span>
+              <span class="stamp-label">Tulip</span>
+            </div>
+          </button>
         </div>
       </div>
 
       <!-- Sender Alias -->
-      <div class="mb-10">
+      <div class="mb-10 relative z-10">
         <label
           class="block text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans font-bold mb-2"
           data-i18n="letterFrom"
@@ -155,7 +332,7 @@
 
       <!-- Submit Area -->
       <div
-        class="flex flex-col items-center gap-4 pt-6 border-t border-dashed border-ink/10 dark:border-white/10"
+        class="flex flex-col items-center gap-4 pt-6 border-t border-dashed border-ink/10 dark:border-white/10 relative z-10"
       >
         <p
           class="text-[10px] text-ink/30 dark:text-white/20 font-sans uppercase tracking-[0.2em]"
@@ -187,7 +364,7 @@
   </div>
 </div>
 
-<!-- Hidden Export Preview (rendered off-screen for html-to-image) -->
+<!-- Hidden Export Preview: PARCHMENT theme (rendered off-screen for html-to-image) -->
 <div
   id="export-preview-wrapper"
   class="fixed -left-[9999px] top-0 pointer-events-none"
@@ -199,40 +376,125 @@
     style="font-family: 'Special Elite', 'Courier Prime', monospace;"
   >
     <div
-      style="background: linear-gradient(145deg, #f5f0e1 0%, #ede4cc 100%); padding: 48px; position: relative;"
+      id="ep-bg"
+      style="padding: 48px; position: relative; border-radius: 4px;"
     >
+      <!-- Corner Ornament SVGs for export -->
+      <svg
+        id="ep-ornament-tl"
+        style="position: absolute; top: 10px; left: 10px; width: 40px; height: 40px; opacity: 0.12;"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+      </svg>
+      <svg
+        id="ep-ornament-tr"
+        style="position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; opacity: 0.12; transform: scaleX(-1);"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+      </svg>
+      <svg
+        id="ep-ornament-bl"
+        style="position: absolute; bottom: 10px; left: 10px; width: 40px; height: 40px; opacity: 0.12; transform: scaleY(-1);"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+      </svg>
+      <svg
+        id="ep-ornament-br"
+        style="position: absolute; bottom: 10px; right: 10px; width: 40px; height: 40px; opacity: 0.12; transform: scale(-1);"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 5 Q5 50 50 50 Q5 50 5 95"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <path
+          d="M5 5 Q50 5 50 50 Q50 5 95 5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+          opacity="0.6"></path>
+        <circle cx="5" cy="5" r="3" opacity="0.4"></circle>
+      </svg>
+
       <!-- Date -->
       <div
         id="ep-date"
-        style="text-align: right; font-size: 11px; color: rgba(45,45,45,0.4); font-style: italic; margin-bottom: 32px;"
+        style="text-align: right; font-size: 11px; font-style: italic; margin-bottom: 32px;"
       >
       </div>
       <!-- Salutation -->
       <div
         id="ep-salutation"
-        style="font-family: 'Playfair Display', serif; font-size: 18px; color: #2D2D2D; margin-bottom: 24px;"
+        style="font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 24px;"
       >
       </div>
       <!-- Content -->
       <div
         id="ep-content"
-        style="font-size: 15px; line-height: 2; color: rgba(45,45,45,0.85); white-space: pre-wrap; margin-bottom: 40px;"
+        style="font-size: 15px; line-height: 2; white-space: pre-wrap; margin-bottom: 40px;"
       >
       </div>
       <!-- Signature -->
       <div style="text-align: right;">
         <div
-          style="font-style: italic; font-size: 11px; color: rgba(45,45,45,0.5); margin-bottom: 8px;"
+          id="ep-sincerely"
+          style="font-style: italic; font-size: 11px; margin-bottom: 8px;"
         >
           敬具,
         </div>
         <div
           id="ep-sender"
-          style="font-family: 'Playfair Display', serif; font-size: 22px; color: #00563B; font-style: italic;"
+          style="font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic;"
         >
         </div>
         <div
-          style="font-family: 'Inter', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(45,45,45,0.25); margin-top: 8px;"
+          id="ep-service"
+          style="font-family: 'Inter', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: 0.3em; margin-top: 8px;"
         >
           Auto Memories Doll Service
         </div>
@@ -241,6 +503,18 @@
       <div
         id="ep-stamp"
         style="position: absolute; top: 16px; right: 16px; font-size: 28px;"
+      >
+      </div>
+      <!-- Airmail border top -->
+      <div
+        id="ep-airmail-top"
+        style="position: absolute; top: 0; left: 0; right: 0; height: 6px; border-radius: 4px 4px 0 0;"
+      >
+      </div>
+      <!-- Airmail border bottom -->
+      <div
+        id="ep-airmail-bottom"
+        style="position: absolute; bottom: 0; left: 0; right: 0; height: 6px; border-radius: 0 0 4px 4px;"
       >
       </div>
     </div>
@@ -374,7 +648,11 @@
     const senderInput = document.getElementById(
       "letter-sender",
     ) as HTMLInputElement;
+    const locationInput = document.getElementById(
+      "letter-location",
+    ) as HTMLInputElement;
     const stampGrid = document.getElementById("stamp-grid");
+    const exportThemeGrid = document.getElementById("export-theme-grid");
     const petalOverlay = document.getElementById("petal-overlay");
     const dateEl = document.getElementById("letter-date");
     const formContainer = document.getElementById("letter-form-container");
@@ -392,6 +670,9 @@
         day: "numeric",
       });
     }
+
+    // --- Export theme state ---
+    let selectedExportTheme = "parchment";
 
     // --- i18n helper ---
     const i18nStrings: Record<string, Record<string, string>> = {
@@ -529,6 +810,19 @@
       selectedStamp = btn.dataset.stamp || "postal";
     });
 
+    // --- Export Theme Selection ---
+    exportThemeGrid?.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest(
+        ".theme-toggle-btn",
+      ) as HTMLElement;
+      if (!btn) return;
+      exportThemeGrid
+        .querySelectorAll(".theme-toggle-btn")
+        .forEach((el) => el.classList.remove("active"));
+      btn.classList.add("active");
+      selectedExportTheme = btn.dataset.exportTheme || "parchment";
+    });
+
     // --- XSS Sanitization ---
     function sanitize(str: string): string {
       const div = document.createElement("div");
@@ -570,6 +864,36 @@
       }, 6000);
     }
 
+    // --- Export Theme Configs ---
+    const exportThemes = {
+      parchment: {
+        bg: "linear-gradient(145deg, #f5f0e1 0%, #ede4cc 100%)",
+        bgColor: "#f5f0e1",
+        textColor: "rgba(45,45,45,0.85)",
+        dateColor: "rgba(45,45,45,0.4)",
+        senderColor: "#00563B",
+        serviceColor: "rgba(45,45,45,0.25)",
+        sincerelyColor: "rgba(45,45,45,0.5)",
+        salutationColor: "#2D2D2D",
+        ornamentColor: "#8B7355",
+        airmailBg:
+          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #c0392b 8px, #c0392b 10px, transparent 10px, transparent 18px, #2c3e50 18px, #2c3e50 20px)",
+      },
+      midnight: {
+        bg: "linear-gradient(145deg, #0f1729 0%, #1a2540 100%)",
+        bgColor: "#0f1729",
+        textColor: "rgba(255,255,255,0.75)",
+        dateColor: "rgba(255,255,255,0.35)",
+        senderColor: "#C5A059",
+        serviceColor: "rgba(255,255,255,0.2)",
+        sincerelyColor: "rgba(255,255,255,0.4)",
+        salutationColor: "rgba(255,255,255,0.9)",
+        ornamentColor: "#C5A059",
+        airmailBg:
+          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #8b4513 8px, #8b4513 10px, transparent 10px, transparent 18px, #c5a059 18px, #c5a059 20px)",
+      },
+    };
+
     // --- Populate Export Preview ---
     function populatePreview(
       content: string,
@@ -581,12 +905,44 @@
         flower: "🌸",
         brooch: "💎",
         quill: "🪶",
+        letter: "✉️",
+        tulip: "🌷",
       };
+
+      const theme =
+        exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
+        exportThemes.parchment;
+      const location = locationInput?.value.trim() || "Leiden";
+
+      const epBg = document.getElementById("ep-bg");
       const epDate = document.getElementById("ep-date");
       const epSalutation = document.getElementById("ep-salutation");
       const epContent = document.getElementById("ep-content");
       const epSender = document.getElementById("ep-sender");
       const epStamp = document.getElementById("ep-stamp");
+      const epSincerely = document.getElementById("ep-sincerely");
+      const epService = document.getElementById("ep-service");
+      const epAirmailTop = document.getElementById("ep-airmail-top");
+      const epAirmailBottom = document.getElementById("ep-airmail-bottom");
+
+      // Apply theme colors
+      if (epBg) {
+        epBg.style.background = theme.bg;
+      }
+      if (epAirmailTop) epAirmailTop.style.backgroundImage = theme.airmailBg;
+      if (epAirmailBottom)
+        epAirmailBottom.style.backgroundImage = theme.airmailBg;
+
+      // Apply ornament colors
+      [
+        "ep-ornament-tl",
+        "ep-ornament-tr",
+        "ep-ornament-bl",
+        "ep-ornament-br",
+      ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.style.color = theme.ornamentColor;
+      });
 
       const dateStr = new Date().toLocaleDateString("en-US", {
         year: "numeric",
@@ -594,13 +950,30 @@
         day: "numeric",
       });
 
-      if (epDate) epDate.textContent = dateStr + "\nWritten at Leiden";
-      if (epSalutation)
+      if (epDate) {
+        epDate.textContent = dateStr + "\nWritten at " + location;
+        epDate.style.color = theme.dateColor;
+      }
+      if (epSalutation) {
         epSalutation.textContent = recipient
           ? `Dearest ${recipient},`
           : "Dear Reader,";
-      if (epContent) epContent.textContent = content;
-      if (epSender) epSender.textContent = sender || "Anonymous";
+        epSalutation.style.color = theme.salutationColor;
+      }
+      if (epContent) {
+        epContent.textContent = content;
+        epContent.style.color = theme.textColor;
+      }
+      if (epSincerely) {
+        epSincerely.style.color = theme.sincerelyColor;
+      }
+      if (epSender) {
+        epSender.textContent = sender || "Anonymous";
+        epSender.style.color = theme.senderColor;
+      }
+      if (epService) {
+        epService.style.color = theme.serviceColor;
+      }
       if (epStamp) epStamp.textContent = stampIcons[selectedStamp] || "📮";
     }
 
@@ -609,6 +982,7 @@
       textarea.value = "";
       if (recipientInput) recipientInput.value = "";
       if (senderInput) senderInput.value = "";
+      if (locationInput) locationInput.value = "Leiden";
       if (charCount) {
         charCount.textContent = "0";
         charCount.className = "text-xs font-sans font-bold text-red-500/80";
@@ -625,6 +999,14 @@
         else el.classList.remove("active");
       });
       selectedStamp = "postal";
+      // Reset export theme
+      exportThemeGrid
+        ?.querySelectorAll(".theme-toggle-btn")
+        .forEach((el, i) => {
+          if (i === 0) el.classList.add("active");
+          else el.classList.remove("active");
+        });
+      selectedExportTheme = "parchment";
     }
 
     // --- Submit: Write-to-Export ---
@@ -656,8 +1038,12 @@
         const preview = document.getElementById("export-preview");
         if (!preview) throw new Error("Preview element not found");
 
+        const theme =
+          exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
+          exportThemes.parchment;
+
         const dataUrl = await toPng(preview, {
-          backgroundColor: "#f5f0e1",
+          backgroundColor: theme.bgColor,
           pixelRatio: 2,
         });
 
