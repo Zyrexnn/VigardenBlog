@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import VioletWidget from "../components/VioletWidget.astro";
+import MusicPlayer from "../components/MusicPlayer.astro";
 import SettingsPanel from "../components/SettingsPanel.astro";
 import SearchModal from "../components/SearchModal.astro";
 
@@ -383,6 +384,7 @@ const isLetters = pathname.startsWith("/letters");
 
     <!-- Interactive Floating Violet -->
     <VioletWidget />
+    <MusicPlayer />
 
     <script is:inline>
       // Sync hero background for theme changes (lightweight, event-based only)
