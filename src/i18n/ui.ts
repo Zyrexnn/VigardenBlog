@@ -1,0 +1,55 @@
+export const languages = {
+  id: 'Indonesia',
+  en: 'English',
+  ja: '日本語',
+};
+
+export const defaultLang = 'id';
+
+export const ui = {
+  id: {
+    'story.title': 'Kisah Violet Evergarden',
+    'story.subtitle': 'Dari Senjata Menjadi Manusia',
+    'story.spoiler': 'PERINGATAN SPOILER: Halaman ini memuat ringkasan cerita dari awal hingga akhir (termasuk Movie).',
+    'story.trigger': 'PERINGATAN KONTEN: Mengandung tema perang, trauma, kehilangan, dan kesedihan mendalam.',
+    'story.readMore': 'Baca Selengkapnya',
+    'story.cta.title': 'Bagaimana Kisah Violet Menyentuhmu?',
+    'story.cta.text': 'Apakah kamu sudah menonton Violet Evergarden? Bagikan episode atau momen favoritmu, atau tulis suratmu sendiri.',
+    'story.cta.button': 'Tulis Surat',
+    'nav.story': 'Kisah',
+    'arc.beginning': 'Awal Mula',
+    'arc.middle': 'Perjalanan Doll',
+    'arc.climax': 'Klimaks & Akhir',
+    'meta.description': 'Ringkasan cerita lengkap Violet Evergarden: perjalanan emosional dari senjata perang menjadi Auto Memories Doll yang memahami cinta.',
+  },
+  en: {
+    'story.title': ' The Story of Violet Evergarden',
+    'story.subtitle': 'From Weapon to Human',
+    'story.spoiler': 'SPOILER WARNING: This page contains a full story summary from start to finish (including the Movie).',
+    'story.trigger': 'CONTENT WARNING: Contains themes of war, trauma, loss, and deep grief.',
+    'story.readMore': 'Read More',
+    'story.cta.title': 'How Did Violet\'s Story Touch You?',
+    'story.cta.text': 'Have you watched Violet Evergarden? Share your favorite episode or moment, or write a letter of your own.',
+    'story.cta.button': 'Write a Letter',
+    'nav.story': 'Story',
+    'arc.beginning': 'The Beginning',
+    'arc.middle': 'Journey as a Doll',
+    'arc.climax': 'Climax & Ending',
+    'meta.description': 'Full story summary of Violet Evergarden: an emotional journey from a weapon of war to an Auto Memories Doll who understands love.',
+  },
+  ja: {
+    'story.title': 'ヴァイオレット・エヴァーガーデンの物語',
+    'story.subtitle': '武器から人間へ',
+    'story.spoiler': 'ネタバレ注意：このページには、物語の最初から最後まで（劇場版を含む）の完全な要約が含まれています。',
+    'story.trigger': 'コンテンツの警告：戦争、トラウマ、喪失、深い悲しみのテーマが含まれています。',
+    'story.readMore': '続きを読む',
+    'story.cta.title': 'ヴァイオレットの物語はあなにとってどうでしたか？',
+    'story.cta.text': 'ヴァイオレット・エヴァーガーデンを見ましたか？お気に入りのエピソードや瞬間を共有するか、あなた自身の手紙を書いてください。',
+    'story.cta.button': '手紙を書く',
+    'nav.story': '物語',
+    'arc.beginning': '始まり',
+    'arc.middle': 'ドールとしての旅',
+    'arc.climax': 'クライマックスと結末',
+    'meta.description': 'ヴァイオレット・エヴァーガーデンの完全な物語の要約：戦争の道具から愛を知る自動手記人形への感情的な旅。',
+  },
+} as const;

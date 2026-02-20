@@ -41,4 +41,13 @@ const letters = defineCollection({
   }),
 });
 
-export const collections = { blog, letters };
+const stories = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/stories" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    lang: z.enum(["id", "en", "ja"]).default("id"),
+  }),
+});
+
+export const collections = { blog, letters, stories };

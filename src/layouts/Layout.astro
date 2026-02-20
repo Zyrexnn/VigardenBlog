@@ -26,6 +26,11 @@ const pathname = Astro.url.pathname;
 const isHome = pathname === "/";
 const isBlog = pathname.startsWith("/blog");
 const isLetters = pathname.startsWith("/letters");
+const isStories = pathname.includes("/stories/");
+
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
@@ -212,6 +217,19 @@ const isLetters = pathname.startsWith("/letters");
               data-i18n="letters"
               data-nav-path="/letters">Surat</a
             >
+            <a
+              href={lang === "id"
+                ? "/stories/violet-evergarden"
+                : `/${lang}/stories/violet-evergarden`}
+              class:list={[
+                "text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 relative pb-1",
+                isStories
+                  ? "text-accent dark:text-gold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:rounded-full after:bg-accent dark:after:bg-gold"
+                  : "text-ink/70 dark:text-white/70 hover:text-accent dark:hover:text-gold",
+              ]}
+              data-i18n="nav.story"
+              data-nav-path="/stories">{t("nav.story")}</a
+            >
           </div>
         </div>
 
@@ -300,6 +318,19 @@ const isLetters = pathname.startsWith("/letters");
         ]}
         data-i18n="letters"
         data-nav-path="/letters">Surat</a
+      >
+      <a
+        href={lang === "id"
+          ? "/stories/violet-evergarden"
+          : `/${lang}/stories/violet-evergarden`}
+        class:list={[
+          "mobile-nav-link text-2xl font-heading transition-colors",
+          isStories
+            ? "text-accent dark:text-gold"
+            : "text-ink dark:text-white hover:text-accent",
+        ]}
+        data-i18n="nav.story"
+        data-nav-path="/stories">{t("nav.story")}</a
       >
 
       <div class="w-16 h-[1px] bg-gold/30 dark:bg-gold/20"></div>
