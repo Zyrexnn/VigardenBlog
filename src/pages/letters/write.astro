@@ -13,6 +13,14 @@ import LetterCanvas from "../../components/LetterCanvas.astro";
       class="relative h-[30vh] sm:h-[35vh] min-h-[220px] w-full flex flex-col items-center justify-center text-center overflow-hidden"
     >
       <div class="absolute inset-0 z-0">
+        <img
+          id="theme-gif"
+          src="/images/violet-light.gif"
+          alt=""
+          class="w-full h-full object-cover opacity-20 dark:opacity-30 blur-[1px]"
+          fetchpriority="high"
+          decoding="async"
+        />
         <div
           class="absolute inset-0 bg-gradient-to-tr from-gold/20 via-transparent to-transparent mix-blend-overlay"
         >

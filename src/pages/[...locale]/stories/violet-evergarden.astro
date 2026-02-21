@@ -56,9 +56,12 @@ const storyEntry = idEntry || allStories[0];
     >
       <!-- Faint overlay GIF -->
       <img
+        id="theme-gif"
         src="/images/violet-light.gif"
         alt=""
-        class="absolute inset-0 w-full h-full object-cover opacity-10 dark:opacity-20 blur-sm pointer-events-none mix-blend-overlay"
+        class="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-30 blur-sm pointer-events-none mix-blend-overlay"
+        fetchpriority="high"
+        decoding="async"
       />
 
       <div class="relative z-10 text-center px-4 w-full pt-20">
@@ -146,7 +149,7 @@ const storyEntry = idEntry || allStories[0];
         </p>
         <a
           href="/letters/write"
-          class="inline-block border border-accent dark:border-gold px-12 py-5 font-body tracking-[0.3em] uppercase text-xs sm:text-sm hover:bg-accent hover:text-white dark:hover:bg-gold dark:hover:text-black transition-all duration-500"
+          class="inline-block border border-accent dark:border-gold px-12 py-5 font-body tracking-[0.3em] uppercase text-xs sm:text-sm hover:bg-accent hover:text-white dark:hover:bg-gold dark:hover:text-black transition-all duration-200"
         >
           <span data-i18n="story.cta.button">{t("story.cta.button")}</span>
         </a>

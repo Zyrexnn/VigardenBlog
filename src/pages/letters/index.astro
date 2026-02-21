@@ -19,7 +19,9 @@ const letters = await getCollection("letters");
           id="theme-gif"
           src="/images/violet-light.gif"
           alt=""
-          class="w-full h-full object-cover opacity-10 dark:opacity-20 blur-[1px]"
+          class="w-full h-full object-cover opacity-20 dark:opacity-30 blur-[1px]"
+          fetchpriority="high"
+          decoding="async"
         />
         <div class="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-paper dark:to-dark-bg"></div>
       </div>
@@ -55,7 +57,7 @@ const letters = await getCollection("letters");
       <!-- Write Your Own Letter CTA -->
       <a
         href="/letters/write/"
-        class="group block mb-10 sm:mb-14 relative overflow-hidden rounded-xl hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl"
+        class="group block mb-10 sm:mb-14 relative overflow-hidden rounded-xl transition-colors duration-200 shadow-md"
       >
         <div class="letter-canvas p-6 sm:p-10 border border-gold/20 dark:border-white/10 rounded-xl relative">
           <!-- Decorative quill -->
@@ -100,7 +102,7 @@ const letters = await getCollection("letters");
           {letters.map((letter) => (
             <a
               href={`/letters/${letter.id}/`}
-              class="group relative block overflow-hidden rounded-sm hover:-translate-y-1 transition-all duration-500 shadow-lg hover:shadow-2xl letter-card-shimmer"
+              class="group relative block overflow-hidden rounded-sm transition-colors duration-200 shadow-md letter-card-shimmer"
               transition:name={`letter-${letter.id}`}
             >
               <!-- Airmail Border Top -->

@@ -19,8 +19,16 @@ const sortedPosts = posts.sort(
       class="relative h-[45vh] min-h-[350px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-gradient-to-b from-paper/40 via-gold/10 to-paper dark:from-dark-bg/80 dark:via-dark-card/50 dark:to-[#0D1117]"
     >
       <div class="absolute inset-0 z-0">
+        <img
+          id="theme-gif"
+          src="/images/violet-light.gif"
+          alt=""
+          class="w-full h-full object-cover opacity-20 dark:opacity-30 blur-[1px]"
+          fetchpriority="high"
+          decoding="async"
+        />
         <div
-          class="absolute inset-0 bg-gradient-to-tr from-gold/20 via-transparent to-transparent mix-blend-overlay"
+          class="absolute inset-0 bg-gradient-to-tr from-gold/30 via-transparent to-transparent mix-blend-overlay"
         ></div>
         <div
           class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-paper dark:to-[#0D1117]"
@@ -197,14 +205,14 @@ const sortedPosts = posts.sort(
             {
               sortedPosts.map((post, index) => (
                 <a href={`/blog/${post.id}/`} class="group block relative perspective-1000">
-                  <article class={`relative bg-paper dark:bg-dark-card border border-gold/40 dark:border-wood/80 shadow-[0_5px_15px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] p-6 sm:p-10 flex flex-col md:flex-row gap-6 sm:gap-10 hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 origin-bottom ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'}`}>
+                  <article class={`relative bg-paper dark:bg-dark-card border border-gold/40 dark:border-wood/80 shadow-md p-6 sm:p-10 flex flex-col md:flex-row gap-6 sm:gap-10 transition-colors duration-300 origin-bottom ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'}`}>
                     
-                    <!-- Back pages (Stack effect) -->
-                    <div class={`absolute inset-0 bg-paper/80 dark:bg-dark-card/80 border border-gold/20 -z-10 shadow-sm transition-transform duration-700 group-hover:rotate-0 ${index % 2 === 0 ? 'rotate-1 scale-[0.98]' : '-rotate-1 scale-[0.98]'}`}></div>
-                    <div class={`absolute inset-0 bg-paper/60 dark:bg-dark-card/60 border border-gold/10 -z-20 shadow-sm transition-transform duration-700 group-hover:rotate-0 ${index % 2 === 0 ? 'rotate-2 scale-[0.96]' : '-rotate-2 scale-[0.96]'}`}></div>
+                    <!-- Back pages (Stack effect - static, no animations) -->
+                    <div class={`absolute inset-0 bg-paper/80 dark:bg-dark-card/80 border border-gold/20 -z-10 shadow-sm ${index % 2 === 0 ? 'rotate-1 scale-[0.98]' : '-rotate-1 scale-[0.98]'}`}></div>
+                    <div class={`absolute inset-0 bg-paper/60 dark:bg-dark-card/60 border border-gold/10 -z-20 shadow-sm ${index % 2 === 0 ? 'rotate-2 scale-[0.96]' : '-rotate-2 scale-[0.96]'}`}></div>
                     
                     <!-- Vertical Ribbon -->
-                    <div class="absolute left-8 sm:left-12 top-[-10px] bottom-[-10px] w-5 bg-accent/80 dark:bg-seal-red/80 shadow-[2px_0_5px_rgba(0,0,0,0.3)] opacity-90 group-hover:opacity-100 group-hover:scale-y-105 transition-all duration-500 z-10 flex flex-col justify-between items-center py-2">
+                    <div class="absolute left-8 sm:left-12 top-[-10px] bottom-[-10px] w-5 bg-accent/80 dark:bg-seal-red/80 shadow-sm z-10 flex flex-col justify-between items-center py-2">
                        <div class="w-2 h-2 rounded-full border border-white/40"></div>
                        <div class="w-2 h-2 rounded-full border border-white/40 xl:block hidden"></div>
                     </div>
@@ -221,7 +229,7 @@ const sortedPosts = posts.sort(
                         </span>
                         <span class="border-l border-gold/40 pl-4">{post.data.category}</span>
                       </div>
-                      <h2 class="text-2xl sm:text-3xl md:text-3xl font-heading text-ink dark:text-white/90 group-hover:text-gold dark:group-hover:text-accent transition-colors duration-500 leading-tight">
+                      <h2 class="text-2xl sm:text-3xl md:text-3xl font-heading text-ink dark:text-white/90 group-hover:text-gold dark:group-hover:text-accent transition-colors duration-200 leading-tight">
                         <span data-content-lang="en">{post.data.title}</span>
                         <span data-content-lang="jp" class="hidden">
                           {post.data.title_jp || post.data.title}
@@ -245,7 +253,7 @@ const sortedPosts = posts.sort(
                     
                     <div class="shrink-0 flex items-center justify-end md:justify-center relative z-10">
                       <!-- Wax Seal link button -->
-                      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-seal-red to-[#5a0000] shadow-[0_4px_10px_rgba(139,0,0,0.4)] border-2 border-[#5a0000]/50 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 text-paper text-sm font-heading relative overflow-hidden">
+                      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-seal-red to-[#5a0000] shadow-md border-2 border-[#5a0000]/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-200 text-paper text-sm font-heading relative overflow-hidden">
                         <div class="absolute inset-1 border border-white/20 rounded-full"></div>
                         <span class="transform transition-transform text-white/90">V</span>
                       </div>

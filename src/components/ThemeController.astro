@@ -1,4 +1,4 @@
-                                                                                   ---
+---
 /**
  * ThemeController.astro
  * Anti-flicker dark/light toggle.
@@ -17,7 +17,7 @@
 >
   <!-- Sun Icon (visible in dark mode) -->
   <svg
-    class="w-5 h-5 text-gold absolute transition-all duration-500
+    class="w-5 h-5 text-gold absolute transition-all duration-200
            scale-0 rotate-90 dark:scale-100 dark:rotate-0"
     fill="none"
     viewBox="0 0 24 24"
@@ -32,7 +32,7 @@
 
   <!-- Moon Icon (visible in light mode) -->
   <svg
-    class="w-5 h-5 text-post-blue absolute transition-all duration-500
+    class="w-5 h-5 text-post-blue absolute transition-all duration-200
            scale-100 rotate-0 dark:scale-0 dark:-rotate-90"
     fill="none"
     viewBox="0 0 24 24"
@@ -100,5 +100,26 @@
       );
     });
   });
+
+  // ── Sync Theme GIF ──────────────────────────────────────────
+  function syncThemeGif(isDark) {
+    var gif = document.getElementById("theme-gif");
+    if (gif) {
+      var newSrc = isDark
+        ? "/images/violet-dark.gif"
+        : "/images/violet-light.gif";
+      if (gif.getAttribute("src") !== newSrc) {
+        gif.setAttribute("src", newSrc);
+      }
+    }
+  }
+
+  window.addEventListener("theme-changed", function (e) {
+    syncThemeGif(e.detail.theme === "dark");
+  });
+
+  document.addEventListener("astro:page-load", function () {
+    var isDark = document.documentElement.classList.contains("dark");
+    syncThemeGif(isDark);
+  });
 </script>
-  
