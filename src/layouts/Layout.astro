@@ -190,38 +190,47 @@ const t = useTranslations(lang);
             </span>
           </a>
 
-          <div class="hidden lg:flex items-center gap-8">
+          <div class="hidden lg:flex items-center gap-4 xl:gap-6">
             <a
               href="/"
               class:list={[
-                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                "text-[9px] xl:text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
                 isHome
                   ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
                   : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
               ]}
               data-i18n="home"
+              data-jp="ホーム"
+              data-id="Beranda"
+              data-en="Home"
               data-nav-path="/">Beranda</a
             >
             <a
               href="/blog/"
               class:list={[
-                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                "text-[9px] xl:text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
                 isBlog
                   ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
                   : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
               ]}
               data-i18n="archive"
+              data-jp="アーカイブ"
+              data-id="Arsip"
+              data-en="Archive"
               data-nav-path="/blog">Arsip</a
             >
             <a
               href="/letters/"
               class:list={[
-                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                "text-[9px] xl:text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
                 isLetters
                   ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
                   : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
               ]}
               data-i18n="letters"
+              data-jp="手紙"
+              data-id="Surat"
+              data-en="Letters"
               data-nav-path="/letters">Surat</a
             >
             <a
@@ -229,23 +238,29 @@ const t = useTranslations(lang);
                 ? "/stories/violet-evergarden"
                 : `/${lang}/stories/violet-evergarden`}
               class:list={[
-                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                "text-[9px] xl:text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
                 isStories
                   ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
                   : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
               ]}
               data-i18n="nav.story"
+              data-jp="物語"
+              data-id="Kisah"
+              data-en="Story"
               data-nav-path="/stories">{t("nav.story")}</a
             >
             <a
               href="/credits/"
               class:list={[
-                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                "text-[9px] xl:text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
                 isCredits
                   ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
                   : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
               ]}
               data-i18n="nav.credits"
+              data-jp="クレジット"
+              data-id="Kredit"
+              data-en="Credits"
             >
               Kredit
             </a>
