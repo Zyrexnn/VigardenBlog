@@ -16,20 +16,22 @@ const latestPosts = posts.sort(
   <div class="bg-paper dark:bg-dark-bg relative transition-colors duration-1000 ease-in-out">
     <!-- Hero Banner -->
     <section
-      class="relative h-[70vh] min-h-[500px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-[#0D1117]"
+      class="relative h-[70vh] min-h-[500px] w-full flex flex-col items-center justify-center text-center overflow-hidden bg-gradient-to-b from-post-blue/40 via-accent/20 to-paper dark:from-dark-bg dark:via-dark-card dark:to-dark-bg"
     >
       <div class="absolute inset-0 z-0">
         <img
           id="theme-gif"
           src="/images/violet-light.gif"
           alt=""
-          class="w-full h-full object-cover opacity-15 dark:opacity-25 mix-blend-overlay"
-          loading="eager"
+          class="w-full h-full object-cover opacity-20 dark:opacity-30 blur-[1px]"
         />
+        <!-- Golden hour effect -->
         <div
-          class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-paper dark:to-dark-bg"
-        >
-        </div>
+          class="absolute inset-0 bg-gradient-to-tr from-gold/30 via-transparent to-transparent mix-blend-overlay"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-paper dark:to-dark-bg"
+        ></div>
       </div>
 
       <div class="relative z-10 space-y-8 px-4 w-full" transition:animate="fade">

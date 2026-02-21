@@ -6,12 +6,42 @@
 ---
 
 <div class="max-w-2xl mx-auto">
-  <div id="letter-form-container" class="relative transition-all duration-700">
-    <div class="airmail-border rounded-t-sm"></div>
+  <div
+    id="letter-form-container"
+    class="relative transition-all duration-700 mt-8"
+  >
+    <!-- Typewriter Platen (Roller) -->
+    <div
+      class="h-8 sm:h-10 w-[106%] -ml-[3%] bg-gradient-to-b from-[#1a1a1a] via-[#3d3d3d] to-[#0a0a0a] rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.6)] border-y border-gray-500/40 relative z-20 flex items-center justify-between px-1 sm:px-2"
+    >
+      <!-- Left Knob -->
+      <div
+        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-br from-[#cca74e] via-[#8f7533] to-[#3e2b22] border-2 border-black/80 shadow-inner flex items-center justify-center"
+      >
+        <div class="w-2 h-2 rounded-full bg-black/40"></div>
+      </div>
+      <!-- Roller highlight / paper feed -->
+      <div
+        class="flex-1 h-[2px] bg-white/10 mx-4 sm:mx-8 rounded-full shadow-[0_1px_2px_rgba(255,255,255,0.2)]"
+      >
+      </div>
+      <!-- Right Knob -->
+      <div
+        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-bl from-[#cca74e] via-[#8f7533] to-[#3e2b22] border-2 border-black/80 shadow-inner flex items-center justify-center"
+      >
+        <div class="w-2 h-2 rounded-full bg-black/40"></div>
+      </div>
+    </div>
+
+    <!-- Shadow thrown by paper rolling into platen -->
+    <div
+      class="bg-gradient-to-b from-black/50 to-transparent h-6 w-full absolute top-[1.5rem] z-10 pointer-events-none mx-auto w-[98%] left-[1%]"
+    >
+    </div>
 
     <div
       id="letter-paper"
-      class="letter-canvas border-x border-gold/15 dark:border-white/5 p-6 sm:p-10 md:p-14 shadow-2xl relative"
+      class="letter-canvas border border-gold/40 dark:border-wood/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-paper dark:bg-[#1f1612] w-[98%] mx-auto mt-[-1rem] px-6 py-10 sm:px-12 sm:py-16 md:px-14 md:py-20 relative transition-transform duration-75"
     >
       <svg
         class="letter-ornament top-left"
@@ -122,7 +152,9 @@
         <circle cx="12" cy="12" r="1.5" opacity="0.3"></circle>
       </svg>
 
-      <div class="letter-watermark" data-i18n="watermark">Auto Memories Doll Service</div>
+      <div class="letter-watermark" data-i18n="watermark">
+        Auto Memories Doll Service
+      </div>
 
       <div
         class="text-right mb-8 text-xs text-ink/40 dark:text-white/30 italic font-typewriter relative z-10"
@@ -135,9 +167,13 @@
             class="location-select bg-transparent border-b border-dashed border-ink/15 dark:border-white/10 text-ink dark:text-white font-typewriter text-xs focus:outline-none focus:border-gold/40 cursor-pointer"
           >
             <option value="Leiden" data-i18n="loc.leiden">Leiden</option>
-            <option value="Hodinsara" data-i18n="loc.hodinsara">Hodinsara</option>
+            <option value="Hodinsara" data-i18n="loc.hodinsara"
+              >Hodinsara</option
+            >
             <option value="Shahar" data-i18n="loc.shahar">Shahar</option>
-            <option value="Ecarte Island" data-i18n="loc.ecarte">Ecarte Island</option>
+            <option value="Ecarte Island" data-i18n="loc.ecarte"
+              >Ecarte Island</option
+            >
             <option value="Ctrigal" data-i18n="loc.ctrigal">Ctrigal</option>
             <option value="Drossel" data-i18n="loc.drossel">Drossel</option>
             <option value="custom" data-i18n="loc.custom">Custom...</option>
@@ -341,24 +377,44 @@
         <button
           id="wax-seal-submit"
           type="button"
-          class="wax-seal-btn"
+          class="wax-seal-btn group"
           disabled
           data-i18n-title="sealTitle"
           title="Seal Letter"
         >
-          CH
+          <span
+            class="text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] font-heading italic font-bold"
+            >V</span
+          >
         </button>
         <p
           id="seal-hint"
-          class="text-[9px] text-ink/25 dark:text-white/15 font-sans italic"
+          class="text-[9px] text-ink/40 dark:text-white/30 font-sans italic"
           data-i18n="sealHintLocked"
         >
           Write at least 50 characters to unlock the seal
         </p>
       </div>
+      <!-- Typewriter Hammer Overlay (Visual Fake) -->
+      <div
+        id="hammer-container"
+        class="absolute top-[30%] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 drop-shadow-2xl z-[100] origin-top"
+      >
+        <div
+          class="w-1.5 h-32 bg-gradient-to-b from-gray-400 to-gray-800 mx-auto rounded-b-sm border-x border-gray-600"
+        >
+        </div>
+        <div
+          class="w-6 h-8 bg-gradient-to-br from-gray-300 via-gray-500 to-gray-700 rounded-sm shadow-xl flex items-center justify-center -mt-2 border-b-2 border-gray-900"
+        >
+          <div
+            class="text-[12px] font-typewriter text-black/60 font-bold scale-y-[-1] scale-x-[-1]"
+          >
+            V
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="airmail-border rounded-b-sm"></div>
   </div>
 </div>
 
@@ -601,7 +657,7 @@
   }
   .location-select option {
     background: #f5f0e1;
-    color: #2D2D2D;
+    color: #2d2d2d;
   }
   :global(.dark) .location-select option {
     background: #1a1e2e;
@@ -634,19 +690,67 @@
     animation: selfDestruct 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     pointer-events: none;
   }
+
+  @keyframes type-strike {
+    0% {
+      transform: translateY(0) scale(1);
+      filter: contrast(1);
+    }
+    50% {
+      transform: translateY(1px) scale(0.999);
+      filter: contrast(1.05);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      filter: contrast(1);
+    }
+  }
+  .typing-strike {
+    animation: type-strike 0.1s ease-out;
+  }
+
+  @keyframes hammer-strike {
+    0% {
+      transform: translate(-50%, -40px) rotateX(70deg);
+      opacity: 0;
+    }
+    50% {
+      transform: translate(-50%, 0px) rotateX(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -40px) rotateX(70deg);
+      opacity: 0;
+    }
+  }
+  .animate-strike {
+    animation: hammer-strike 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
 </style>
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    const textarea = document.getElementById("letter-content") as HTMLTextAreaElement;
+    const textarea = document.getElementById(
+      "letter-content",
+    ) as HTMLTextAreaElement;
     const charCount = document.getElementById("char-count");
     const charStatus = document.getElementById("char-status");
-    const sealBtn = document.getElementById("wax-seal-submit") as HTMLButtonElement;
+    const sealBtn = document.getElementById(
+      "wax-seal-submit",
+    ) as HTMLButtonElement;
     const sealHint = document.getElementById("seal-hint");
-    const recipientInput = document.getElementById("letter-recipient") as HTMLInputElement;
-    const senderInput = document.getElementById("letter-sender") as HTMLInputElement;
-    const locationSelect = document.getElementById("letter-location-select") as HTMLSelectElement;
-    const locationCustom = document.getElementById("letter-location-custom") as HTMLInputElement;
+    const recipientInput = document.getElementById(
+      "letter-recipient",
+    ) as HTMLInputElement;
+    const senderInput = document.getElementById(
+      "letter-sender",
+    ) as HTMLInputElement;
+    const locationSelect = document.getElementById(
+      "letter-location-select",
+    ) as HTMLSelectElement;
+    const locationCustom = document.getElementById(
+      "letter-location-custom",
+    ) as HTMLInputElement;
     const stampGrid = document.getElementById("stamp-grid");
     const exportThemeGrid = document.getElementById("export-theme-grid");
     const petalOverlay = document.getElementById("petal-overlay");
@@ -736,10 +840,14 @@
 
     function updatePlaceholders() {
       const lang = getLang();
-      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[data-placeholder-" + lang + "]").forEach((el) => {
-        const val = el.getAttribute("data-placeholder-" + lang);
-        if (val) el.placeholder = val;
-      });
+      document
+        .querySelectorAll<
+          HTMLInputElement | HTMLTextAreaElement
+        >("[data-placeholder-" + lang + "]")
+        .forEach((el) => {
+          const val = el.getAttribute("data-placeholder-" + lang);
+          if (val) el.placeholder = val;
+        });
     }
     updatePlaceholders();
 
@@ -786,17 +894,36 @@
     }
 
     function playKeystroke() {
-      if (!audioCtx || !audioBuffer) return;
-      try {
-        const source = audioCtx.createBufferSource();
-        source.buffer = audioBuffer;
-        const offset = Math.random() * Math.max(0, audioBuffer.duration - 0.15);
-        const gain = audioCtx.createGain();
-        gain.gain.value = 0.3 + Math.random() * 0.2;
-        source.connect(gain);
-        gain.connect(audioCtx.destination);
-        source.start(0, offset, 0.1 + Math.random() * 0.05);
-      } catch (e) {}
+      // Audio
+      if (audioCtx && audioBuffer) {
+        try {
+          const source = audioCtx.createBufferSource();
+          source.buffer = audioBuffer;
+          const offset =
+            Math.random() *
+            Math.max(0, (audioBuffer as AudioBuffer).duration - 0.15);
+          const gain = audioCtx.createGain();
+          gain.gain.value = 0.3 + Math.random() * 0.2;
+          source.connect(gain);
+          gain.connect(audioCtx.destination);
+          source.start(0, offset, 0.1 + Math.random() * 0.05);
+        } catch (e) {}
+      }
+
+      // Micro animations
+      const paper = document.getElementById("letter-paper");
+      if (paper) {
+        paper.classList.remove("typing-strike");
+        void paper.offsetWidth;
+        paper.classList.add("typing-strike");
+      }
+
+      const hammer = document.getElementById("hammer-container");
+      if (hammer) {
+        hammer.classList.remove("animate-strike");
+        void hammer.offsetWidth;
+        hammer.classList.add("animate-strike");
+      }
     }
 
     textarea.addEventListener("focus", initAudio, { once: true });
@@ -806,7 +933,8 @@
       if (charCount) charCount.textContent = String(len);
 
       if (len >= 50) {
-        if (charCount) charCount.className = "text-xs font-sans font-bold text-accent/80";
+        if (charCount)
+          charCount.className = "text-xs font-sans font-bold text-accent/80";
         if (charStatus) {
           charStatus.textContent = t("readyToSeal");
           charStatus.className = "text-[10px] font-sans italic text-accent/60";
@@ -814,7 +942,8 @@
         sealBtn.disabled = false;
         if (sealHint) sealHint.textContent = t("sealHintReady");
       } else {
-        if (charCount) charCount.className = "text-xs font-sans font-bold text-red-500/80";
+        if (charCount)
+          charCount.className = "text-xs font-sans font-bold text-red-500/80";
         if (charStatus) {
           charStatus.textContent = t("tooShort");
           charStatus.className = "text-[10px] font-sans italic text-red-500/60";
@@ -828,17 +957,25 @@
 
     let selectedStamp = "postal";
     stampGrid?.addEventListener("click", (e) => {
-      const btn = (e.target as HTMLElement).closest(".stamp-option") as HTMLElement;
+      const btn = (e.target as HTMLElement).closest(
+        ".stamp-option",
+      ) as HTMLElement;
       if (!btn) return;
-      stampGrid.querySelectorAll(".stamp-option").forEach((el) => el.classList.remove("active"));
+      stampGrid
+        .querySelectorAll(".stamp-option")
+        .forEach((el) => el.classList.remove("active"));
       btn.classList.add("active");
       selectedStamp = btn.dataset.stamp || "postal";
     });
 
     exportThemeGrid?.addEventListener("click", (e) => {
-      const btn = (e.target as HTMLElement).closest(".theme-toggle-btn") as HTMLElement;
+      const btn = (e.target as HTMLElement).closest(
+        ".theme-toggle-btn",
+      ) as HTMLElement;
       if (!btn) return;
-      exportThemeGrid.querySelectorAll(".theme-toggle-btn").forEach((el) => el.classList.remove("active"));
+      exportThemeGrid
+        .querySelectorAll(".theme-toggle-btn")
+        .forEach((el) => el.classList.remove("active"));
       btn.classList.add("active");
       selectedExportTheme = btn.dataset.exportTheme || "parchment";
     });
@@ -892,7 +1029,8 @@
         sincerelyColor: "rgba(45,45,45,0.5)",
         salutationColor: "#2D2D2D",
         ornamentColor: "#8B7355",
-        airmailBg: "repeating-linear-gradient(-45deg, transparent, transparent 8px, #c0392b 8px, #c0392b 10px, transparent 10px, transparent 18px, #2c3e50 18px, #2c3e50 20px)",
+        airmailBg:
+          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #c0392b 8px, #c0392b 10px, transparent 10px, transparent 18px, #2c3e50 18px, #2c3e50 20px)",
       },
       midnight: {
         bg: "linear-gradient(145deg, #0f1729 0%, #1a2540 100%)",
@@ -904,11 +1042,16 @@
         sincerelyColor: "rgba(255,255,255,0.4)",
         salutationColor: "rgba(255,255,255,0.9)",
         ornamentColor: "#C5A059",
-        airmailBg: "repeating-linear-gradient(-45deg, transparent, transparent 8px, #8b4513 8px, #8b4513 10px, transparent 10px, transparent 18px, #c5a059 18px, #c5a059 20px)",
+        airmailBg:
+          "repeating-linear-gradient(-45deg, transparent, transparent 8px, #8b4513 8px, #8b4513 10px, transparent 10px, transparent 18px, #c5a059 18px, #c5a059 20px)",
       },
     };
 
-    function populatePreview(content: string, recipient: string, sender: string) {
+    function populatePreview(
+      content: string,
+      recipient: string,
+      sender: string,
+    ) {
       const stampIcons: Record<string, string> = {
         postal: "📮",
         flower: "🌸",
@@ -918,7 +1061,9 @@
         tulip: "🌷",
       };
 
-      const theme = exportThemes[selectedExportTheme as keyof typeof exportThemes] || exportThemes.parchment;
+      const theme =
+        exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
+        exportThemes.parchment;
       const location = getLocation();
 
       const epBg = document.getElementById("ep-bg");
@@ -934,9 +1079,15 @@
 
       if (epBg) epBg.style.background = theme.bg;
       if (epAirmailTop) epAirmailTop.style.backgroundImage = theme.airmailBg;
-      if (epAirmailBottom) epAirmailBottom.style.backgroundImage = theme.airmailBg;
+      if (epAirmailBottom)
+        epAirmailBottom.style.backgroundImage = theme.airmailBg;
 
-      ["ep-ornament-tl", "ep-ornament-tr", "ep-ornament-bl", "ep-ornament-br"].forEach((id) => {
+      [
+        "ep-ornament-tl",
+        "ep-ornament-tr",
+        "ep-ornament-bl",
+        "ep-ornament-br",
+      ].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.style.color = theme.ornamentColor;
       });
@@ -952,7 +1103,9 @@
         epDate.style.color = theme.dateColor;
       }
       if (epSalutation) {
-        epSalutation.textContent = recipient ? `${t("dearest")} ${recipient},` : t("dearReader");
+        epSalutation.textContent = recipient
+          ? `${t("dearest")} ${recipient},`
+          : t("dearReader");
         epSalutation.style.color = theme.salutationColor;
       }
       if (epContent) {
@@ -997,10 +1150,12 @@
         else el.classList.remove("active");
       });
       selectedStamp = "postal";
-      exportThemeGrid?.querySelectorAll(".theme-toggle-btn").forEach((el, i) => {
-        if (i === 0) el.classList.add("active");
-        else el.classList.remove("active");
-      });
+      exportThemeGrid
+        ?.querySelectorAll(".theme-toggle-btn")
+        .forEach((el, i) => {
+          if (i === 0) el.classList.add("active");
+          else el.classList.remove("active");
+        });
       selectedExportTheme = "parchment";
     }
 
@@ -1017,11 +1172,14 @@
       await new Promise((r) => setTimeout(r, 1500));
 
       try {
-        const { toPng } = await import("https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm");
+        const { toPng } =
+          await import("https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm");
         const preview = document.getElementById("export-preview");
         if (!preview) throw new Error("Preview element not found");
 
-        const theme = exportThemes[selectedExportTheme as keyof typeof exportThemes] || exportThemes.parchment;
+        const theme =
+          exportThemes[selectedExportTheme as keyof typeof exportThemes] ||
+          exportThemes.parchment;
 
         const dataUrl = await toPng(preview, {
           backgroundColor: theme.bgColor,

@@ -7,17 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#1A202C",
-        accent: "#00563B",
-        gold: "#C5A059",
-        paper: "#F5F5DC",
+        primary: "#1b2a49",
+        accent: "#2e5c54",
+        gold: "#b89947",
+        paper: "#fdf6e3",
         ink: "#2D2D2D",
-        "dark-bg": "#0B0E14",
-        "dark-card": "#151922",
-        "dark-border": "#2A303C",
-        "post-blue": "#2C3E50",
+        "dark-bg": "#121e36",
+        "dark-card": "#1b2a49",
+        "dark-border": "#3e2b22",
+        "post-blue": "#1b2a49",
         "violet-eye": "#4facfe",
         "seal-red": "#8B0000",
+        wood: "#5c4033",
       },
       fontFamily: {
         heading: ["'Playfair Display'", "serif"],
