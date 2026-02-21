@@ -8,7 +8,7 @@
 <button
   id="music-toggle-btn"
   class="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[150] w-9 h-9 sm:w-10 sm:h-10 rounded-full
-         bg-[#181818]/90 backdrop-blur-xl shadow-lg
+         bg-[#181818] shadow-lg
          flex items-center justify-center
          hover:scale-110 active:scale-95 transition-all duration-300
          border border-white/10 focus:outline-none focus:ring-0"
@@ -24,7 +24,7 @@
 >
   <div
     class="mx-1.5 sm:mx-2 md:mx-auto md:max-w-lg mb-1.5 sm:mb-2 rounded-xl overflow-hidden
-           bg-[#181818]/95 backdrop-blur-2xl
+           bg-[#181818]
            border border-white/[0.06] shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
   >
     <div class="flex items-center gap-2 p-2 sm:p-2.5">
@@ -70,9 +70,15 @@
           Minori Chihara
         </p>
         <div class="flex items-center gap-1.5 mt-0.5 sm:hidden">
-          <span id="time-current-mobile" class="text-[7px] text-white/50 font-mono">0:00</span>
+          <span
+            id="time-current-mobile"
+            class="text-[7px] text-white/50 font-mono">0:00</span
+          >
           <span class="text-[7px] text-white/30">/</span>
-          <span id="time-duration-mobile" class="text-[7px] text-white/50 font-mono">0:00</span>
+          <span
+            id="time-duration-mobile"
+            class="text-[7px] text-white/50 font-mono">0:00</span
+          >
         </div>
       </div>
 
@@ -82,7 +88,11 @@
           class="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors focus:outline-none"
           title="Previous"
         >
-          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg
+            class="w-2.5 h-2.5 sm:w-3 sm:h-3"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
           </svg>
         </button>
@@ -116,7 +126,11 @@
           class="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-white/50 hover:text-white transition-colors focus:outline-none"
           title="Next"
         >
-          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg
+            class="w-2.5 h-2.5 sm:w-3 sm:h-3"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
           </svg>
         </button>
@@ -163,7 +177,11 @@
           class="w-5 h-5 flex items-center justify-center text-white/20 hover:text-white/50 transition-colors ml-0.5 focus:outline-none"
           title="Minimize"
         >
-          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 24 24">
+          <svg
+            class="w-2.5 h-2.5 sm:w-3 sm:h-3"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
             ></path>
           </svg>
@@ -172,7 +190,11 @@
     </div>
 
     <div class="flex items-center px-2 sm:px-3 gap-2 sm:gap-3">
-      <span id="time-current" class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 text-right hidden sm:block">0:00</span>
+      <span
+        id="time-current"
+        class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 text-right hidden sm:block"
+        >0:00</span
+      >
       <div
         id="progress-container"
         class="flex-1 h-[3px] bg-white/10 cursor-pointer rounded-full relative group"
@@ -188,7 +210,11 @@
           </div>
         </div>
       </div>
-      <span id="time-duration" class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 hidden sm:block">0:00</span>
+      <span
+        id="time-duration"
+        class="text-[8px] sm:text-[9px] text-white/50 font-mono w-7 sm:w-8 hidden sm:block"
+        >0:00</span
+      >
     </div>
   </div>
 </div>
@@ -227,7 +253,7 @@
 </style>
 
 <script is:inline>
-  (function() {
+  (function () {
     var TRACKS = [
       {
         title: "みちしるべ (Michishirube)",
@@ -246,7 +272,13 @@
         var saved = localStorage.getItem(STORAGE_KEY);
         if (saved) return JSON.parse(saved);
       } catch (e) {}
-      return { trackIndex: 0, currentTime: 0, volume: 70, isPlaying: false, isOpen: false };
+      return {
+        trackIndex: 0,
+        currentTime: 0,
+        volume: 70,
+        isPlaying: false,
+        isOpen: false,
+      };
     }
 
     function saveState(state) {
@@ -277,14 +309,14 @@
       var state = getState();
       audio.volume = state.volume / 100;
 
-      audio.addEventListener("loadedmetadata", function() {
+      audio.addEventListener("loadedmetadata", function () {
         updateDurationDisplay();
         if (state.currentTime > 0) {
           audio.currentTime = state.currentTime;
         }
       });
 
-      audio.addEventListener("ended", function() {
+      audio.addEventListener("ended", function () {
         if (TRACKS.length > 1) {
           nextTrack();
         } else {
@@ -293,15 +325,15 @@
         }
       });
 
-      audio.addEventListener("timeupdate", function() {
+      audio.addEventListener("timeupdate", function () {
         updateProgress();
       });
 
-      audio.addEventListener("play", function() {
+      audio.addEventListener("play", function () {
         updatePlayUI(true);
       });
 
-      audio.addEventListener("pause", function() {
+      audio.addEventListener("pause", function () {
         updatePlayUI(false);
       });
 
@@ -330,7 +362,8 @@
       var timeCurrent = getEl("time-current");
       var timeCurrentMobile = getEl("time-current-mobile");
       if (timeCurrent) timeCurrent.textContent = formatTime(audio.currentTime);
-      if (timeCurrentMobile) timeCurrentMobile.textContent = formatTime(audio.currentTime);
+      if (timeCurrentMobile)
+        timeCurrentMobile.textContent = formatTime(audio.currentTime);
 
       saveState({ currentTime: audio.currentTime });
     }
@@ -341,7 +374,8 @@
       var timeDuration = getEl("time-duration");
       var timeDurationMobile = getEl("time-duration-mobile");
       if (timeDuration) timeDuration.textContent = formatTime(duration);
-      if (timeDurationMobile) timeDurationMobile.textContent = formatTime(duration);
+      if (timeDurationMobile)
+        timeDurationMobile.textContent = formatTime(duration);
     }
 
     function updatePlayUI(isPlaying) {
@@ -375,7 +409,7 @@
       if (!audio) return;
 
       if (audio.paused) {
-        audio.play().catch(function() {});
+        audio.play().catch(function () {});
       } else {
         audio.pause();
       }
@@ -387,7 +421,7 @@
       loadTrack(state.trackIndex);
       saveState({ trackIndex: state.trackIndex, currentTime: 0 });
       if (audio && !audio.paused) {
-        audio.play().catch(function() {});
+        audio.play().catch(function () {});
       }
     }
 
@@ -401,7 +435,7 @@
       loadTrack(state.trackIndex);
       saveState({ trackIndex: state.trackIndex, currentTime: 0 });
       if (audio && !audio.paused) {
-        audio.play().catch(function() {});
+        audio.play().catch(function () {});
       }
     }
 
@@ -413,7 +447,7 @@
       var pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       audio.currentTime = pct * audio.duration;
       var progressBar = getEl("progress-bar");
-      if (progressBar) progressBar.style.width = (pct * 100) + "%";
+      if (progressBar) progressBar.style.width = pct * 100 + "%";
       saveState({ currentTime: audio.currentTime });
     }
 
@@ -440,7 +474,8 @@
         player.classList.remove("translate-y-full", "opacity-0");
         player.classList.add("translate-y-0", "opacity-100");
       }
-      if (toggleBtn) toggleBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
+      if (toggleBtn)
+        toggleBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
       saveState({ isOpen: true });
     }
 
@@ -451,7 +486,12 @@
         player.classList.add("translate-y-full", "opacity-0");
         player.classList.remove("translate-y-0", "opacity-100");
       }
-      if (toggleBtn) toggleBtn.classList.remove("opacity-0", "pointer-events-none", "scale-75");
+      if (toggleBtn)
+        toggleBtn.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "scale-75",
+        );
       saveState({ isOpen: false });
     }
 
@@ -466,7 +506,7 @@
       var volumeBtn = getEl("btn-volume");
 
       if (toggleBtn) {
-        toggleBtn.onclick = function() {
+        toggleBtn.onclick = function () {
           var state = getState();
           if (state.isOpen) {
             closePlayer();
@@ -484,13 +524,13 @@
       if (progressContainer) progressContainer.onclick = seekFromClick;
 
       if (volumeSlider) {
-        volumeSlider.oninput = function() {
+        volumeSlider.oninput = function () {
           updateVolume(parseInt(volumeSlider.value));
         };
       }
 
       if (volumeBtn) {
-        volumeBtn.onclick = function() {
+        volumeBtn.onclick = function () {
           if (!audio) return;
           if (audio.volume > 0) {
             audio.dataset.prevVol = volumeSlider ? volumeSlider.value : "70";
@@ -504,7 +544,7 @@
         };
       }
 
-      document.onkeydown = function(e) {
+      document.onkeydown = function (e) {
         var tag = e.target.tagName;
         if (tag === "INPUT" || tag === "TEXTAREA") return;
         var state = getState();
@@ -525,12 +565,18 @@
           player.classList.remove("translate-y-full", "opacity-0");
           player.classList.add("translate-y-0", "opacity-100");
         }
-        if (toggleBtn) toggleBtn.classList.add("opacity-0", "pointer-events-none", "scale-75");
+        if (toggleBtn)
+          toggleBtn.classList.add(
+            "opacity-0",
+            "pointer-events-none",
+            "scale-75",
+          );
       }
 
       if (audio) {
         var volumeSlider = getEl("volume-slider");
-        if (volumeSlider) volumeSlider.value = String(Math.round(audio.volume * 100));
+        if (volumeSlider)
+          volumeSlider.value = String(Math.round(audio.volume * 100));
         updatePlayUI(!audio.paused);
         updateDurationDisplay();
         updateProgress();
@@ -543,7 +589,7 @@
 
       if (state.isPlaying && !audio) {
         initAudio();
-        audio.play().catch(function() {});
+        audio.play().catch(function () {});
       }
     }
 

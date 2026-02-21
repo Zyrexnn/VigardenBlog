@@ -27,6 +27,7 @@ const isHome = pathname === "/";
 const isBlog = pathname.startsWith("/blog");
 const isLetters = pathname.startsWith("/letters");
 const isStories = pathname.includes("/stories/");
+const isCredits = pathname.includes("/credits");
 
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
@@ -173,7 +174,7 @@ const t = useTranslations(lang);
       class="fixed top-0 left-0 right-0 z-[100] transition-all duration-200 h-20 sm:h-24 flex items-center justify-center px-3 sm:px-6"
     >
       <nav
-        class="w-full max-w-5xl h-14 sm:h-16 bg-paper/95 dark:bg-dark-card/95 backdrop-blur-md border border-gold/60 shadow-[0_8px_30px_rgba(184,153,71,0.15)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] rounded-sm px-4 sm:px-8 flex items-center justify-between transition-all duration-200 relative"
+        class="w-full max-w-5xl h-14 sm:h-16 bg-paper dark:bg-dark-card border border-gold/60 shadow-[0_8px_30px_rgba(184,153,71,0.15)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] rounded-sm px-4 sm:px-8 flex items-center justify-between transition-all duration-200 relative"
       >
         <!-- Inner decorative border -->
         <div
@@ -236,6 +237,18 @@ const t = useTranslations(lang);
               data-i18n="nav.story"
               data-nav-path="/stories">{t("nav.story")}</a
             >
+            <a
+              href="/credits/"
+              class:list={[
+                "text-[10.5px] font-bold uppercase tracking-[0.25em] transition-all duration-300 relative pb-1 hover:-translate-y-0.5",
+                isCredits
+                  ? "text-accent dark:text-gold after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:border after:border-gold/50 after:rotate-45 after:bg-accent dark:after:bg-gold"
+                  : "text-ink/80 dark:text-white/80 hover:text-accent dark:hover:text-gold hover:shadow-[0_0_15px_rgba(204,167,78,0.5)]",
+              ]}
+              data-i18n="nav.credits"
+            >
+              Kredit
+            </a>
           </div>
         </div>
 
@@ -318,34 +331,43 @@ const t = useTranslations(lang);
       <a
         href="/"
         class:list={[
-          "mobile-nav-link text-2xl font-heading transition-colors",
+          "mobile-nav-link text-2xl font-heading transition-all duration-300 py-2 px-6 rounded-lg",
           isHome
-            ? "text-accent dark:text-gold"
-            : "text-ink dark:text-white hover:text-accent",
+            ? "text-accent dark:text-gold bg-ink/5 dark:bg-white/5"
+            : "text-ink dark:text-white hover:text-accent hover:bg-ink/5 dark:hover:bg-white/5",
         ]}
         data-i18n="home"
+        data-jp="ホーム"
+        data-id="Beranda"
+        data-en="Home"
         data-nav-path="/">Beranda</a
       >
       <a
         href="/blog/"
         class:list={[
-          "mobile-nav-link text-2xl font-heading transition-colors",
+          "mobile-nav-link text-2xl font-heading transition-all duration-300 py-2 px-6 rounded-lg",
           isBlog
-            ? "text-accent dark:text-gold"
-            : "text-ink dark:text-white hover:text-accent",
+            ? "text-accent dark:text-gold bg-ink/5 dark:bg-white/5"
+            : "text-ink dark:text-white hover:text-accent hover:bg-ink/5 dark:hover:bg-white/5",
         ]}
         data-i18n="archive"
+        data-jp="アーカイブ"
+        data-id="Arsip"
+        data-en="Archive"
         data-nav-path="/blog">Arsip</a
       >
       <a
         href="/letters/"
         class:list={[
-          "mobile-nav-link text-2xl font-heading transition-colors",
+          "mobile-nav-link text-2xl font-heading transition-all duration-300 py-2 px-6 rounded-lg",
           isLetters
-            ? "text-accent dark:text-gold"
-            : "text-ink dark:text-white hover:text-accent",
+            ? "text-accent dark:text-gold bg-ink/5 dark:bg-white/5"
+            : "text-ink dark:text-white hover:text-accent hover:bg-ink/5 dark:hover:bg-white/5",
         ]}
         data-i18n="letters"
+        data-jp="手紙"
+        data-id="Surat"
+        data-en="Letters"
         data-nav-path="/letters">Surat</a
       >
       <a
@@ -353,14 +375,32 @@ const t = useTranslations(lang);
           ? "/stories/violet-evergarden"
           : `/${lang}/stories/violet-evergarden`}
         class:list={[
-          "mobile-nav-link text-2xl font-heading transition-colors",
+          "mobile-nav-link text-2xl font-heading transition-all duration-300 py-2 px-6 rounded-lg",
           isStories
-            ? "text-accent dark:text-gold"
-            : "text-ink dark:text-white hover:text-accent",
+            ? "text-accent dark:text-gold bg-ink/5 dark:bg-white/5"
+            : "text-ink dark:text-white hover:text-accent hover:bg-ink/5 dark:hover:bg-white/5",
         ]}
         data-i18n="nav.story"
+        data-jp="物語"
+        data-id="Kisah"
+        data-en="Story"
         data-nav-path="/stories">{t("nav.story")}</a
       >
+      <a
+        href="/credits/"
+        class:list={[
+          "mobile-nav-link text-2xl font-heading transition-all duration-300 py-2 px-6 rounded-lg",
+          isCredits
+            ? "text-accent dark:text-gold bg-ink/5 dark:bg-white/5"
+            : "text-ink dark:text-white hover:text-accent hover:bg-ink/5 dark:hover:bg-white/5",
+        ]}
+        data-i18n="nav.credits"
+        data-jp="クレジット"
+        data-id="Kredit"
+        data-en="Credits"
+      >
+        Kredit
+      </a>
 
       <div class="w-16 h-[1px] bg-gold/30 dark:bg-gold/20"></div>
 

@@ -28,6 +28,7 @@ const letters = defineCollection({
     sender: z.string().default("Violet Evergarden"),
     episode: z.string().optional(),
     date: z.string().optional(),
+    location: z.string().optional(),
     description: z.string().optional(),
     // Full translation support
     title_jp: z.string().optional(),

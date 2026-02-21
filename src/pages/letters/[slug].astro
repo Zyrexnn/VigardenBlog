@@ -299,17 +299,39 @@ const bodyIdHtml = letter.data.body_id
       <div class="airmail-border rounded-b-sm"></div>
 
       <!-- Back Button -->
-      <div class="mt-8 sm:mt-10 text-center">
+      <div class="mt-12 sm:mt-16 text-center pb-8 sm:pb-0">
         <a
           href="/letters/"
-          class="inline-flex items-center gap-2 text-xs font-bold uppercase
-                 tracking-[0.15em] text-gold hover:text-accent transition-colors duration-300"
+          class="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full
+                 bg-white/50 dark:bg-black/40 border border-gold/40 shadow-md backdrop-blur-sm
+                 hover:bg-gold hover:text-white dark:hover:bg-gold dark:hover:text-ink
+                 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-ink dark:text-gold
+                 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-gold/50"
           data-i18n="returnToCollection"
           data-jp="← コレクションに戻る"
           data-id="← Kembali ke Koleksi"
           data-en="← Return to Collection"
         >
-          ← コレクションに戻る
+          <svg
+            class="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:-translate-x-1 transition-transform duration-300"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          <span
+            data-i18n="returnToCollection"
+            data-jp="コレクションに戻る"
+            data-id="Kembali ke Koleksi"
+            data-en="Return to Collection"
+          >
+            Return to Collection
+          </span>
         </a>
       </div>
     </article>

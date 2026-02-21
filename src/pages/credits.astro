@@ -1,0 +1,415 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ThemeController from "../components/ThemeController.astro";
+---
+
+<Layout
+  title="Credits & Acknowledgments | Vigarden"
+  description="Honoring the creators of Violet Evergarden and the ones who brought her to life."
+>
+  <ThemeController slot="header-right" />
+
+  <!-- Background setup without heavy SVG noise -->
+  <div
+    class="fixed inset-0 z-0 bg-paper dark:bg-dark-bg transition-colors duration-300 pointer-events-none"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/5 dark:to-white/5 opacity-50"
+    >
+    </div>
+  </div>
+
+  <main
+    class="relative z-10 w-full min-h-screen flex flex-col items-center pt-32 pb-24 sm:py-40 px-4 sm:px-6"
+  >
+    <!-- Hero Quote Section -->
+    <section
+      class="w-full max-w-4xl min-h-[50vh] flex flex-col items-center justify-center text-center space-y-8 cinematic-reveal"
+    >
+      <p
+        class="font-heading text-2xl sm:text-4xl md:text-5xl text-ink dark:text-gold leading-relaxed"
+      >
+        <span
+          data-en="Thank you for teaching us the meaning of"
+          data-id="Terima kasih telah mengajarkan kami arti dari"
+          data-jp="『愛してる』の意味を教えてくれて"
+          >Thank you for teaching us the meaning of</span
+        >
+        <br class="hidden sm:block" />
+        <span
+          class="italic text-accent dark:text-white"
+          data-en="'I Love You'."
+          data-id="'Aku Mencintaimu'."
+          data-jp="ありがとう。">'I Love You'.</span
+        >
+      </p>
+
+      <div
+        class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent mt-12 opacity-60"
+      >
+      </div>
+
+      <p
+        class="font-body text-sm sm:text-base text-ink/60 dark:text-white/50 tracking-widest uppercase mt-6"
+        data-en="Dedicated to the creators of Violet Evergarden"
+        data-id="Didedikasikan untuk para kreator Violet Evergarden"
+        data-jp="ヴァイオレット・エヴァーガーデンのクリエイターに捧ぐ"
+      >
+        Dedicated to the creators of Violet Evergarden
+      </p>
+    </section>
+
+    <!-- Content sections will go here -->
+    <div class="w-full max-w-4xl space-y-32 sm:space-y-48 mt-24 sm:mt-32 pb-40">
+      <!-- Creators Spotlight -->
+      <section class="flex flex-col md:flex-row gap-16 md:gap-24 items-center">
+        <!-- Kana Akatsuki (Author) -->
+        <div
+          class="flex-1 text-center md:text-right cinematic-reveal delay-100"
+        >
+          <p
+            class="text-[10px] sm:text-xs uppercase tracking-widest text-gold/80 font-sans mb-4"
+            data-en="Original Story By"
+            data-id="Cerita Asli Oleh"
+            data-jp="原作"
+          >
+            Original Story By
+          </p>
+          <h2
+            class="font-heading text-3xl sm:text-4xl text-ink dark:text-white mb-6"
+            data-en="Kana Akatsuki"
+            data-id="Kana Akatsuki"
+            data-jp="暁 佳奈"
+          >
+            Kana Akatsuki
+          </h2>
+          <p
+            class="font-body text-sm text-ink/70 dark:text-white/60 leading-relaxed italic"
+            data-en='"For writing the original light novel that started it all. Her profound understanding of human emotion and trauma laid the groundwork for this masterpiece, winning the first-ever Grand Prize in the Kyoto Animation Award."'
+            data-id='"Karena menulis novel ringan orisinal yang memulai semuanya. Pemahamannya yang mendalam tentang emosi manusia dan trauma adalah fondasi dari mahakarya ini, memenangkan Grand Prize pertama dalam sejarah Kyoto Animation Award."'
+            data-jp='"すべては彼女のライトノベルから始まりました。人間の感情とトラウマに対する深い理解が、この傑作の土台を作り、京都アニメーション大賞で史上初の大賞を受賞しました。"'
+          >
+            "For writing the original light novel that started it all. Her
+            profound understanding of human emotion and trauma laid the
+            groundwork for this masterpiece, winning the first-ever Grand Prize
+            in the Kyoto Animation Award."
+          </p>
+        </div>
+
+        <!-- Elegant Divider -->
+        <div
+          class="hidden md:flex flex-col items-center justify-center cinematic-reveal"
+        >
+          <div
+            class="w-[1px] h-32 bg-gradient-to-b from-transparent via-gold/50 to-transparent"
+          >
+          </div>
+          <span class="text-gold/40 text-xl my-4">✦</span>
+          <div
+            class="w-[1px] h-32 bg-gradient-to-b from-transparent via-gold/50 to-transparent"
+          >
+          </div>
+        </div>
+
+        <!-- Divider for Mobile -->
+        <div
+          class="md:hidden flex items-center justify-center w-full cinematic-reveal"
+        >
+          <div
+            class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold/50 to-transparent"
+          >
+          </div>
+          <span class="text-gold/40 text-xl mx-4">✦</span>
+          <div
+            class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-gold/50 to-transparent"
+          >
+          </div>
+        </div>
+
+        <!-- Akiko Takase (Illustrator/Character Design) -->
+        <div class="flex-1 text-center md:text-left cinematic-reveal delay-300">
+          <p
+            class="text-[10px] sm:text-xs uppercase tracking-widest text-gold/80 font-sans mb-4"
+            data-en="Character Design & Illustration"
+            data-id="Desain Karakter & Ilustrasi"
+            data-jp="キャラクターデザイン・イラスト"
+          >
+            Character Design & Illustration
+          </p>
+          <h2
+            class="font-heading text-3xl sm:text-4xl text-ink dark:text-white mb-6"
+            data-en="Akiko Takase"
+            data-id="Akiko Takase"
+            data-jp="高瀬 亜貴子"
+          >
+            Akiko Takase
+          </h2>
+          <p
+            class="font-body text-sm text-ink/70 dark:text-white/60 leading-relaxed italic"
+            data-en='"For breathing life into Violet. Her incredibly detailed, Victorian-inspired character designs and breathtaking illustrations became the iconic standard for the entire animated series."'
+            data-id='"Karena memberikan nyawa kepada Violet. Desain karakternya yang sangat mendetail dengan inspirasi era Victoria dan ilustrasinya yang menakjubkan menjadi standar ikonik untuk seluruh seri animasinya."'
+            data-jp='"ヴァイオレットに命を吹き込んだ人物。ヴィクトリア朝の要素を取り入れた緻密なキャラクターデザインと息を呑むようなイラストは、アニメシリーズ全体の象徴的な基準となりました。"'
+          >
+            "For breathing life into Violet. Her incredibly detailed,
+            Victorian-inspired character designs and breathtaking illustrations
+            became the iconic standard for the entire animated series."
+          </p>
+        </div>
+      </section>
+
+      <!-- The Studio & Director -->
+      <section class="relative w-full text-center cinematic-reveal">
+        <div
+          class="mx-auto max-w-2xl bg-paper dark:bg-dark-card border border-gold/20 p-10 sm:p-16 rounded-sm shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute -top-10 -right-10 w-40 h-40 bg-accent/5 dark:bg-gold/5 rounded-full blur-3xl"
+          >
+          </div>
+          <div
+            class="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/5 dark:bg-gold/5 rounded-full blur-3xl"
+          >
+          </div>
+
+          <p
+            class="text-[10px] sm:text-xs uppercase tracking-widest text-accent dark:text-gold font-sans mb-6"
+            data-en="Animation Production"
+            data-id="Produksi Animasi"
+            data-jp="アニメーション制作"
+          >
+            Animation Production
+          </p>
+          <h2
+            class="font-heading text-4xl sm:text-5xl text-ink dark:text-white mb-2"
+            data-en="Kyoto Animation"
+            data-id="Kyoto Animation"
+            data-jp="京都アニメーション"
+          >
+            Kyoto Animation
+          </h2>
+          <p
+            class="font-heading text-xl text-ink/60 dark:text-white/50 italic mb-8"
+            data-en="Directed by Taichi Ishidate"
+            data-id="Disutradarai oleh Taichi Ishidate"
+            data-jp="石立太一 監督"
+          >
+            Directed by Taichi Ishidate
+          </p>
+
+          <p
+            class="font-body text-sm text-ink/80 dark:text-white/70 leading-relaxed"
+            data-en='"For achieving what many consider the pinnacle of television animation. Their dedication to intricate lighting, fluid character movements, and capturing the subtle micro-expressions of crying, grieving, and smiling elevated Violet&apos;s journey into an unforgettable cinematic experience."'
+            data-id='"Karena mencapai apa yang banyak orang anggap sebagai puncak animasi televisi. Dedikasi mereka terhadap pencahayaan yang rumit, gerakan karakter yang mengalir, dan penangkapan ekspresi mikro yang halus dari menangis, berduka, dan tersenyum mengangkat perjalanan Violet menjadi pengalaman sinematik yang tak terlupakan."'
+            data-jp='"テレビアニメの最高峰と多くの人が見なすものを達成したことに対して。複雑な照明、滑らかなキャラクターの動き、泣き、悲しみ、微笑みの微妙な微表情を捉える彼らの献身が、ヴァイオレットの旅を忘れられない映画体験に昇華させました。"'
+          >
+            "For achieving what many consider the pinnacle of television
+            animation. Their dedication to intricate lighting, fluid character
+            movements, and capturing the subtle micro-expressions of crying,
+            grieving, and smiling elevated Violet's journey into an
+            unforgettable cinematic experience."
+          </p>
+        </div>
+      </section>
+
+      <!-- Composer (Evan Call) -->
+      <section class="flex flex-col items-center text-center cinematic-reveal">
+        <p
+          class="text-[10px] sm:text-xs uppercase tracking-widest text-gold/80 font-sans mb-4"
+          data-en="Original Soundtrack Composer"
+          data-id="Komposer Soundtrack Orisinal"
+          data-jp="オリジナルサウンドトラック作曲"
+        >
+          Original Soundtrack Composer
+        </p>
+        <h2
+          class="font-heading text-3xl sm:text-4xl text-ink dark:text-white mb-6"
+          data-en="Evan Call"
+          data-id="Evan Call"
+          data-jp="エヴァン・コール"
+        >
+          Evan Call
+        </h2>
+        <div class="max-w-xl">
+          <p
+            class="font-body text-sm text-ink/70 dark:text-white/60 leading-relaxed italic"
+            data-en='"For writing the soul of Violet Evergarden. The lush, orchestral score—utilizing authentic typewriters, sweeping violins, and emotional brass—communicated the feelings that Violet herself initially could not express. A soundtrack that will be remembered for generations."'
+            data-id='"Karena menulis jiwa dari Violet Evergarden. Skor orkestra yang rimbun—menggunakan mesin ketik asli, biola yang menyapu, dan alat musik tiup logam yang emosional—mengomunikasikan perasaan yang awalnya tidak dapat diungkapkan oleh Violet sendiri. Sebuah soundtrack yang akan dikenang dari generasi ke generasi."'
+            data-jp='"ヴァイオレット・エヴァーガーデンの魂を書いたことに対して。本物のタイプライター、美しいバイオリン、感情豊かな金管楽器を使った豊かなオーケストラスコアは、ヴァイオレット自身が最初は表現できなかった感情を伝えました。何世代にもわたって記憶されるサウンドトラック。"'
+          >
+            "For writing the soul of Violet Evergarden. The lush, orchestral
+            score—utilizing authentic typewriters, sweeping violins, and
+            emotional brass—communicated the feelings that Violet herself
+            initially could not express. A soundtrack that will be remembered
+            for generations."
+          </p>
+        </div>
+      </section>
+
+      <!-- Achievements & Impact -->
+      <section class="cinematic-reveal text-center relative max-w-3xl mx-auto">
+        <h2
+          class="font-heading text-2xl sm:text-3xl text-ink dark:text-white mb-8"
+          data-en="Legacy & Achievements"
+          data-id="Warisan & Pencapaian"
+          data-jp="遺産と功績"
+        >
+          Legacy & Achievements
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+          <div
+            class="bg-white/40 dark:bg-black/20 border border-gold/10 p-6 rounded-md shadow-sm"
+          >
+            <h3
+              class="font-heading text-lg text-gold mb-2"
+              data-en="Kyoto Animation Award (2014)"
+              data-id="Penghargaan Kyoto Animation (2014)"
+              data-jp="京都アニメーション大賞（2014年）"
+            >
+              Kyoto Animation Award (2014)
+            </h3>
+            <p
+              class="font-body text-xs text-ink/70 dark:text-white/60 leading-relaxed"
+              data-en='The first and only novel in the history of the Kyoto Animation Award programs to ever win the prestigious "Grand Prize" in all three categories (novel, scenario, and manga).'
+              data-id='Novel pertama dan satu-satunya dalam sejarah program Kyoto Animation Award yang pernah memenangkan "Grand Prize" bergengsi di ketiga kategori (novel, skenario, dan manga).'
+              data-jp="京都アニメーション大賞の歴史の中で、小説、シナリオ、マンガの3つの部門すべてで権威ある「大賞」を獲得した最初で唯一の小説。"
+            >
+              The first and only novel in the history of the Kyoto Animation
+              Award programs to ever win the prestigious "Grand Prize" in all
+              three categories (novel, scenario, and manga).
+            </p>
+          </div>
+
+          <div
+            class="bg-white/40 dark:bg-black/20 border border-gold/10 p-6 rounded-md shadow-sm"
+          >
+            <h3
+              class="font-heading text-lg text-gold mb-2"
+              data-en="Global Phenomenon"
+              data-id="Fenomena Global"
+              data-jp="世界的な現象"
+            >
+              Global Phenomenon
+            </h3>
+            <p
+              class="font-body text-xs text-ink/70 dark:text-white/60 leading-relaxed"
+              data-en="A deeply moving anime series consisting of 13 television episodes, an OVA, and two critically acclaimed theatrical films that touched millions of hearts worldwide."
+              data-id="Seri anime yang sangat menyentuh yang terdiri dari 13 episode televisi, sebuah OVA, dan dua film layar lebar yang diakui banyak orang dan telah menyentuh jutaan hati di seluruh dunia."
+              data-jp="13のテレビエピソード、OVA、そして世界中の何百万人もの心を打った2つの高く評価された劇場版からなる深く感動的なアニメシリーズ。"
+            >
+              A deeply moving anime series consisting of 13 television episodes,
+              an OVA, and two critically acclaimed theatrical films that touched
+              millions of hearts worldwide.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Developer Identity & Fan Disclaimer -->
+      <section
+        class="cinematic-reveal pt-32 pb-16 w-full flex flex-col items-center"
+      >
+        <!-- Airmail border graphic -->
+        <div
+          class="w-full max-w-sm h-2 bg-gradient-to-r from-transparent via-red-900/30 dark:via-red-900/50 to-transparent mb-12"
+        >
+        </div>
+
+        <div class="text-center max-w-xl space-y-6">
+          <p
+            class="font-body text-sm text-ink/80 dark:text-white/70 italic"
+            data-en='"We were given this beautiful story about understanding human emotions. I built this fan project to preserve that feeling on the web—a small tribute to a masterpiece that means the world to me."'
+            data-id='"Kita diberikan cerita yang indah ini tentang memahami emosi manusia. Saya membangun proyek penggemar ini untuk mempertahankan perasaan itu di web—sebuah penghormatan kecil untuk mahakarya yang sangat berarti bagi saya."'
+            data-jp='"私たちは人間の感情を理解することについてのこの美しい物語を与えられました。私はその感覚をウェブ上に保存するためにこのファンプロジェクトを構築しました—私にとって世界を意味する傑作への小さな賛辞です。"'
+          >
+            "We were given this beautiful story about understanding human
+            emotions. I built this fan project to preserve that feeling on the
+            web—a small tribute to a masterpiece that means the world to me."
+          </p>
+
+          <div class="pt-8 text-right flex flex-col items-end gap-2">
+            <p
+              class="text-[10px] uppercase tracking-[0.3em] text-ink/40 dark:text-white/30 font-sans font-bold"
+              data-en="Developed with love by"
+              data-id="Dikembangkan dengan cinta oleh"
+              data-jp="愛を込めて開発"
+            >
+              Developed with love by
+            </p>
+            <p
+              class="font-heading text-2xl text-accent dark:text-gold italic pr-4"
+            >
+              Zyrexnn
+            </p>
+            <p
+              class="text-[9px] text-ink/40 dark:text-white/40 tracking-widest mt-2 uppercase"
+              data-en="Fan Project / Non-Profit"
+              data-id="Proyek Penggemar / Non-Profit"
+              data-jp="ファンプロジェクト / 非営利"
+            >
+              Fan Project / Non-Profit
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Lightweight CSS for Cinematic Reveal -->
+  <style>
+    /* 
+      Cinematic Reveal using CSS Intersections. 
+      This is GPU accelerated (opacity + transform) and creates ZERO reflow lag.
+    */
+    .cinematic-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: opacity, transform;
+    }
+
+    .cinematic-reveal.delay-100 {
+      transition-delay: 100ms;
+    }
+    .cinematic-reveal.delay-300 {
+      transition-delay: 300ms;
+    }
+
+    .cinematic-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <!-- Intersection Observer for triggers -->
+  <script>
+    function initReveal() {
+      const elements = document.querySelectorAll(".cinematic-reveal");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              // Optional: stop observing once revealed
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.15, // Trigger when 15% is visible
+        },
+      );
+
+      elements.forEach((el) => observer.observe(el));
+    }
+
+    // Run on initial load and setup transition support
+    initReveal();
+    document.addEventListener("astro:after-swap", initReveal);
+  </script>
+</Layout>
